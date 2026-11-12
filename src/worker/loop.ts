@@ -3,6 +3,7 @@ import { claimJob, completeJob, enqueue, failJob } from "@/crawler/core/queue";
 import { runConnector } from "@/crawler/core/runner";
 import { connectors } from "@/crawler/registry";
 import { runAlerts } from "@/lib/alerts";
+import { geocodeBatch } from "@/lib/geocode";
 
 /** Agenda FULL_SYNC das fontes ativas vencidas e consome a fila até acabar o tempo (maxMs) ou para sempre. */
 export async function runWorker({ maxMs }: { maxMs?: number }) {
@@ -15,6 +16,10 @@ export async function runWorker({ maxMs }: { maxMs?: number }) {
       if (maxMs || Date.now() - lastIdleAlerts > 5 * 60_000) {
         lastIdleAlerts = Date.now();
         await runAlerts().catch((e) => console.error("alertas:", e));
+      }
+      if (process.env.GEOCODE === "1") {
+        const g = await geocodeBatch({ limit: 20 }).catch((e) => { console.error("geocode:", e.message); return null; });
+        if (g && g.processed > 0) continue; // ainda há imóveis na fila de geocodificação
       }
       if (maxMs) return;
       await new Promise((r) => setTimeout(r, 15_000));

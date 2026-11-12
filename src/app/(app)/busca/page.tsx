@@ -3,21 +3,27 @@ import { parseFilters, searchListings } from "@/lib/search";
 import { requireSession } from "@/lib/session";
 import { tenantDb } from "@/lib/tenancy";
 import { saveSearch } from "../actions";
+import { PropertyMap } from "../PropertyMap";
 import { AUCTION_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtM2 } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Buscar imóveis — Regnus Leilões" };
 
 type SP = Record<string, string | string[] | undefined>;
+const val0 = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v);
 const UFS = "AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO RR SC SP SE TO".split(" ");
 
 export default async function BuscaPage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
   const f = parseFilters(sp);
   const u = await requireSession();
-  const { items, nextCursor, total } = await searchListings(f);
+  const vista = val0(sp.vista) === "mapa" ? "mapa" : "lista";
+  const { items, nextCursor, total } = vista === "mapa" ? { items: [], nextCursor: null, total: null } : await searchListings(f);
   const favIds = await tenantDb(u.organizationId, u.id).favorites.ids(items.map((l) => l.propertyId).filter((x): x is string => !!x));
   const val = (k: string) => { const v = sp[k]; return Array.isArray(v) ? v[0] : v ?? ""; };
+
+  const mapQuery = new URLSearchParams(Object.entries(sp).filter(([k, v]) => k !== "cursor" && k !== "vista" && v != null).map(([k, v]) => [k, Array.isArray(v) ? v.join(",") : v!])).toString();
+  const toggle = (v: string) => `/busca?${new URLSearchParams([...new URLSearchParams(mapQuery), ["vista", v]]).toString()}`;
 
   // link da próxima página preserva os filtros (compartilhável)
   const next = new URLSearchParams();
@@ -27,6 +33,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
   return (
     <div className="layout">
       <form className="filters" method="get">
+        {vista === "mapa" && <input type="hidden" name="vista" value="mapa" />}
         <label>Busca livre<input name="q" defaultValue={val("q")} placeholder="rua, bairro, palavra…" /></label>
         <label>UF
           <select name="uf" defaultValue={val("uf")}><option value="">Todas</option>{UFS.map((u) => <option key={u}>{u}</option>)}</select>
@@ -67,8 +74,13 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
             <button className="primary" type="submit">Salvar</button>
           </form>
         </details>
+        <p>
+          <Link href={toggle("lista")} style={{ fontWeight: vista === "lista" ? 700 : 400 }}>☰ Lista</Link>{" · "}
+          <Link href={toggle("mapa")} style={{ fontWeight: vista === "mapa" ? 700 : 400 }}>🗺 Mapa</Link>
+        </p>
+        {vista === "mapa" && <PropertyMap query={mapQuery} />}
         <p className="muted">{total != null ? `${total.toLocaleString("pt-BR")} imóveis encontrados` : ""}</p>
-        {items.length === 0 && <div className="panel">Nenhum imóvel encontrado com esses filtros.</div>}
+        {vista === "lista" && items.length === 0 && <div className="panel">Nenhum imóvel encontrado com esses filtros.</div>}
         <div className="grid">
           {items.map((l) => (
             <Link key={l.id} href={`/imovel/${l.propertyId ?? ""}`} className="card">
@@ -83,7 +95,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
             </Link>
           ))}
         </div>
-        {nextCursor && <p><Link href={`/busca?${next.toString()}`}>Próxima página →</Link></p>}
+        {vista === "lista" && nextCursor && <p><Link href={`/busca?${next.toString()}`}>Próxima página →</Link></p>}
       </section>
     </div>
   );

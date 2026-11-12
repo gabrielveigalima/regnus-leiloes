@@ -87,3 +87,27 @@ export async function searchListings(f: Filters) {
   const total = f.cursor ? null : await prisma.listing.count({ where });
   return { items: page, nextCursor: hasMore ? page[page.length - 1]!.id : null, total };
 }
+
+export const MAP_LIMIT = 2000;
+
+export interface MapPoint { id: string; propertyId: string; lat: number; lng: number; title: string; minBid: number | null; discountPct: number | null; precision: string | null }
+
+/** Anúncios que casam com os filtros e têm coordenadas (para o mapa). */
+export async function searchMapPoints(f: Filters) {
+  const base = buildWhere(f);
+  const where = { AND: [base, { property: { is: { lat: { not: null }, lng: { not: null } } } }] };
+  const [rows, total, withoutCoords] = await Promise.all([
+    prisma.listing.findMany({
+      where, orderBy: buildOrderBy(f.ordem), take: MAP_LIMIT,
+      select: { id: true, propertyId: true, title: true, minBid: true, discountPct: true, property: { select: { lat: true, lng: true, geoPrecision: true } } },
+    }),
+    prisma.listing.count({ where }),
+    prisma.listing.count({ where: base }),
+  ]);
+  const points: MapPoint[] = rows.flatMap((r) =>
+    r.propertyId && r.property?.lat != null && r.property.lng != null
+      ? [{ id: r.id, propertyId: r.propertyId, lat: Number(r.property.lat), lng: Number(r.property.lng), title: r.title,
+          minBid: r.minBid == null ? null : Number(r.minBid), discountPct: r.discountPct == null ? null : Number(r.discountPct), precision: r.property.geoPrecision }]
+      : []);
+  return { points, withCoords: total, total: withoutCoords };
+}

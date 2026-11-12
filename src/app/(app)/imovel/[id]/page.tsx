@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { requireSession } from "@/lib/session";
 import { tenantDb } from "@/lib/tenancy";
+import { PropertyMap } from "../../PropertyMap";
 import { FavoriteButton } from "../../FavoriteButton";
 import { updateFavorite } from "../../actions";
 import { AUCTION_LABEL, OCC_LABEL, STATUS_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtM2 } from "@/lib/format";
@@ -61,8 +62,11 @@ export default async function ImovelPage({ params }: { params: Promise<{ id: str
           <tr><th>Terreno</th><td>{fmtM2(p.landArea)}</td><th>Quartos / vagas</th><td>{p.bedrooms ?? "—"} / {p.parking ?? "—"}</td></tr>
           <tr><th>Matrícula</th><td>{p.registry ?? "—"}</td><th>Cartório</th><td>{p.registryOffice ?? "—"}</td></tr>
         </tbody></table>
-        {p.lat && p.lng && (
-          <p><a href={`https://www.openstreetmap.org/?mlat=${p.lat}&mlon=${p.lng}#map=17/${p.lat}/${p.lng}`} target="_blank" rel="noreferrer">Ver no mapa (OpenStreetMap)</a></p>
+        {p.lat != null && p.lng != null && (
+          <>
+            {p.geoPrecision && p.geoPrecision !== "ADDRESS" && <p className="muted">Localização aproximada ({p.geoPrecision === "CITY" ? "centro da cidade" : "rua"}).</p>}
+            <PropertyMap single={{ lat: Number(p.lat), lng: Number(p.lng), title: main?.title ?? "Imóvel" }} height={320} />
+          </>
         )}
       </div>
 

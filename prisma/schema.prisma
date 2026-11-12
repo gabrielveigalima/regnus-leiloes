@@ -113,6 +113,8 @@ model Property {
   zip           String?          @db.VarChar(8)
   lat           Decimal?         @db.Decimal(10, 7)
   lng           Decimal?         @db.Decimal(10, 7)
+  geoPrecision  String?          @db.VarChar(10) // ADDRESS | STREET | CITY
+  geocodedAt    DateTime?
   privateArea   Decimal?         @db.Decimal(12, 2)
   totalArea     Decimal?         @db.Decimal(12, 2)
   landArea      Decimal?         @db.Decimal(14, 2)
@@ -130,6 +132,8 @@ model Property {
   @@index([uf, city])
   @@index([type])
   @@index([zip])
+  @@index([lat, lng])
+  @@index([geocodedAt])
   @@index([registry, city])
   @@index([fingerprint])
 }
