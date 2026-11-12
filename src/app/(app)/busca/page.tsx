@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { parseFilters, searchListings } from "@/lib/search";
+import { requireSession } from "@/lib/session";
+import { tenantDb } from "@/lib/tenancy";
 import { AUCTION_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtM2 } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -11,7 +13,9 @@ const UFS = "AC AL AP AM BA CE DF ES GO MA MT MS MG PA PB PR PE PI RJ RN RS RO R
 export default async function BuscaPage({ searchParams }: { searchParams: Promise<SP> }) {
   const sp = await searchParams;
   const f = parseFilters(sp);
+  const u = await requireSession();
   const { items, nextCursor, total } = await searchListings(f);
+  const favIds = await tenantDb(u.organizationId, u.id).favorites.ids(items.map((l) => l.propertyId).filter((x): x is string => !!x));
   const val = (k: string) => { const v = sp[k]; return Array.isArray(v) ? v[0] : v ?? ""; };
 
   // link da próxima página preserva os filtros (compartilhável)
@@ -60,7 +64,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
             <Link key={l.id} href={`/imovel/${l.propertyId ?? ""}`} className="card">
               {l.images[0] ? <img className="photo" src={l.images[0].url} alt="" referrerPolicy="no-referrer" loading="lazy" /> : <div className="photo" />}
               <div className="body">
-                <span className="muted">{TYPE_LABEL[l.property?.type ?? "OTHER"]} · {l.property?.city}/{l.property?.uf}</span>
+                <span className="muted">{l.propertyId && favIds.has(l.propertyId) ? "★ " : ""}{TYPE_LABEL[l.property?.type ?? "OTHER"]} · {l.property?.city}/{l.property?.uf}</span>
                 <strong>{l.title}</strong>
                 <span className="price">{fmtBRL(l.minBid)} {l.discountPct != null && Number(l.discountPct) > 0 && <span className="badge">-{Number(l.discountPct).toFixed(0)}%</span>}</span>
                 <span className="muted">Avaliação {fmtBRL(l.appraisalValue)} · {fmtM2(l.property?.privateArea ?? l.property?.totalArea ?? l.property?.landArea)}</span>

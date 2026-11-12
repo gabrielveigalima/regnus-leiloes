@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
+import { requireSession } from "@/lib/session";
+import { tenantDb } from "@/lib/tenancy";
+import { FavoriteButton } from "../../FavoriteButton";
+import { updateFavorite } from "../../actions";
 import { AUCTION_LABEL, OCC_LABEL, STATUS_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtM2 } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -22,6 +26,8 @@ export default async function ImovelPage({ params }: { params: Promise<{ id: str
     },
   });
   if (!p) notFound();
+  const u = await requireSession();
+  const fav = await tenantDb(u.organizationId, u.id).favorites.get(p.id);
 
   const images = p.listings.flatMap((l) => l.images);
   const events = p.listings.flatMap((l) => l.events.map((e) => ({ ...e, source: l.source.name }))).sort((a, b) => +b.at - +a.at);
@@ -31,7 +37,14 @@ export default async function ImovelPage({ params }: { params: Promise<{ id: str
   return (
     <>
       <p><Link href="/busca">← Voltar à busca</Link></p>
-      <h1>{main?.title ?? "Imóvel"}</h1>
+      <h1>{main?.title ?? "Imóvel"} <FavoriteButton propertyId={p.id} favorited={!!fav} /></h1>
+      {fav && (
+        <form action={updateFavorite.bind(null, p.id)} className="panel" style={{ display: "grid", gap: 6, maxWidth: 520 }}>
+          <input name="label" placeholder="Etiqueta" defaultValue={fav.label ?? ""} maxLength={40} />
+          <textarea name="note" placeholder="Nota" defaultValue={fav.note ?? ""} maxLength={2000} rows={2} />
+          <span><button className="primary" type="submit">Salvar nota</button></span>
+        </form>
+      )}
       <p className="muted">{address} {p.neighborhood && `· ${p.neighborhood}`} · {p.city}/{p.uf} {p.zip && `· CEP ${p.zip.replace(/(\d{5})(\d{3})/, "$1-$2")}`}</p>
 
       {images.length > 0 && (

@@ -1,0 +1,16 @@
+import { NextResponse, type NextRequest } from "next/server";
+import { getToken } from "next-auth/jwt";
+
+export async function proxy(req: NextRequest) {
+  const token = await getToken({ req });
+  if (token?.userId && token.organizationId) return NextResponse.next();
+  if (req.nextUrl.pathname.startsWith("/api/")) return NextResponse.json({ error: "unauthorized" }, { status: 401 });
+  const url = new URL("/login", req.url);
+  url.searchParams.set("callbackUrl", req.nextUrl.pathname + req.nextUrl.search);
+  return NextResponse.redirect(url);
+}
+
+// Tudo exige login, exceto login, rotas do next-auth, health e assets.
+export const config = {
+  matcher: ["/((?!login|api/auth|api/health|_next/static|_next/image|favicon.ico|logo_transparente.png|icon.png).*)"],
+};
