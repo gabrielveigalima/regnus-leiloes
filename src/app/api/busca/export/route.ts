@@ -1,6 +1,5 @@
 import type { NextRequest } from "next/server";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
+import { getValidSession } from "@/lib/session";
 import { allowedUfsFor, canExportCsv } from "@/lib/access";
 import { parseFilters, buildWhere, buildOrderBy } from "@/lib/search";
 import { prisma } from "@/lib/prisma";
@@ -15,8 +14,7 @@ const HEADER = ["Fonte", "ID na fonte", "Título", "Tipo", "UF", "Cidade", "Bair
 
 /** GET /api/busca/export?<mesmos filtros da busca> — CSV (até 5.000 linhas), conforme o plano. Sessão obrigatória (proxy). */
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  const orgId = session?.user?.organizationId;
+  const orgId = (await getValidSession())?.organizationId;
   if (!orgId) return Response.json({ error: "unauthorized" }, { status: 401 });
   if (!(await canExportCsv(orgId))) return Response.json({ error: "O plano da sua organização não inclui exportação CSV." }, { status: 403 });
 

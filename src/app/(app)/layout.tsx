@@ -12,10 +12,11 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
         <Link href="/busca">Buscar imóveis</Link>
         <Link href="/favoritos">Favoritos</Link>
         <Link href="/alertas">Alertas</Link>
+        {(user.role === "OWNER" || user.role === "ADMIN") && <Link href="/usuarios">Usuários</Link>}
         {(user.role === "OWNER" || user.role === "ADMIN") && <Link href="/chaves">API</Link>}
         {user.isPlatformAdmin && <Link href="/admin/fontes">Admin</Link>}
         <span style={{ flex: 1 }} />
-        <span style={{ color: "#fff", fontSize: 13 }}>{user.name ?? user.email}</span>
+        <Link href="/conta" style={{ fontSize: 13 }}>{user.name ?? user.email}</Link>
         <SignOutButton />
       </header>
       <main className="wrap">{children}</main>

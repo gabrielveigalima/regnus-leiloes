@@ -83,6 +83,10 @@ enum DuplicateStatus {
   MERGED
   REJECTED
 }
+enum TokenPurpose {
+  RESET
+  INVITE
+}
 enum AlertFrequency {
   IMMEDIATE
   DAILY
@@ -306,10 +310,12 @@ model User {
   name         String?
   passwordHash String
   isPlatformAdmin Boolean    @default(false)
+  passwordSetAt DateTime?    // null = convite ainda não aceito
   createdAt    DateTime      @default(now())
   memberships  Membership[]
   favorites    Favorite[]
   savedSearches SavedSearch[]
+  passwordTokens PasswordToken[]
 }
 
 model Membership {
@@ -410,4 +416,18 @@ model DuplicateCandidate {
 
   @@unique([propertyAId, propertyBId])
   @@index([status])
+}
+
+// Redefinição de senha e convites: guardamos só o sha256 do token (uso único, com validade).
+model PasswordToken {
+  id        String       @id @default(cuid())
+  userId    String
+  tokenHash String       @unique
+  purpose   TokenPurpose
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime     @default(now())
+  user      User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, purpose])
 }

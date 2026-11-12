@@ -12,6 +12,7 @@ export default async function AdminLayout({ children }: { children: ReactNode })
         <Link href="/admin/fontes">Fontes</Link>
         <Link href="/admin/execucoes">Execuções</Link>
         <Link href="/admin/duplicados">Duplicados</Link>
+        <Link href="/admin/organizacoes">Organizações</Link>
         <Link href="/busca">← App</Link>
         <span style={{ flex: 1 }} />
         <span style={{ color: "#fff", fontSize: 13 }}>{user.email}</span>

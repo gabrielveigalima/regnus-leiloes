@@ -31,7 +31,7 @@ async function main() {
   const email = process.env.ADMIN_EMAIL ?? "admin@regnus.local";
   if (!(await prisma.user.findUnique({ where: { email } }))) {
     const password = randomBytes(12).toString("base64url");
-    const user = await prisma.user.create({ data: { email, name: "Admin", passwordHash: await bcrypt.hash(password, 12), isPlatformAdmin: true } });
+    const user = await prisma.user.create({ data: { email, name: "Admin", passwordHash: await bcrypt.hash(password, 12), isPlatformAdmin: true, passwordSetAt: new Date() } });
     await prisma.membership.create({ data: { organizationId: org.id, userId: user.id, role: "OWNER" } });
     console.log(`\nAdmin criado: ${email}\nSenha (exibida uma única vez): ${password}\n`);
   }

@@ -25,8 +25,10 @@ function LoginForm() {
       <img src="/logo_transparente.png" alt="Regnus Leilões" height={40} style={{ background: "#0f2a4a", padding: 8, borderRadius: 6 }} />
       <label>E-mail<input name="email" type="email" autoComplete="username" required /></label>
       <label>Senha<input name="password" type="password" autoComplete="current-password" required /></label>
+      {params.get("redefinida") && <p role="status" style={{ margin: 0 }}>Senha definida. Entre com a nova senha.</p>}
       {error && <p role="alert" style={{ color: "#b42318", margin: 0 }}>{error}</p>}
       <button className="primary" disabled={busy}>{busy ? "Entrando…" : "Entrar"}</button>
+      <a href="/esqueci-senha" className="muted">Esqueci minha senha</a>
     </form>
   );
 }

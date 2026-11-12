@@ -8,13 +8,14 @@ Estado: Fases 1–6 e 8 do plano implementadas e testadas (91 testes, incluindo 
 | 1 | Validar a interface no navegador | Login, mapa (Leaflet + tiles OSM), formulários/server actions e **CSP** (`unsafe-inline` em script/estilo). Se algo quebrar com a CSP, ajustar `next.config.js`. |
 | 2 | Deploy real | Hostinger (web) + VPS ou cron (worker), SMTP real, `NEXTAUTH_SECRET`, monitor em `/api/health`. `deploy/backup-db.sh`, `Dockerfile`, `docker-compose.yml`, PM2 e o workflow `crawl-tick.yml` **nunca foram executados**. |
 | 3 | Ativar fontes e subir o worker | Todas as `Source` nascem desativadas. Ativar `caixa`, `megaleiloes`, `frazao`, `biasi` em Admin → Fontes. Sem worker, "Rodar agora" só enfileira. |
-| 4 | Trocar a senha do admin | Não existe tela de troca/recuperação de senha. |
+| 4 | Trocar a senha do admin | Agora existe: **Minha conta** (`/conta`) e **Esqueci minha senha** (`/esqueci-senha`, exige SMTP). Falta executar no ambiente real. |
 | 5 | Página `/bot` | O User-Agent `RegnusBot/1.0 (+https://regnus.com.br/bot)` promete uma página de contato; ela não existe. |
 | 6 | Revisão jurídica dos termos de uso das fontes | Obrigatória antes de comercializar (ver `docs/compliance.md`). |
 
 ## 2. Funcionalidades do plano ainda não feitas
 - **Conectores:** bancos (Banco do Brasil, Santander, Itaú, Bradesco) — Santander e Itaú já aparecem como comitentes no Frazão/Biasi; Portal Zuk (paginação só via ajax proibido pelo robots.txt); Lance Judicial e Freitas (a investigar). **Meta de 10+ leiloeiros: 4 ativos** (Caixa, Mega, Frazão, Biasi). Sodré Santoro, Superbid, Leje e Pestana: anti-bot → "precisa de parceria".
-- **SaaS:** telas de gestão de usuários, organizações e planos; página de onboarding de organização (só admin Regnus); aplicação do limite `maxUsers` (campo existe, sem enforcement); interface `BillingProvider` (não criada).
+- **SaaS:** feito em 2026-11-12: `/usuarios` (convite, papel, remoção, limite `maxUsers`), `/conta` (perfil e senha), recuperação de senha por e-mail, `/admin/organizacoes` (onboarding e troca de plano). Falta: interface `BillingProvider` (não criada) e login em mais de uma organização (usa a primeira).
+- **Sessões:** o JWT dura 12 h e não é revogado ao trocar a senha; remoção de membro e mudança de papel valem na hora (a sessão é conferida no banco a cada requisição). Ações que falham (ex.: remover o último proprietário) lançam erro em vez de mostrar mensagem na tela.
 - **Fase 7:** botão "Enviar para análise" no house-flipping-app — aguarda sua aprovação (altera outro projeto).
 - **Busca:** filtros de **fonte** e **ocupação** funcionam na URL/API mas faltam no formulário; busca livre usa `contains` (o índice FULLTEXT existe mas não é usado); busca por raio (SQL em `prisma/manual/001_property_point.sql` não aplicado); preço/m² e "dias até o leilão" não são exibidos.
 - **Normalização:** tabela de municípios do IBGE (`prisma/data/municipios.json`) não existe; cidades são só capitalizadas.
