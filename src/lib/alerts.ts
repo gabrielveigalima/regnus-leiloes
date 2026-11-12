@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import type { Prisma } from "@prisma/client";
 import { prisma } from "./prisma";
 import { buildWhere, parseFilters } from "./search";
+import { allowedUfsFor } from "./access";
 import { buildAlertEmail, type AlertItem } from "./alert-email";
 
 export interface Mailer { send(msg: { to: string; subject: string; text: string; html: string }): Promise<void> }
@@ -23,10 +24,10 @@ export function smtpMailer(): Mailer | null {
 export type SavedFilters = Record<string, string>;
 
 /** Anúncios que casam com a busca e tiveram evento CREATED ou queda de preço desde `since`. */
-export async function findAlertItems(filters: SavedFilters, since: Date, until: Date): Promise<{ items: AlertItem[]; total: number }> {
+export async function findAlertItems(filters: SavedFilters, since: Date, until: Date, scope?: { allowedUfs?: string[] | null }): Promise<{ items: AlertItem[]; total: number }> {
   const where: Prisma.ListingWhereInput = {
     AND: [
-      buildWhere(parseFilters(filters)),
+      buildWhere(parseFilters(filters), scope),
       { events: { some: { at: { gt: since, lte: until }, kind: { in: ["CREATED", "PRICE_CHANGE"] } } } },
     ],
   };
@@ -62,7 +63,7 @@ export async function runAlerts(opts: { mailer?: Mailer | null; now?: Date; appU
     if (s.frequency === "DAILY" && now.getTime() - since.getTime() < DAILY_MS) continue;
     result.searches++;
     try {
-      const { items, total } = await findAlertItems(s.filters as SavedFilters, since, now);
+      const { items, total } = await findAlertItems(s.filters as SavedFilters, since, now, { allowedUfs: await allowedUfsFor(s.organizationId) });
       if (items.length === 0) { await prisma.savedSearch.update({ where: { id: s.id }, data: { lastRunAt: now } }); result.skipped++; continue; }
       if (!mailer) { log("alertas: SMTP_HOST não configurado; envio adiado"); result.skipped++; continue; }
       await mailer.send({ to: s.user.email, ...buildAlertEmail({ searchName: s.name, items, total, appUrl }) });

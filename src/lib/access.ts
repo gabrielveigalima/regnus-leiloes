@@ -14,3 +14,17 @@ export async function canCreateSavedSearch(organizationId: string): Promise<{ ok
     ? { ok: true }
     : { ok: false, reason: `Seu plano permite até ${plan.maxSavedSearches} buscas salvas.` };
 }
+
+/** UFs liberadas pelo plano (null = todas). */
+export async function allowedUfsFor(organizationId: string): Promise<string[] | null> {
+  const ufs = (await getPlan(organizationId)).allowedUfs;
+  return Array.isArray(ufs) ? (ufs as string[]) : null;
+}
+
+export async function canExportCsv(organizationId: string) {
+  return (await getPlan(organizationId)).csvExport;
+}
+
+export async function canUseApi(organizationId: string) {
+  return (await getPlan(organizationId)).apiAccess;
+}

@@ -33,9 +33,20 @@ export function parseFilters(sp: Record<string, string | string[] | undefined>):
 const range = (min?: number, max?: number) =>
   min != null || max != null ? { ...(min != null ? { gte: min } : {}), ...(max != null ? { lte: max } : {}) } : undefined;
 
-export function buildWhere(f: Filters): Prisma.ListingWhereInput {
+export interface PlanScope { allowedUfs?: string[] | null }
+
+/** Restringe a consulta às UFs do plano (null/undefined = todas). UF pedida fora do plano não retorna nada. */
+function ufScope(f: Filters, scope?: PlanScope): Prisma.PropertyWhereInput {
+  const allowed = scope?.allowedUfs;
+  if (!allowed) return {};
+  if (f.uf) return allowed.includes(f.uf) ? { uf: f.uf } : { uf: "__none__" };
+  return { uf: { in: allowed } };
+}
+
+export function buildWhere(f: Filters, scope?: PlanScope): Prisma.ListingWhereInput {
   const property: Prisma.PropertyWhereInput = {
     ...(f.uf ? { uf: f.uf } : {}),
+    ...ufScope(f, scope),
     ...(f.cidade ? { city: { contains: f.cidade } } : {}),
     ...(f.bairro ? { neighborhood: { contains: f.bairro } } : {}),
     ...(f.tipo?.length ? { type: { in: f.tipo } } : {}),
@@ -75,15 +86,16 @@ export function buildOrderBy(sort: Filters["ordem"]): Prisma.ListingOrderByWithR
 
 export const PAGE_SIZE = 24;
 
-export async function searchListings(f: Filters) {
-  const where = buildWhere(f);
+export async function searchListings(f: Filters, opts: PlanScope & { pageSize?: number } = {}) {
+  const pageSize = opts.pageSize ?? PAGE_SIZE;
+  const where = buildWhere(f, opts);
   const items = await prisma.listing.findMany({
-    where, orderBy: buildOrderBy(f.ordem), take: PAGE_SIZE + 1,
+    where, orderBy: buildOrderBy(f.ordem), take: pageSize + 1,
     ...(f.cursor ? { cursor: { id: f.cursor }, skip: 1 } : {}),
     include: { property: true, source: { select: { name: true } }, images: { orderBy: { position: "asc" }, take: 1 } },
   });
-  const hasMore = items.length > PAGE_SIZE;
-  const page = hasMore ? items.slice(0, PAGE_SIZE) : items;
+  const hasMore = items.length > pageSize;
+  const page = hasMore ? items.slice(0, pageSize) : items;
   const total = f.cursor ? null : await prisma.listing.count({ where });
   return { items: page, nextCursor: hasMore ? page[page.length - 1]!.id : null, total };
 }
@@ -93,8 +105,8 @@ export const MAP_LIMIT = 2000;
 export interface MapPoint { id: string; propertyId: string; lat: number; lng: number; title: string; minBid: number | null; discountPct: number | null; precision: string | null }
 
 /** Anúncios que casam com os filtros e têm coordenadas (para o mapa). */
-export async function searchMapPoints(f: Filters) {
-  const base = buildWhere(f);
+export async function searchMapPoints(f: Filters, scope?: PlanScope) {
+  const base = buildWhere(f, scope);
   const where = { AND: [base, { property: { is: { lat: { not: null }, lng: { not: null } } } }] };
   const [rows, total, withoutCoords] = await Promise.all([
     prisma.listing.findMany({

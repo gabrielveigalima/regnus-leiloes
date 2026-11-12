@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { parseFilters, searchListings } from "@/lib/search";
 import { requireSession } from "@/lib/session";
+import { allowedUfsFor, canExportCsv } from "@/lib/access";
 import { tenantDb } from "@/lib/tenancy";
 import { saveSearch } from "../actions";
 import { PropertyMap } from "../PropertyMap";
@@ -17,8 +18,9 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
   const sp = await searchParams;
   const f = parseFilters(sp);
   const u = await requireSession();
+  const [allowedUfs, csvOk] = await Promise.all([allowedUfsFor(u.organizationId), canExportCsv(u.organizationId)]);
   const vista = val0(sp.vista) === "mapa" ? "mapa" : "lista";
-  const { items, nextCursor, total } = vista === "mapa" ? { items: [], nextCursor: null, total: null } : await searchListings(f);
+  const { items, nextCursor, total } = vista === "mapa" ? { items: [], nextCursor: null, total: null } : await searchListings(f, { allowedUfs });
   const favIds = await tenantDb(u.organizationId, u.id).favorites.ids(items.map((l) => l.propertyId).filter((x): x is string => !!x));
   const val = (k: string) => { const v = sp[k]; return Array.isArray(v) ? v[0] : v ?? ""; };
 
@@ -74,9 +76,12 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
             <button className="primary" type="submit">Salvar</button>
           </form>
         </details>
-        <p>
+        <p style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
           <Link href={toggle("lista")} style={{ fontWeight: vista === "lista" ? 700 : 400 }}>☰ Lista</Link>{" · "}
           <Link href={toggle("mapa")} style={{ fontWeight: vista === "mapa" ? 700 : 400 }}>🗺 Mapa</Link>
+          {csvOk
+            ? <a href={`/api/busca/export?${mapQuery}`}>⬇ Exportar CSV (até 5.000)</a>
+            : <span className="muted" title="Disponível em planos com exportação">⬇ Exportar CSV (indisponível no seu plano)</span>}
         </p>
         {vista === "mapa" && <PropertyMap query={mapQuery} />}
         <p className="muted">{total != null ? `${total.toLocaleString("pt-BR")} imóveis encontrados` : ""}</p>

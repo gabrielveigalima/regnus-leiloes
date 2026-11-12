@@ -10,7 +10,7 @@ export async function proxy(req: NextRequest) {
   return NextResponse.redirect(url);
 }
 
-// Tudo exige login, exceto login, rotas do next-auth, health e assets.
+// Tudo exige login, exceto login, rotas do next-auth, health, a API pública (autenticada por chave) e assets.
 export const config = {
-  matcher: ["/((?!login|api/auth|api/health|_next/static|_next/image|favicon.ico|logo_transparente.png|icon.png).*)"],
+  matcher: ["/((?!login|api/auth|api/health|api/v1|_next/static|_next/image|favicon.ico|logo_transparente.png|icon.png).*)"],
 };
