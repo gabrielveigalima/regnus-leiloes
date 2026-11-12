@@ -2,7 +2,7 @@
 
 | Fonte | Tipo | Status | Volume | Frequência | Última verificação |
 |---|---|---|---|---|---|
-| caixa | Banco | em desenvolvimento (conector pendente) | — | — | — |
+| caixa | Banco | conector pronto (CSV por UF), Source ainda desativada até teste com MySQL | ~3.390 em SP | 12h | 2026-11-12 |
 | bb, santander, itau, bradesco | Banco | não iniciado | — | — | — |
 | zuk, megaleiloes, sodresantoro, frazao, biasi, lancejudicial, superbid, freitas, leje, pestana | Leiloeiro | não iniciado | — | — | — |
 

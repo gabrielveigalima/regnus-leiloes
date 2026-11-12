@@ -11,5 +11,5 @@ function databaseUrl(): string | undefined {
   return `mysql://${encodeURIComponent(DB_USER.trim())}:${encodeURIComponent(DB_PASSWORD)}@${host}:${DB_PORT}/${DB_NAME.trim()}`;
 }
 
-export const prisma = g.prisma ?? new PrismaClient({ datasources: { db: { url: databaseUrl() } } });
+export const prisma = g.prisma ?? new PrismaClient({ datasources: { db: { url: databaseUrl() ?? "mysql://unset:unset@127.0.0.1:3306/unset" } } });
 if (process.env.NODE_ENV !== "production") g.prisma = prisma;

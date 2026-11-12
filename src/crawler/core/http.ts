@@ -23,7 +23,7 @@ export class HttpClient {
 
   constructor(private opts: { retries?: number; timeoutMs?: number; respectRobots?: boolean } = {}) {}
 
-  async get(url: string, headers: Record<string, string> = {}): Promise<HttpResponse> {
+  async get(url: string, headers: Record<string, string> = {}, encoding = "utf-8"): Promise<HttpResponse> {
     if (this.opts.respectRobots !== false && !(await this.robots.allowed(url))) throw new RobotsBlockedError(url);
     const retries = this.opts.retries ?? 4;
     const host = new URL(url).host;
@@ -35,7 +35,7 @@ export class HttpClient {
       if (v?.lastModified) h["if-modified-since"] = v.lastModified;
       try {
         const r = await request(url, { headers: h, signal: AbortSignal.timeout(this.opts.timeoutMs ?? 30000) });
-        const body = await r.body.text();
+        const body = new TextDecoder(encoding).decode(await r.body.arrayBuffer());
         if (r.statusCode === 304) return { status: 304, body: "", notModified: true };
         if (r.statusCode === 429 || r.statusCode >= 500) {
           if (attempt >= retries) throw new Error(`HTTP ${r.statusCode} em ${url}`);
