@@ -94,10 +94,21 @@ async function upsertListing(sourceId: string, item: NormalizedListing): Promise
   if (String(existing.minBid ?? "") !== String(item.minBid ?? "")) events.push({ kind: "PRICE_CHANGE", oldValue: existing.minBid?.toString() ?? null, newValue: item.minBid?.toString() ?? null });
   if (existing.status !== item.status) events.push({ kind: "STATUS_CHANGE", oldValue: existing.status, newValue: item.status });
   if (existing.nextAuctionAt?.getTime() !== nextRound?.getTime()) events.push({ kind: "DATE_CHANGE", oldValue: existing.nextAuctionAt?.toISOString() ?? null, newValue: nextRound?.toISOString() ?? null });
+  // Coletas sem detalhe não podem apagar dados já enriquecidos (praças com data, imagens, matrícula).
+  const [oldRounds, imageCount] = await Promise.all([
+    prisma.auctionRound.findMany({ where: { listingId: existing.id } }),
+    prisma.listingImage.count({ where: { listingId: existing.id } }),
+  ]);
+  const keepRounds = oldRounds.some((r) => r.date) && !item.rounds.some((r) => r.date);
+  const propData = Object.fromEntries(Object.entries(item.property).filter(([, v]) => v != null && v !== "UNKNOWN"));
   await prisma.$transaction([
-    prisma.listing.update({ where: key, data }),
-    prisma.auctionRound.deleteMany({ where: { listingId: existing.id } }),
-    prisma.auctionRound.createMany({ data: item.rounds.map((r) => ({ listingId: existing.id, number: r.number, date: r.date ?? null, minBid: r.minBid ?? null })) }),
+    prisma.listing.update({ where: key, data: keepRounds ? { ...data, nextAuctionAt: existing.nextAuctionAt } : data }),
+    ...(existing.propertyId ? [prisma.property.update({ where: { id: existing.propertyId }, data: propData })] : []),
+    ...(keepRounds ? [] : [
+      prisma.auctionRound.deleteMany({ where: { listingId: existing.id } }),
+      prisma.auctionRound.createMany({ data: item.rounds.map((r) => ({ listingId: existing.id, number: r.number, date: r.date ?? null, minBid: r.minBid ?? null })) }),
+    ]),
+    ...(imageCount === 0 && item.images.length ? [prisma.listingImage.createMany({ data: item.images.map((url, position) => ({ listingId: existing.id, url, position })) })] : []),
     prisma.listingEvent.createMany({ data: events.map((e) => ({ ...e, listingId: existing.id })) }),
   ]);
   return "updated";
