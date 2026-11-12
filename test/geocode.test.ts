@@ -1,27 +1,33 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { buildAttempts, cacheKey, inBrazil, geocodeBatch, type GeocodeProvider, type GeoQuery } from "../src/lib/geocode";
+import type { GeocodeProvider, GeoQuery } from "../src/lib/geocode";
 
-test("tentativas: endereço → rua → cidade, e só cidade quando não há rua", () => {
+// Import dinâmico: o cliente Prisma é criado ao carregar o módulo, depois de definirmos DATABASE_URL.
+const load = () => { if (process.env.TEST_DATABASE_URL) process.env.DATABASE_URL = process.env.TEST_DATABASE_URL; return import("../src/lib/geocode"); };
+
+test("tentativas: endereço → rua → cidade, e só cidade quando não há rua", async () => {
+  const { buildAttempts } = await load();
   const a = buildAttempts({ street: "RUA A", number: "10", city: "Campinas", uf: "SP" });
   assert.deepEqual(a.map((x) => x.precision), ["ADDRESS", "STREET", "CITY"]);
   assert.deepEqual(buildAttempts({ city: "Campinas", uf: "SP" }).map((x) => x.precision), ["CITY"]);
   assert.deepEqual(buildAttempts({ street: "RUA A", number: "10" }), []); // sem cidade/UF não geocodifica
 });
-test("chave de cache ignora acentos, caixa e prefixos de logradouro", () => {
+test("chave de cache ignora acentos, caixa e prefixos de logradouro", async () => {
+  const { cacheKey } = await load();
   const k1 = cacheKey("n", { street: "Avenida São João", number: "5", city: "São Paulo", uf: "SP" });
   const k2 = cacheKey("n", { street: "AV SAO JOAO", number: "5", city: "SAO PAULO", uf: "SP" });
   assert.equal(k1, k2);
   assert.notEqual(k1, cacheKey("outro", { street: "AV SAO JOAO", number: "5", city: "SAO PAULO", uf: "SP" }));
 });
-test("inBrazil rejeita coordenadas fora do país", () => {
+test("inBrazil rejeita coordenadas fora do país", async () => {
+  const { inBrazil } = await load();
   assert.equal(inBrazil({ lat: -23.5, lng: -46.6 }), true);
   assert.equal(inBrazil({ lat: 40.4, lng: -3.7 }), false);
 });
 
 const url = process.env.TEST_DATABASE_URL;
 test("lote: usa precisão decrescente, cacheia (inclusive negativo) e não retenta falhas", { skip: !url }, async () => {
-  process.env.DATABASE_URL = url;
+  const { geocodeBatch } = await load();
   const { prisma } = await import("../src/lib/prisma");
   const sfx = Date.now().toString(36);
   const city = `GeoCity${sfx}`;
@@ -39,7 +45,7 @@ test("lote: usa precisão decrescente, cacheia (inclusive negativo) e não reten
     },
   };
   try {
-    const stats = await geocodeBatch({ limit: 1000, provider });
+    const stats = await geocodeBatch({ limit: 1000, provider, filter: { city } });
     const get = (id: string) => prisma.property.findUniqueOrThrow({ where: { id } });
     assert.equal((await get(exato.id)).geoPrecision, "ADDRESS");
     assert.equal((await get(soRua.id)).geoPrecision, "STREET");
@@ -50,11 +56,11 @@ test("lote: usa precisão decrescente, cacheia (inclusive negativo) e não reten
     assert.equal(calls.filter((c) => c.street === "RUA EXATA" && c.number === "1").length, 1);
     // já geocodificados não são reprocessados
     const before = calls.length;
-    await geocodeBatch({ limit: 1000, provider });
+    await geocodeBatch({ limit: 1000, provider, filter: { city } });
     assert.equal(calls.length, before);
     // falha transitória do provedor: propaga e NÃO marca como tentado
     const novo = await mk("RUA NOVA", "9");
-    await assert.rejects(geocodeBatch({ limit: 1000, provider: { name: "fake", geocode: async () => { throw new Error("429"); } } }));
+    await assert.rejects(geocodeBatch({ limit: 1000, filter: { city }, provider: { name: "fake", geocode: async () => { throw new Error("429"); } } }));
     assert.equal((await get(novo.id)).geocodedAt, null);
   } finally {
     await prisma.property.deleteMany({ where: { city } });

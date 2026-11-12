@@ -4,6 +4,7 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { requirePlatformAdmin } from "@/lib/session";
 import { connectors } from "@/crawler/registry";
+import { mergeProperties, rejectCandidate } from "@/lib/dedup";
 
 const sourceId = z.string().min(1).max(40);
 
@@ -38,4 +39,23 @@ export async function clearRobotsBlock(id: string) {
   await prisma.source.update({ where: { id: sid }, data: { blockedByRobots: false } });
   await audit(u.id, u.organizationId, "source.clear_robots_block", { sourceId: sid });
   revalidatePath("/admin/fontes");
+}
+
+/** `keep` = qual imóvel sobrevive ("A" ou "B"); o outro é absorvido (anúncios e favoritos migram). */
+export async function mergeDuplicate(candidateId: string, keep: "A" | "B") {
+  const u = await requirePlatformAdmin();
+  const c = await prisma.duplicateCandidate.findUniqueOrThrow({ where: { id: z.string().min(1).max(40).parse(candidateId) } });
+  if (c.status !== "PENDING") return;
+  const [keepId, dropId] = keep === "A" ? [c.propertyAId, c.propertyBId] : [c.propertyBId, c.propertyAId];
+  await mergeProperties(keepId, dropId, u.id);
+  await audit(u.id, u.organizationId, "duplicate.merge", { candidateId: c.id, keepId, dropId });
+  revalidatePath("/admin/duplicados");
+}
+
+export async function rejectDuplicate(candidateId: string) {
+  const u = await requirePlatformAdmin();
+  const id = z.string().min(1).max(40).parse(candidateId);
+  await rejectCandidate(id, u.id);
+  await audit(u.id, u.organizationId, "duplicate.reject", { candidateId: id });
+  revalidatePath("/admin/duplicados");
 }

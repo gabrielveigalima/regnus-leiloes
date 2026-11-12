@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { discountPct } from "@/lib/normalize";
+import { fingerprint, recordCandidates, reconcileProperty, resolveProperty, type PropLike } from "@/lib/dedup";
 import { HttpClient, RobotsBlockedError } from "./http";
 import type { Connector, CrawlContext, NormalizedListing } from "./connector";
 
@@ -75,7 +76,19 @@ async function upsertListing(sourceId: string, item: NormalizedListing): Promise
   };
 
   if (!existing) {
-    const property = await prisma.property.create({ data: { ...item.property } });
+    const incoming: PropLike = {
+      type: item.property.type, street: item.property.street ?? null, number: item.property.number ?? null, complement: item.property.complement ?? null,
+      city: item.property.city ?? null, uf: item.property.uf ?? null, zip: item.property.zip ?? null, registry: item.property.registry ?? null,
+      registryOffice: item.property.registryOffice ?? null, privateArea: (item.property.privateArea ?? null) as never,
+      totalArea: (item.property.totalArea ?? null) as never, landArea: (item.property.landArea ?? null) as never,
+    };
+    // Mesmo bem em outra fonte? Funde só com alta confiança; o resto vai para revisão manual.
+    const match = await resolveProperty(incoming, sourceId);
+    const property = match.propertyId
+      ? await prisma.property.findUniqueOrThrow({ where: { id: match.propertyId } })
+      : await prisma.property.create({ data: { ...item.property, fingerprint: fingerprint(incoming) } });
+    if (match.propertyId) await fillMissing(property.id, item.property);
+    else if (match.candidates.length) await recordCandidates(property.id, match.candidates);
     await prisma.listing.create({
       data: {
         sourceId, externalId: item.externalId, propertyId: property.id, ...data,
@@ -100,6 +113,7 @@ async function upsertListing(sourceId: string, item: NormalizedListing): Promise
     prisma.listingImage.count({ where: { listingId: existing.id } }),
   ]);
   const keepRounds = oldRounds.some((r) => r.date) && !item.rounds.some((r) => r.date);
+  const oldProp = existing.propertyId ? await prisma.property.findUnique({ where: { id: existing.propertyId }, select: { registry: true, zip: true } }) : null;
   const propData = Object.fromEntries(Object.entries(item.property).filter(([, v]) => v != null && v !== "UNKNOWN"));
   await prisma.$transaction([
     prisma.listing.update({ where: key, data: keepRounds ? { ...data, nextAuctionAt: existing.nextAuctionAt } : data }),
@@ -111,6 +125,10 @@ async function upsertListing(sourceId: string, item: NormalizedListing): Promise
     ...(imageCount === 0 && item.images.length ? [prisma.listingImage.createMany({ data: item.images.map((url, position) => ({ listingId: existing.id, url, position })) })] : []),
     prisma.listingEvent.createMany({ data: events.map((e) => ({ ...e, listingId: existing.id })) }),
   ]);
+  // Matrícula/CEP recém-descobertos podem revelar o mesmo imóvel em outra fonte.
+  if (existing.propertyId && oldProp && ((!oldProp.registry && item.property.registry) || (!oldProp.zip && item.property.zip))) {
+    await reconcileProperty(existing.propertyId, sourceId);
+  }
   return "updated";
 }
 
@@ -126,4 +144,12 @@ async function markMissing(sourceId: string, seen: Set<string>): Promise<number>
     } else await prisma.listing.update({ where: { id: l.id }, data: { missedRuns: l.missedRuns + 1 } });
   }
   return removed;
+}
+
+/** Completa campos vazios do imóvel canônico com dados de uma nova fonte (nunca sobrescreve). */
+async function fillMissing(propertyId: string, incoming: NormalizedListing["property"]) {
+  const current = await prisma.property.findUniqueOrThrow({ where: { id: propertyId } }) as unknown as Record<string, unknown>;
+  const data: Record<string, unknown> = {};
+  for (const [k, v] of Object.entries(incoming)) if (v != null && v !== "UNKNOWN" && v !== "OTHER" && current[k] == null) data[k] = v;
+  if (Object.keys(data).length) await prisma.property.update({ where: { id: propertyId }, data });
 }

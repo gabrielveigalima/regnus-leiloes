@@ -78,6 +78,11 @@ enum SubscriptionStatus {
   PAST_DUE
   CANCELLED
 }
+enum DuplicateStatus {
+  PENDING
+  MERGED
+  REJECTED
+}
 enum AlertFrequency {
   IMMEDIATE
   DAILY
@@ -128,6 +133,8 @@ model Property {
   updatedAt     DateTime         @updatedAt
   listings      Listing[]
   favorites     Favorite[]
+  duplicatesA   DuplicateCandidate[] @relation("DupA")
+  duplicatesB   DuplicateCandidate[] @relation("DupB")
 
   @@index([uf, city])
   @@index([type])
@@ -385,4 +392,22 @@ model AuditLog {
   organization   Organization? @relation(fields: [organizationId], references: [id])
 
   @@index([organizationId, at])
+}
+
+// Pares de imóveis possivelmente iguais, aguardando revisão manual (A < B por id).
+model DuplicateCandidate {
+  id          String          @id @default(cuid())
+  propertyAId String
+  propertyBId String
+  score       Decimal         @db.Decimal(4, 3)
+  reason      String          @db.VarChar(200)
+  status      DuplicateStatus @default(PENDING)
+  createdAt   DateTime        @default(now())
+  resolvedAt  DateTime?
+  resolvedBy  String?
+  propertyA   Property        @relation("DupA", fields: [propertyAId], references: [id], onDelete: Cascade)
+  propertyB   Property        @relation("DupB", fields: [propertyBId], references: [id], onDelete: Cascade)
+
+  @@unique([propertyAId, propertyBId])
+  @@index([status])
 }
