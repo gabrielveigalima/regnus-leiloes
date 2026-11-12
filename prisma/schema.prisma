@@ -1,0 +1,383 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextIndex"]
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// ---- Enums (AuctionType/OccupationStatus/PaymentForm compatíveis com house-flipping-app) ----
+enum SourceType {
+  BANK
+  AUCTIONEER
+  GOVERNMENT
+  COURT
+}
+enum PropertyType {
+  APARTMENT
+  HOUSE
+  LAND
+  COMMERCIAL
+  RURAL
+  OTHER
+}
+enum OccupationStatus {
+  OCCUPIED
+  UNOCCUPIED
+  UNKNOWN
+}
+enum AuctionType {
+  JUDICIAL
+  EXTRAJUDICIAL
+  DIRECT_SALE
+  LICITACAO_ABERTA
+}
+enum PaymentForm {
+  CASH
+  INSTALLMENTS
+  DIRECT_SALE
+  FINANCING
+  FGTS
+}
+enum ListingStatus {
+  UPCOMING
+  OPEN
+  CLOSED
+  SOLD
+  SUSPENDED
+  CANCELLED
+}
+enum CrawlStatus {
+  RUNNING
+  SUCCESS
+  PARTIAL
+  FAILED
+  BLOCKED
+}
+enum JobType {
+  LIST_PAGE
+  DETAIL
+  FULL_SYNC
+}
+enum JobStatus {
+  PENDING
+  RUNNING
+  DONE
+  FAILED
+}
+enum MemberRole {
+  OWNER
+  ADMIN
+  MEMBER
+}
+enum SubscriptionStatus {
+  TRIALING
+  ACTIVE
+  PAST_DUE
+  CANCELLED
+}
+enum AlertFrequency {
+  IMMEDIATE
+  DAILY
+}
+
+// ---- Dados globais de imóveis ----
+model Source {
+  id               String     @id // slug: caixa, zuk...
+  name             String
+  type             SourceType
+  baseUrl          String
+  active           Boolean    @default(false)
+  requiresBrowser  Boolean    @default(false)
+  intervalMinutes  Int        @default(720)
+  blockedByRobots  Boolean    @default(false)
+  lastSuccessAt    DateTime?
+  lastErrorAt      DateTime?
+  lastError        String?    @db.Text
+  listings         Listing[]
+  runs             CrawlRun[]
+  jobs             CrawlJob[]
+}
+
+model Property {
+  id            String           @id @default(cuid())
+  type          PropertyType     @default(OTHER)
+  street        String?
+  number        String?
+  complement    String?
+  neighborhood  String?
+  city          String?
+  uf            String?          @db.Char(2)
+  zip           String?          @db.VarChar(8)
+  lat           Decimal?         @db.Decimal(10, 7)
+  lng           Decimal?         @db.Decimal(10, 7)
+  privateArea   Decimal?         @db.Decimal(12, 2)
+  totalArea     Decimal?         @db.Decimal(12, 2)
+  landArea      Decimal?         @db.Decimal(14, 2)
+  bedrooms      Int?
+  parking       Int?
+  registry      String?          // matrícula
+  registryOffice String?         // cartório
+  fingerprint   String?
+  occupation    OccupationStatus @default(UNKNOWN)
+  createdAt     DateTime         @default(now())
+  updatedAt     DateTime         @updatedAt
+  listings      Listing[]
+  favorites     Favorite[]
+
+  @@index([uf, city])
+  @@index([type])
+  @@index([zip])
+  @@index([registry, city])
+  @@index([fingerprint])
+}
+
+model Listing {
+  id             String         @id @default(cuid())
+  sourceId       String
+  externalId     String
+  propertyId     String?
+  url            String         @db.VarChar(1000)
+  title          String         @db.VarChar(500)
+  description    String?        @db.Text
+  seller         String?        // comitente (ex.: banco)
+  auctionType    AuctionType    @default(EXTRAJUDICIAL)
+  paymentForms   Json?
+  appraisalValue Decimal?       @db.Decimal(14, 2)
+  minBid         Decimal?       @db.Decimal(14, 2)
+  discountPct    Decimal?       @db.Decimal(5, 2)
+  status         ListingStatus  @default(OPEN)
+  caseNumber     String?
+  noticeUrl      String?        @db.VarChar(1000)
+  acceptsFinancing Boolean      @default(false)
+  acceptsFgts    Boolean        @default(false)
+  nextAuctionAt  DateTime?
+  missedRuns     Int            @default(0)
+  firstSeenAt    DateTime       @default(now())
+  lastSeenAt     DateTime       @default(now())
+  rawHash        String?
+  source         Source         @relation(fields: [sourceId], references: [id])
+  property       Property?      @relation(fields: [propertyId], references: [id])
+  rounds         AuctionRound[]
+  images         ListingImage[]
+  events         ListingEvent[]
+
+  @@unique([sourceId, externalId])
+  @@index([status])
+  @@index([minBid])
+  @@index([nextAuctionAt])
+  @@index([propertyId])
+  @@fulltext([title, description])
+}
+
+model AuctionRound {
+  id         String   @id @default(cuid())
+  listingId  String
+  number     Int
+  date       DateTime?
+  minBid     Decimal? @db.Decimal(14, 2)
+  listing    Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@unique([listingId, number])
+}
+
+model ListingImage {
+  id        String  @id @default(cuid())
+  listingId String
+  url       String  @db.VarChar(1000)
+  position  Int     @default(0)
+  listing   Listing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([listingId])
+}
+
+// Mudanças de preço/status/datas (linha do tempo e gatilho de alertas)
+model ListingEvent {
+  id        String   @id @default(cuid())
+  listingId String
+  kind      String   // CREATED | PRICE_CHANGE | STATUS_CHANGE | DATE_CHANGE | REMOVED
+  oldValue  String?
+  newValue  String?
+  at        DateTime @default(now())
+  listing   Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
+
+  @@index([listingId, at])
+  @@index([kind, at])
+}
+
+model CrawlRun {
+  id         String      @id @default(cuid())
+  sourceId   String
+  startedAt  DateTime    @default(now())
+  finishedAt DateTime?
+  status     CrawlStatus @default(RUNNING)
+  seen       Int         @default(0)
+  created    Int         @default(0)
+  updated    Int         @default(0)
+  removed    Int         @default(0)
+  errors     Int         @default(0)
+  log        String?     @db.Text
+  isFull     Boolean     @default(true)
+  source     Source      @relation(fields: [sourceId], references: [id])
+
+  @@index([sourceId, startedAt])
+}
+
+model CrawlJob {
+  id          String    @id @default(cuid())
+  sourceId    String
+  type        JobType
+  payload     Json?
+  status      JobStatus @default(PENDING)
+  attempts    Int       @default(0)
+  maxAttempts Int       @default(5)
+  lockedUntil DateTime?
+  runAt       DateTime  @default(now())
+  lastError   String?   @db.Text
+  createdAt   DateTime  @default(now())
+  source      Source    @relation(fields: [sourceId], references: [id])
+
+  @@index([status, runAt])
+}
+
+model RawSnapshot {
+  id        String   @id @default(cuid())
+  sourceId  String
+  key       String
+  body      Bytes    @db.LongBlob // gzip
+  createdAt DateTime @default(now())
+
+  @@index([sourceId, key])
+  @@index([createdAt])
+}
+
+model GeocodeCache {
+  key       String   @id @db.VarChar(300)
+  lat       Decimal? @db.Decimal(10, 7)
+  lng       Decimal? @db.Decimal(10, 7)
+  provider  String
+  createdAt DateTime @default(now())
+}
+
+// ---- Multi-tenant / SaaS ----
+model Plan {
+  id            String         @id // INTERNO, BASICO, PRO
+  name          String
+  maxUsers      Int?           // null = ilimitado
+  maxSavedSearches Int?
+  allowedUfs    Json?          // null = todas
+  apiAccess     Boolean        @default(false)
+  csvExport     Boolean        @default(false)
+  organizations Organization[]
+  subscriptions Subscription[]
+}
+
+model Organization {
+  id            String         @id @default(cuid())
+  name          String
+  slug          String         @unique
+  planId        String
+  createdAt     DateTime       @default(now())
+  plan          Plan           @relation(fields: [planId], references: [id])
+  memberships   Membership[]
+  subscriptions Subscription[]
+  apiKeys       ApiKey[]
+  favorites     Favorite[]
+  savedSearches SavedSearch[]
+  auditLogs     AuditLog[]
+}
+
+model User {
+  id           String        @id @default(cuid())
+  email        String        @unique
+  name         String?
+  passwordHash String
+  isPlatformAdmin Boolean    @default(false)
+  createdAt    DateTime      @default(now())
+  memberships  Membership[]
+  favorites    Favorite[]
+  savedSearches SavedSearch[]
+}
+
+model Membership {
+  id             String       @id @default(cuid())
+  organizationId String
+  userId         String
+  role           MemberRole   @default(MEMBER)
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId])
+}
+
+model Subscription {
+  id             String             @id @default(cuid())
+  organizationId String
+  planId         String
+  status         SubscriptionStatus @default(ACTIVE)
+  startedAt      DateTime           @default(now())
+  endsAt         DateTime?
+  organization   Organization       @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  plan           Plan               @relation(fields: [planId], references: [id])
+}
+
+model ApiKey {
+  id             String       @id @default(cuid())
+  organizationId String
+  name           String
+  prefix         String       @unique
+  hash           String
+  createdAt      DateTime     @default(now())
+  revokedAt      DateTime?
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+}
+
+model Favorite {
+  id             String       @id @default(cuid())
+  organizationId String
+  userId         String
+  propertyId     String
+  note           String?      @db.Text
+  label          String?
+  createdAt      DateTime     @default(now())
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  property       Property     @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@unique([organizationId, userId, propertyId])
+}
+
+model SavedSearch {
+  id             String         @id @default(cuid())
+  organizationId String
+  userId         String
+  name           String
+  filters        Json
+  frequency      AlertFrequency @default(DAILY)
+  lastRunAt      DateTime?
+  organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  deliveries     AlertDelivery[]
+}
+
+model AlertDelivery {
+  id            String      @id @default(cuid())
+  savedSearchId String
+  sentAt        DateTime    @default(now())
+  listingIds    Json
+  savedSearch   SavedSearch @relation(fields: [savedSearchId], references: [id], onDelete: Cascade)
+}
+
+model AuditLog {
+  id             String        @id @default(cuid())
+  organizationId String?
+  userId         String?
+  action         String
+  detail         Json?
+  at             DateTime      @default(now())
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId, at])
+}
