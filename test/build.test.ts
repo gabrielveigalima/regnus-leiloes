@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 import { createRequire } from "node:module";
 
 const require = createRequire(import.meta.url);
@@ -33,12 +33,20 @@ test("URL do banco a partir de DB_* (Hostinger), com escape e localhost → 127.
   assert.equal(resolveDatabaseUrl({ DB_USER: "u@x", DB_PASSWORD: "p:w/d", DB_HOST: "localhost", DB_NAME: "n" }), "mysql://u%40x:p%3Aw%2Fd@127.0.0.1:3306/n");
   assert.equal(resolveDatabaseUrl({ DATABASE_URL: "mysql://a:b@c/d" }), "mysql://a:b@c/d");
   assert.equal(resolveDatabaseUrl({ DATABASE_URL: "mysql://${DB_USER}@c/d" }), null);
+  // painel da hospedagem com aspas/espaços no valor (causa real de falha no deploy)
+  assert.equal(resolveDatabaseUrl({ DATABASE_URL: ' "mysql://a:b@c:3306/d" ' }), "mysql://a:b@c:3306/d");
+  assert.equal(resolveDatabaseUrl({ DATABASE_URL: "'mysql://a:b@c/d'" }), "mysql://a:b@c/d");
+  // URL inválida: usa DB_* se houver, senão erro claro sem vazar o segredo
+  assert.equal(resolveDatabaseUrl({ DATABASE_URL: "postgres://x", DB_USER: "u", DB_HOST: "h", DB_NAME: "n" }), "mysql://u:@h:3306/n");
+  assert.throws(() => resolveDatabaseUrl({ DATABASE_URL: "mariadb://user:segredo@h/d" }), (e: Error) => /deve começar com mysql:\/\//.test(e.message) && !e.message.includes("segredo"));
+  assert.throws(() => resolveDatabaseUrl({ DATABASE_URL: "h/d" }), /DATABASE_URL inválida/);
   assert.equal(resolveDatabaseUrl({}), null);
 });
 
 test("migration baseline cobre todos os models do schema", () => {
   const schema = read("prisma/schema.prisma");
-  const sql = read("prisma/migrations/20261112000000_init/migration.sql");
+  const sql = readdirSync(new URL("prisma/migrations/", root), { withFileTypes: true })
+    .filter((d) => d.isDirectory()).map((d) => read(`prisma/migrations/${d.name}/migration.sql`)).join("\n");
   const models = [...schema.matchAll(/^model (\w+) \{/gm)].map((m) => m[1]!);
   assert.ok(models.length >= 20);
   for (const m of models) assert.match(sql, new RegExp(`CREATE TABLE \`${m}\``), `tabela ${m} ausente na migration`);

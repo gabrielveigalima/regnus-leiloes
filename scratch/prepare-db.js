@@ -19,13 +19,32 @@ function generatedClientIsCurrent(projectDir) {
   } catch { return false; }
 }
 
+/** Painéis de hospedagem costumam gravar o valor literalmente: remove espaços e aspas ao redor ("mysql://…" → mysql://…). */
+function cleanEnvValue(v) {
+  let s = String(v ?? '').trim();
+  while (s.length >= 2 && ((s[0] === '"' && s.at(-1) === '"') || (s[0] === "'" && s.at(-1) === "'"))) s = s.slice(1, -1).trim();
+  return s;
+}
+
+/** Mostra só o começo do valor (sem segredos) para diagnosticar URLs malformadas. */
+function hint(v) {
+  return JSON.stringify(v.slice(0, 8)) + (v.length > 8 ? '…' : '');
+}
+
 function resolveDatabaseUrl(env) {
-  if (env.DATABASE_URL && !env.DATABASE_URL.includes('${')) return env.DATABASE_URL;
-  const user = (env.DB_USER || '').trim();
-  const host = (env.DB_HOST || '').trim().replace(/^localhost$/, '127.0.0.1');
-  const name = (env.DB_NAME || '').trim();
+  const direct = cleanEnvValue(env.DATABASE_URL);
+  if (direct && !direct.includes('${')) {
+    if (/^mysql:\/\//i.test(direct)) return direct;
+    // URL inválida: usa DB_* se existir; senão falha com mensagem clara (não pula as migrations em silêncio).
+    if (!(env.DB_USER && env.DB_HOST && env.DB_NAME)) {
+      throw new Error(`DATABASE_URL inválida: deve começar com mysql:// (o valor começa com ${hint(direct)}). Sem aspas; senha com caracteres especiais precisa de percent-encoding. Alternativa: defina DB_HOST, DB_PORT, DB_NAME, DB_USER e DB_PASSWORD.`);
+    }
+  }
+  const user = cleanEnvValue(env.DB_USER);
+  const host = cleanEnvValue(env.DB_HOST).replace(/^localhost$/, '127.0.0.1');
+  const name = cleanEnvValue(env.DB_NAME);
   if (!user || !host || !name) return null;
-  return `mysql://${encodeURIComponent(user)}:${encodeURIComponent(env.DB_PASSWORD || '')}@${host}:${(env.DB_PORT || '3306').trim()}/${name}`;
+  return `mysql://${encodeURIComponent(user)}:${encodeURIComponent(cleanEnvValue(env.DB_PASSWORD))}@${host}:${cleanEnvValue(env.DB_PORT) || '3306'}/${name}`;
 }
 
 function prepareDatabase({ env = process.env, projectDir = path.resolve(__dirname, '..'), run = execFileSync, logger = console } = {}) {
@@ -51,4 +70,4 @@ if (require.main === module) {
   catch (error) { console.error('[build] Falha ao preparar o banco:', error.message); process.exit(1); }
 }
 
-module.exports = { prepareDatabase, resolveDatabaseUrl, generatedClientIsCurrent };
+module.exports = { prepareDatabase, resolveDatabaseUrl, generatedClientIsCurrent, cleanEnvValue };
