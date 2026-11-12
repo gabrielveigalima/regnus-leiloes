@@ -9,7 +9,7 @@ Mesmo fluxo do `house-flipping-app`:
 - **Variáveis** (painel da Hostinger): `DATABASE_URL` (ou `DB_HOST/DB_PORT/DB_NAME/DB_USER/DB_PASSWORD`), `NEXTAUTH_SECRET` (`openssl rand -base64 32`), `NEXTAUTH_URL=https://seu-dominio`, `SMTP_*`, `CRAWLER_USER_AGENT`. Veja `.env.example`.
 - O `prebuild` (`scratch/prepare-db.js`) gera o cliente Prisma e roda **`prisma migrate deploy`**. Nunca `db push --accept-data-loss` nem reset. Falha de migration interrompe o build.
 - Primeiro deploy: depois do build, rode uma vez o seed (`npm run db:seed` num terminal SSH/console) e **guarde a senha do admin** (exibida uma única vez).
-- Mudou o schema? Gere uma migration nova (`npx prisma migrate dev --name x` localmente), revise o SQL e commite `prisma/migrations/`. Antes do deploy: `npm run db:drift` (com `SHADOW_DATABASE_URL`) deve sair com código 0.
+- Mudou o schema? Gere uma migration nova (`npx prisma migrate dev --name x` localmente), revise o SQL e commite `prisma/migrations/`. Para conferir que as migrations reproduzem o schema: aplique-as num banco vazio (`prisma migrate deploy`) e rode `npm run db:drift` — deve sair com código 0 (compara o banco real com `schema.prisma`; a comparação via shadow database acusa um falso positivo no índice FULLTEXT do Prisma 5).
 
 ## 2. Banco (MySQL 8)
 - Hostinger MySQL (ou outro). **Backup diário verificado**: `deploy/backup-db.sh` (mysqldump + gzip + checagem de tabelas, retenção 14 dias) via cron. Rode também **antes de cada deploy**.
