@@ -40,7 +40,7 @@ const num = (re: RegExp, s: string) => parseAreaM2(s.match(re)?.[1] ?? null);
 
 export function parseLot(html: string, url: string): NormalizedListing {
   const $ = cheerio.load(html);
-  const id = url.match(/\/lote\/(\d+)/)?.[1];
+  const id = url.match(/\/lotes?\/(\d+)/)?.[1];
   if (!id) throw new Error(`URL de lote inválida: ${url}`);
 
   const title = clean($("h1.lot-title").first().text()) || clean($("h1").first().text());
@@ -99,9 +99,11 @@ export function parseLot(html: string, url: string): NormalizedListing {
 
   const occupation = /desocupad/i.test(occLabel) || /desocupad/i.test(title) ? "UNOCCUPIED" : /ocupad/i.test(occLabel) ? "OCCUPIED" : "UNKNOWN";
 
-  const caseNumber = flat.match(/\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}/)?.[0] ?? null;
-  // "Comarca de" aparece em qualquer matrícula; só número CNJ, vara ou processo indicam leilão judicial.
-  const judicial = !!caseNumber || /\bVara\b|Processo n[ºo°]/i.test(flat.slice(0, 6000));
+  // Judicial só com termos próprios de execução. "Comarca de" e ações paralelas (revisional etc.) citadas
+  // nas condições não tornam o leilão judicial.
+  const judicial = /Leil[ãa]o Judicial|Exequente|Executad[oa]|Carta de Arremata[çc][ãa]o|Ju[íi]zo d[aoe]/i.test(whole);
+  const caseNumber = judicial ? flat.match(/\d{7}-\d{2}\.\d{4}\.\d\.\d{2}\.\d{4}/)?.[0] ?? null : null;
+
   // Comitente só quando é pessoa jurídica identificável (evita expor pessoa física).
   const owner = flat.match(/Propriet[áa]rio pela matr[íi]cula:\s*([^.|]{3,60})/i)?.[1]?.split(/\s+(?:Ci[êe]ncia|D[ée]bitos?|A venda|Obs)/i)[0]?.trim();
   const seller = owner && /banco|ita[úu]|bradesco|santander|caixa|\bS\/?A\b|ltda/i.test(owner) ? owner : null;
@@ -126,12 +128,12 @@ export function parseLot(html: string, url: string): NormalizedListing {
     status: statusOf(statusText, finished),
     appraisalValue: appraisal && appraisal > 0 ? appraisal : null,
     minBid,
-    caseNumber: judicial ? caseNumber : null,
+    caseNumber,
     acceptsFinancing: /financiamento (?:banc[áa]rio|imobili[áa]rio)|aceita financiamento/i.test(paymentText),
     acceptsFgts: /\bFGTS\b/.test(paymentText),
     property: {
       type, street, number, neighborhood, city, uf, zip,
-      ...(Number.isFinite(lat) && Number.isFinite(lng) && lat !== 0 && lng !== 0 ? { lat, lng, geoPrecision: "SOURCE" } : {}),
+      ...(Number.isFinite(lat) && Number.isFinite(lng) && lat > -34 && lat < 6 && lng > -74 && lng < -34 ? { lat, lng, geoPrecision: "SOURCE" } : {}),
       privateArea: privateArea ?? (type === "LAND" || type === "RURAL" ? null : built),
       totalArea, landArea, bedrooms, parking,
       registry, registryOffice: office ? `Ofício ${office}` : null, occupation,

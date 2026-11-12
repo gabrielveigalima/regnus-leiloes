@@ -8,8 +8,8 @@
   `input#lat`/`#long` (coordenadas fornecidas pela fonte → `geoPrecision = SOURCE`, dispensa geocodificação), fotos em `cdn.frazaoleiloes.com.br/images/lot/…`.
   Alienação fiduciária (Itaú) traz 1º/2º leilão e o valor de cada praça no texto.
 - **Cuidados:** todo regex de campo roda só na seção "Informações sobre o Lote" (o rodapé traz o CEP/endereço da própria Frazão).
-  Judicial = número CNJ, "Vara" ou "Processo nº" ("Comarca de" aparece em qualquer matrícula). Comitente só quando é pessoa jurídica.
+  Judicial só com termos de execução ("Leilão Judicial", Exequente/Executado, Carta de Arrematação, "Juízo da…"); "Comarca de" e ações paralelas citadas nas condições não contam. Comitente só quando é pessoa jurídica.
   Descrição guardada para antes de observações/condições (LGPD). Edital é carregado por ajax: não é coletado.
-- Resultado de referência (2026-11-12): 398 lotes, 0 erros, todos com preço, UF e cidade; 396 com coordenadas; 85 judiciais (71 com nº do processo).
+- Resultado de referência (2026-11-12): 398 lotes, 0 erros, todos com preço, UF e cidade; 396 com coordenadas; judiciais contados com a regra estrita (a regra anterior, por número CNJ/Vara, superestimava).
 
 Fixtures: `test/fixtures/frazao/`; testes: `test/frazao.test.ts`.
