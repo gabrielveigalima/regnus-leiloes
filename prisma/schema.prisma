@@ -356,6 +356,7 @@ model SavedSearch {
   name           String
   filters        Json
   frequency      AlertFrequency @default(DAILY)
+  createdAt      DateTime       @default(now())
   lastRunAt      DateTime?
   organization   Organization   @relation(fields: [organizationId], references: [id], onDelete: Cascade)
   user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)

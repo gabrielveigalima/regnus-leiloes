@@ -2,6 +2,7 @@ import Link from "next/link";
 import { parseFilters, searchListings } from "@/lib/search";
 import { requireSession } from "@/lib/session";
 import { tenantDb } from "@/lib/tenancy";
+import { saveSearch } from "../actions";
 import { AUCTION_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtM2 } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
@@ -57,6 +58,15 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
       </form>
 
       <section>
+        <details className="panel">
+          <summary>🔔 Salvar esta busca e receber alertas</summary>
+          <form action={saveSearch} style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+            <input type="hidden" name="params" value={JSON.stringify(Object.fromEntries(Object.entries(sp).filter(([k, v]) => k !== "cursor" && v != null && v !== "").map(([k, v]) => [k, Array.isArray(v) ? v.join(",") : v])))} />
+            <input name="name" placeholder="Nome da busca" required maxLength={80} />
+            <select name="frequency" defaultValue="DAILY"><option value="DAILY">Resumo diário</option><option value="IMMEDIATE">Imediato</option></select>
+            <button className="primary" type="submit">Salvar</button>
+          </form>
+        </details>
         <p className="muted">{total != null ? `${total.toLocaleString("pt-BR")} imóveis encontrados` : ""}</p>
         {items.length === 0 && <div className="panel">Nenhum imóvel encontrado com esses filtros.</div>}
         <div className="grid">

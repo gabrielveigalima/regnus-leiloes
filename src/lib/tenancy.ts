@@ -24,7 +24,12 @@ export function tenantDb(organizationId: string, userId: string) {
         prisma.favorite.updateMany({ where: { ...scope, propertyId }, data }),
     },
     savedSearches: {
-      list: () => prisma.savedSearch.findMany({ where: scope }),
+      list: () => prisma.savedSearch.findMany({ where: scope, orderBy: { createdAt: "desc" } }),
+      create: (data: { name: string; frequency: "IMMEDIATE" | "DAILY"; filters: Record<string, string> }) =>
+        prisma.savedSearch.create({ data: { ...scope, ...data } }),
+      remove: (id: string) => prisma.savedSearch.deleteMany({ where: { ...scope, id } }),
+      setFrequency: (id: string, frequency: "IMMEDIATE" | "DAILY") =>
+        prisma.savedSearch.updateMany({ where: { ...scope, id }, data: { frequency } }),
     },
   };
 }
