@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build --webpack",
-    "start": "next start",
+    "start": "node server.js",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src test",
     "test": "tsx --test \"test/**/*.test.ts\"",
@@ -17,7 +17,13 @@
     "worker:tick": "tsx src/worker/tick.ts",
     "db:generate": "prisma generate",
     "db:seed": "tsx prisma/seed.ts",
-    "geocode": "tsx src/geocode-cli.ts"
+    "geocode": "tsx src/geocode-cli.ts",
+    "prebuild": "node scratch/prepare-db.js",
+    "start:next": "next start",
+    "db:migrate": "prisma migrate deploy",
+    "db:drift": "prisma migrate diff --from-migrations prisma/migrations --to-schema-datamodel prisma/schema.prisma --exit-code --shadow-database-url \"$SHADOW_DATABASE_URL\"",
+    "test:build": "tsx --test test/build.test.ts",
+    "build:docker": "next build --webpack"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

@@ -1,0 +1,25 @@
+# Fallback SEM VPS: executa o worker por até 10 min a cada 6 h. Exige que o MySQL aceite conexões do GitHub
+# (IP público / allowlist) e os segredos DATABASE_URL e SMTP_* configurados no repositório. Não roda conectores com Playwright.
+name: crawl-tick
+on:
+  schedule: [{ cron: "0 */6 * * *" }]
+  workflow_dispatch: {}
+jobs:
+  tick:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx prisma generate
+      - run: npm run worker:tick -- --max-minutes 10
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          SMTP_HOST: ${{ secrets.SMTP_HOST }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          SMTP_USER: ${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+          SMTP_FROM: ${{ secrets.SMTP_FROM }}
+          NEXTAUTH_URL: ${{ secrets.NEXTAUTH_URL }}

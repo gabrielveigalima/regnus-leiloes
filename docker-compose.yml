@@ -1,0 +1,13 @@
+# Ambiente local: MySQL 8 + Mailpit (SMTP de teste em :1025, interface em http://localhost:8025).
+services:
+  mysql:
+    image: mysql:8.4
+    environment: { MYSQL_ROOT_PASSWORD: root, MYSQL_DATABASE: regnus_leiloes }
+    ports: ["3306:3306"]
+    volumes: ["mysql-data:/var/lib/mysql"]
+    healthcheck: { test: ["CMD", "mysqladmin", "ping", "-proot"], interval: 5s, retries: 20 }
+  mailpit:
+    image: axllent/mailpit
+    ports: ["1025:1025", "8025:8025"]
+volumes:
+  mysql-data:
