@@ -10,11 +10,17 @@ export async function enqueue(sourceId: string, type: JobType, payload?: Prisma.
 /** Pega 1 job com lease (SELECT ... FOR UPDATE SKIP LOCKED, MySQL 8). */
 export async function claimJob() {
   return prisma.$transaction(async (tx) => {
-    const rows = await tx.$queryRaw<{ id: string }[]>`
-      SELECT id FROM CrawlJob
-      WHERE (status = 'PENDING' AND runAt <= NOW(3))
-         OR (status = 'RUNNING' AND lockedUntil < NOW(3))
+    // Data passada como parâmetro (UTC, como o Prisma grava); NOW() usaria o fuso do servidor MySQL.
+    const now = new Date();
+    // Duas consultas simples: com OR o MySQL varre/trava um intervalo e os workers se serializam.
+    let rows = await tx.$queryRaw<{ id: string }[]>`
+      SELECT id FROM CrawlJob WHERE status = 'PENDING' AND runAt <= ${now}
       ORDER BY runAt ASC LIMIT 1 FOR UPDATE SKIP LOCKED`;
+    if (!rows[0]) {
+      rows = await tx.$queryRaw<{ id: string }[]>`
+        SELECT id FROM CrawlJob WHERE status = 'RUNNING' AND lockedUntil < ${now}
+        ORDER BY runAt ASC LIMIT 1 FOR UPDATE SKIP LOCKED`; // lease expirado: worker anterior morreu
+    }
     const id = rows[0]?.id;
     if (!id) return null;
     return tx.crawlJob.update({

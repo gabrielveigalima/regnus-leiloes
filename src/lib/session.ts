@@ -8,3 +8,10 @@ export async function requireSession() {
   if (!s?.user?.id || !s.user.organizationId) redirect("/login");
   return s.user;
 }
+
+/** Somente administradores da plataforma (Regnus). */
+export async function requirePlatformAdmin() {
+  const u = await requireSession();
+  if (!u.isPlatformAdmin) redirect("/busca");
+  return u;
+}
