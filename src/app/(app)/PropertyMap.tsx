@@ -38,7 +38,7 @@ export function PropertyMap({ query, single, height = 520 }: { query?: string; s
       if (disposed) return;
       const cluster = (L as unknown as { markerClusterGroup: () => import("leaflet").FeatureGroup }).markerClusterGroup();
       for (const p of data.points) {
-        const approx = p.precision && p.precision !== "ADDRESS";
+        const approx = p.precision === "STREET" || p.precision === "CITY";
         L.circleMarker([p.lat, p.lng], { radius: 7, color: "#0f2a4a", weight: 1, fillColor: approx ? "#98a2b3" : "#c8963e", fillOpacity: 0.9 })
           .bindPopup(`<strong>${esc(p.title)}</strong><br>${brl(p.minBid)}${p.discountPct ? ` (-${p.discountPct.toFixed(0)}%)` : ""}${approx ? `<br><em>localização aproximada (${p.precision === "CITY" ? "cidade" : "rua"})</em>` : ""}<br><a href="/imovel/${encodeURIComponent(p.propertyId)}">Ver imóvel</a>`)
           .addTo(cluster);

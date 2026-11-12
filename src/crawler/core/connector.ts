@@ -19,6 +19,7 @@ export const NormalizedListingSchema = z.object({
     street: z.string().nullish(), number: z.string().nullish(), complement: z.string().nullish(),
     neighborhood: z.string().nullish(), city: z.string().nullish(), uf: z.string().length(2).nullish(),
     zip: z.string().nullish(),
+    lat: z.number().min(-34).max(6).nullish(), lng: z.number().min(-74).max(-34).nullish(), geoPrecision: z.enum(["SOURCE"]).nullish(),
     privateArea: z.number().nullish(), totalArea: z.number().nullish(), landArea: z.number().nullish(),
     bedrooms: z.number().int().nullish(), parking: z.number().int().nullish(),
     registry: z.string().nullish(), registryOffice: z.string().nullish(),

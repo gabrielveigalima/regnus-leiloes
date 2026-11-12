@@ -86,7 +86,7 @@ async function upsertListing(sourceId: string, item: NormalizedListing): Promise
     const match = await resolveProperty(incoming, sourceId);
     const property = match.propertyId
       ? await prisma.property.findUniqueOrThrow({ where: { id: match.propertyId } })
-      : await prisma.property.create({ data: { ...item.property, fingerprint: fingerprint(incoming) } });
+      : await prisma.property.create({ data: { ...item.property, fingerprint: fingerprint(incoming), geocodedAt: item.property.lat != null ? new Date() : undefined } });
     if (match.propertyId) await fillMissing(property.id, item.property);
     else if (match.candidates.length) await recordCandidates(property.id, match.candidates);
     await prisma.listing.create({

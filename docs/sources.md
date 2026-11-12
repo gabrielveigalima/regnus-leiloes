@@ -7,7 +7,8 @@
 | zuk | Leiloeiro | adiado: a listagem só traz 30 cards e a paginação é por `ajax-lote`, proibido no robots.txt | — | — | 2026-11-12 |
 | sodresantoro, superbid, leje | Leiloeiro | **precisa de parceria**: HTTP 403 (anti-bot) para o RegnusBot | — | — | 2026-11-12 |
 | lancejudicial, freitas | Leiloeiro | a investigar (redirecionamentos/robots 302) | — | — | 2026-11-12 |
-| frazao, biasi, pestana | Leiloeiro | acessíveis (HTTP 200, robots permissivo); conector não iniciado | — | — | 2026-11-12 |
+| frazao | Leiloeiro | conector pronto (sitemap + lote, coordenadas da fonte); Source ainda desativada | 398 | 12h | 2026-11-12 |
+| biasi, pestana | Leiloeiro | acessíveis (HTTP 200, robots permissivo); conector não iniciado | — | — | 2026-11-12 |
 | bb, santander, itau, bradesco | Banco | não iniciado (muitos publicam via leiloeiros; ver Mega Leilões como comitente) | — | — | — |
 
 Cada conector exige: README próprio, fixtures reais em `test/fixtures/<id>/`, testes de `parse` e `crawl --dry-run` real antes de ativar a `Source`.
