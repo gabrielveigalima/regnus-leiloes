@@ -11,6 +11,12 @@ Mesmo fluxo do `house-flipping-app`:
 - Primeiro deploy: depois do build, rode uma vez o seed (`npm run db:seed` num terminal SSH/console) e **guarde a senha do admin** (exibida uma única vez).
 - Mudou o schema? Gere uma migration nova (`npx prisma migrate dev --name x` localmente), revise o SQL e commite `prisma/migrations/`. Para conferir que as migrations reproduzem o schema: aplique-as num banco vazio (`prisma migrate deploy`) e rode `npm run db:drift` — deve sair com código 0 (compara o banco real com `schema.prisma`; a comparação via shadow database acusa um falso positivo no índice FULLTEXT do Prisma 5).
 
+### Banco na Hostinger (hPanel)
+1. hPanel → **Bancos de dados → MySQL**: crie o banco e o usuário (anote nome, usuário e senha; o host costuma ser `localhost`).
+2. Na aplicação, em **Variáveis de ambiente**, defina **ou** `DATABASE_URL=mysql://USUARIO:SENHA@127.0.0.1:3306/NOME_DO_BANCO` **ou** `DB_HOST=localhost`, `DB_PORT=3306`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` (sem aspas; senha com `@ : / # ?` etc. precisa de percent-encoding na `DATABASE_URL`, o que `DB_PASSWORD` dispensa).
+3. Se o build falhar com "DATABASE_URL inválida", a mensagem mostra com o que o valor começa — confira o painel.
+4. `npm install` usa o `overrides` do `package.json` para o conflito de peer `next-auth` × `nodemailer`; não é preciso `--legacy-peer-deps`.
+
 ## 2. Banco (MySQL 8)
 - Hostinger MySQL (ou outro). **Backup diário verificado**: `deploy/backup-db.sh` (mysqldump + gzip + checagem de tabelas, retenção 14 dias) via cron. Rode também **antes de cada deploy**.
 - Teste a restauração periodicamente em um banco de homologação (`zcat backup.sql.gz | mysql ...`).
