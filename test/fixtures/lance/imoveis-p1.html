@@ -1,0 +1,2164 @@
+<!doctype html>
+<!--
+
+  /$$$$$$  /$$$$$$$  /$$   /$$ /$$$$$$$   /$$$$$$        /$$        /$$$$$$  /$$   /$$  /$$$$$$  /$$$$$$$$
+ /$$__  $$| $$__  $$| $$  | $$| $$__  $$ /$$__  $$      | $$       /$$__  $$| $$$ | $$ /$$__  $$| $$_____/
+| $$  \__/| $$  \ $$| $$  | $$| $$  \ $$| $$  \ $$      | $$      | $$  \ $$| $$$$| $$| $$  \__/| $$      
+| $$ /$$$$| $$$$$$$/| $$  | $$| $$$$$$$/| $$  | $$      | $$      | $$$$$$$$| $$ $$ $$| $$      | $$$$$   
+| $$|_  $$| $$__  $$| $$  | $$| $$____/ | $$  | $$      | $$      | $$__  $$| $$  $$$$| $$      | $$__/   
+| $$  \ $$| $$  \ $$| $$  | $$| $$      | $$  | $$      | $$      | $$  | $$| $$\  $$$| $$    $$| $$      
+|  $$$$$$/| $$  | $$|  $$$$$$/| $$      |  $$$$$$/      | $$$$$$$$| $$  | $$| $$ \  $$|  $$$$$$/| $$$$$$$$
+ \______/ |__/  |__/ \______/ |__/       \______/       |________/|__/  |__/|__/  \__/ \______/ |________/
+                              
+ Desenvolvido e mantido por Grupo Lance. Todos os direitos reservados.
+--><html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes, user-scalable=yes">
+    <meta name="description" content="Grupo Lance – Plataforma de leilões judiciais, extrajudiciais e trabalhistas online em todo o Brasil. Arremate imóveis, veículos, máquinas e outros bens com segurança e transparência.">
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=10">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=10">
+<link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png?v=10">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=10">
+<link rel="manifest" href="/site.webmanifest?v=10">
+<link rel="mask-icon" href="/safari-pinned-tab.svg?v=10" color="#ff7f3f">
+<link rel="shortcut icon" href="/favicon.ico?v=10">
+<meta name="msapplication-TileColor" content="#ff7f3f">
+<meta name="msapplication-TileImage" content="/mstile-144x144.png?v=10">
+<meta name="theme-color" content="#ff7f3f">    <!-- Google Tag Manager -->
+<script>
+(function(w, d, s, l, i) {
+    w[l] = w[l] || [];
+    w[l].push({
+        'gtm.start': new Date().getTime(),
+        event: 'gtm.js'
+    });
+    var f = d.getElementsByTagName(s)[0],
+        j = d.createElement(s),
+        dl = l != 'dataLayer' ? '&l=' + l : '';
+    j.async = true;
+    j.src =
+        'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+    f.parentNode.insertBefore(j, f);
+})(window, document, 'script', 'dataLayer', 'GTM-W9QLT38J');
+</script>
+<!-- End Google Tag Manager -->
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '2744596339242202');
+fbq('track', 'PageView');
+</script>
+<!-- End Meta Pixel Code -->
+
+    <link rel="privacy-policy" href="https://www.grupolance.com.br/politica-de-privacidade">
+    <link rel="terms-of-service" href="https://www.grupolance.com.br/termos-de-uso">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Grupo Lance",
+        "url": "https://www.grupolance.com.br",
+        "description": "Plataforma de leilões judiciais, extrajudiciais e trabalhistas online em todo o Brasil.",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Lance Alienações Virtuais LTDA",
+            "url": "https://www.grupolance.com.br",
+            "logo": "https://www.grupolance.com.br/img/logo-alt.svg",
+            "publishingPrinciples": "https://www.grupolance.com.br/politica-de-privacidade"
+        }
+    }
+    </script>
+    <title>Leilões de Imóveis | Grupo Lance</title>
+    <meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="CsthySTxbu3lZHwk02Sy7hV56Y8rBwsbNPPQqvr5cT1SglCtE5ovmJ0yTWCkVIDYTCuD6BwxQnBMqr2TgKs-EA==">
+
+<meta name="description" content="Conheça os leilões de Imóveis e conquiste o seu. Possibilidade de parcelamento. Imóveis com até 50% de desconto.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Leilões de Imóveis">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.grupolance.com.br/imoveis">
+<meta property="og:site_name" content="Grupo Lance">
+<meta property="og:description" content="Leilões de Imóveis">
+<meta property="og:locale" content="pt-BR">
+<meta property="og:image" content="https://www.grupolance.com.br/android-chrome-512x512.png">
+<meta property="og:image:secure_url" content="https://www.grupolance.com.br/android-chrome-512x512.png">
+<meta property="og:image:width" content="256">
+<meta property="og:image:height" content="256">
+<meta property="og:image:alt" content="Grupo Lance">
+<link href="https://www.grupolance.com.br/imoveis" rel="canonical">
+<link href="/assets/2faa0b31/cookiealert.css?v=1794508577" rel="stylesheet">
+<link href="/assets/3bccc185/css/all.min.css?v=1794508577" rel="stylesheet">
+<link href="//www.googletagmanager.com" rel="dns-prefetch">
+<link href="//grupolance.com.br" rel="dns-prefetch">
+<link href="//analytics.google.com" rel="dns-prefetch">
+<link href="//cdnjs.cloudflare.com.br" rel="dns-prefetch">
+<link href="//optin.entregaemails.com.br" rel="dns-prefetch">
+<link href="/scss/main.css?v=1794508559" rel="stylesheet" async="async">
+<style>
+
+#ouibounce-modal .modal-content, #ouibounce-modal .card {
+    border: none!important;
+}
+
+.shadow-newsletter-card {
+    box-shadow: .5rem .5rem 2rem rgba(51, 51, 51, 0.5) !important;
+}
+
+.newsletter-card {
+    background-color: #ff7f3f; 
+    border-color: transparent; 
+    background: linear-gradient(45deg, rgb(255 243 51) 0%, rgba(255,127,63,1) 59%);
+    -webkit-box-shadow: 2px 15px 10px rgba(0,0,0,.15);
+    -moz-box-shadow: 2px 15px 10px rgba(0,0,0,.15);
+    -ms-box-shadow: 2px 15px 10px rgba(0,0,0,.15);
+    -o-box-shadow: 2px 15px 10px rgba(0,0,0,.15);
+    box-shadow: 2px 15px 10px rgba(0,0,0,.15);
+}
+
+.newsletter-display:before {
+    content: "";
+    border-top: 6px solid #fff;
+    display: block;
+    width: 0;
+    position: absolute;
+    margin-top: -25px;
+    animation: fade-out-right 7s ease infinite;
+}
+
+  @keyframes fade-out-right {
+    0% {
+      width: 0
+    }
+    50% {
+      width: 90%;
+    }
+    100% {
+      width: 0
+    }
+  }
+
+  .close-newsletter {
+    opacity: 1;
+  }
+</style>
+<style>
+#whatsapp-chat-container {
+    background: #2baf49;
+    position: fixed;
+    bottom: 30px;
+    right: 25px;
+    z-index: 1031;
+    width: 47px;
+    height: 47px;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    line-height: 60px;
+    box-shadow: 0px 0px 3px rgba(0,0,0,.3);
+}
+
+#whatsapp-chat-container i {
+    font-size: 30px;
+};
+</style>
+<script src="/js/utm-capture.js?v=1794331714"></script>
+<script src="/js/meta-events.js?v=1784086354"></script>
+<script src="/js/whatsapp-clique.js?v=1794331714"></script>
+<script>
+window.FontAwesomeConfig = { autoReplaceSvg: false };
+window.websiteId = "1";
+window.baseUrl = "https://www.grupolance.com.br";
+
+window.glMetaAutoEvents = [];</script></head>
+
+<body class="page-by-slug">
+    <noscript><a href="https://www.grupolance.com.br/politica-de-privacidade">Política de Privacidade</a></noscript>
+    <!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W9QLT38J" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+        <div class="preloader-backdrop"></div>
+    <header>
+    <nav role="navigation" class="navbar navbar-expand-xl navbar-dark bg-primary fixed-top">
+        <div class="container-xl"  style="position: relative;" >
+            <a href="/"><img class="navbar-brand mr-sm-6" src="/img/logo-w.svg" height="50" alt=""></a>                                                <a class="d-block d-xl-none btn bnt-link text-white" href="/entrar"><i class="far fa-user"></i> Entrar</a>                                        <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar top-bar"></span>
+                <span class="icon-bar middle-bar"></span>
+                <span class="icon-bar bottom-bar"></span>
+            </button>
+            <div class="collapse navbar-collapse navbar-fix" id="navbarNav">
+                <ul id="w5" class="navbar-nav mt-2 mt-lg-0 nav"><li class="position-static dropdown nav-item"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Categorias</a><div class="categories-dropdown dropdown-menu w-100" aria-labelledby="categories">
+    <div class="container">
+        <div class="nav-categories-list p-3">
+                            <ul>
+                    <li class="category-main "><a href="/imoveis">Imóveis</a> <span class="badge badge-pill badge-outline-default">297</span></li>
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/apartamentos">Apartamentos</a> <span class="badge badge-pill badge-outline-default">44</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/casas">Casas</a> <span class="badge badge-pill badge-outline-default">68</span>                            </li>
+                        
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/depositos-de-garagem">Depósitos de Garagem</a> <span class="badge badge-pill badge-outline-default">Sem lotes</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/galpoes">Galpões</a> <span class="badge badge-pill badge-outline-default">2</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/glebas">Glebas</a> <span class="badge badge-pill badge-outline-default">1</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/hospitais">Hospitais</a> <span class="badge badge-pill badge-outline-default">1</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/hoteis">Hotéis</a> <span class="badge badge-pill badge-outline-default">Sem lotes</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/imoveis-comerciais">Imóveis Comerciais</a> <span class="badge badge-pill badge-outline-default">48</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/imoveis-industriais">Imóveis Industriais</a> <span class="badge badge-pill badge-outline-default">21</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/imoveis-rurais">Imóveis Rurais</a> <span class="badge badge-pill badge-outline-default">21</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/predios">Prédios</a> <span class="badge badge-pill badge-outline-default">4</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/terrenos-e-lotes">Terrenos e Lotes</a> <span class="badge badge-pill badge-outline-default">84</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/imoveis/vagas-de-garagem">Vagas de Garagem</a> <span class="badge badge-pill badge-outline-default">3</span>                            </li>
+                        
+                                    </ul>
+                            <ul>
+                    <li class="category-main "><a href="/veiculos">Veículos</a> <span class="badge badge-pill badge-outline-default">89</span></li>
+                                                                        <li>
+                                <a class="text-reset" href="/veiculos/aeronaves">Aeronaves</a> <span class="badge badge-pill badge-outline-default">Sem lotes</span>                            </li>
+                        
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/veiculos/barcos">Barcos</a> <span class="badge badge-pill badge-outline-default">Sem lotes</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/veiculos/caminhoes">Caminhões</a> <span class="badge badge-pill badge-outline-default">15</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/veiculos/carros">Carros</a> <span class="badge badge-pill badge-outline-default">66</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/veiculos/motos">Motos</a> <span class="badge badge-pill badge-outline-default">8</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/veiculos/onibus">Onibus</a> <span class="badge badge-pill badge-outline-default">Sem lotes</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                    </ul>
+                            <ul>
+                    <li class="category-main fix"><a href="/bens-de-consumo">Bens de Consumo</a> <span class="badge badge-pill badge-outline-default">22</span></li>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/bens-de-consumo/eletrodomesticos">Eletrodomésticos</a> <span class="badge badge-pill badge-outline-default">4</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/bens-de-consumo/eletronicos">Eletrônicos</a> <span class="badge badge-pill badge-outline-default">5</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/bens-de-consumo/diversos">Itens Diversos</a> <span class="badge badge-pill badge-outline-default">11</span>                            </li>
+                        
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/bens-de-consumo/mobiliarios">Mobiliários</a> <span class="badge badge-pill badge-outline-default">2</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                    </ul>
+                            <ul>
+                    <li class="category-main "><a href="/bens-industriais">Bens Industriais</a> <span class="badge badge-pill badge-outline-default">22</span></li>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/bens-industriais/industriais-diversos">Itens Diversos Industriais</a> <span class="badge badge-pill badge-outline-default">13</span>                            </li>
+                        
+                                                                        <li>
+                                <a class="text-reset" href="/bens-industriais/maquinas-industriais">Máquinas</a> <span class="badge badge-pill badge-outline-default">9</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                    </ul>
+                            <ul>
+                    <li class="category-main fix"><a href="/animais">Animais</a> <span class="badge badge-pill badge-outline-default">1</span></li>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/animais/cavalos">Cavalos</a> <span class="badge badge-pill badge-outline-default">1</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                                                        <li>
+                                <a class="text-reset" href="/animais/gado">Gado</a> <span class="badge badge-pill badge-outline-default">Sem lotes</span>                            </li>
+                        
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                    </ul>
+            
+            <ul>
+                <li class="category-main fix text-primary">Tipo de leilão</li><li><a class="text-reset" href="/leiloes/judiciais">Judicial</a> <span class="badge badge-pill badge-outline-default">426</span></li><li><a class="text-reset" href="/leiloes/extrajudiciais">Extrajudicial</a> <span class="badge badge-pill badge-outline-default">5</span></li><li><a class="text-reset" href="/leiloes/trt">Justiça do Trabalho</a> <span class="badge badge-pill badge-outline-default">0</span></li>            </ul>
+            <ul>
+                <li class="category-main fix text-primary">Situação de leilão</li><li><a class="text-reset" href="/lotes-em-breve">Lotes em breve</a></li><li><a class="text-reset" href="/lotes-abertos-para-lance">Lotes abertos para lance</a></li>            </ul>
+        </div>
+    </div>
+</div>
+</li>
+<li class="nav-item"><a class="nav-link" href="/agenda">Agenda</a></li>
+<li class="dropdown nav-item"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown">Institucional</a><div id="w6" class="dropdown-menu"><a class="dropdown-item" href="/atendimento">Atendimento</a>
+<a class="dropdown-item" href="/empresa">Sobre a empresa</a>
+<a class="dropdown-item" href="/equipe">Leiloeiros</a>
+<a class="dropdown-item" href="https://www.linkedin.com/company/lance-judicial/about/" target="_blank">Trabalhe conosco</a>
+<a class="dropdown-item" href="/faq">Perguntas Frequentes (FAQ)</a>
+<a class="dropdown-item" href="/dpo">LGPD - Encarregado de Dados Pessoais (DPO)</a>
+<a class="dropdown-item" href="https://blog.grupolance.com.br" target="_blank">Blog</a>
+<a class="dropdown-item" href="https://www.youtube.com/@leilao.podcast" target="_blank">Podcast</a>
+<a class="dropdown-item" href="https://blog.grupolance.com.br/consultoria/" target="_blank">Mentoria</a></div></li>
+<li class="nav-item"><a class="pl-3 pl-md-2 btn-outline-secondary rounded active nav-link" href="/indicacao">INDICAÇÃO</a></li></ul>
+                <ul id="w7" class="navbar-nav ml-auto nav"><li class="nav-item"><a class="text-white mr-2 nav-link" href="tel:30030577"><i class="fas fa-phone-alt mr-1"></i>3003-0577</a></li>
+<li class="nav-item"><a class="open-auditorium nav-link" href="/auditorio" target="_blank"><i class="fas fa-gavel"></i> Auditório</a></li>
+<li class="nav-item"><a class="nav-link" href="/cadastro"><b>Criar conta</b></a></li>
+<li class="d-none d-sm-block nav-item"><a class="nav-link" href="/entrar?return=L2ltb3ZlaXM%3D"><i class="far fa-user"></i> Entrar</a></li></ul>            </div>
+        </div>
+    </nav>
+</header>
+    <main class="page">
+                
+<style>
+    .category-header .breadcrumb-item,
+    .category-header .breadcrumb-item a {
+        color: #fff !important;
+    }
+</style>
+
+
+<div class="category-header" style="margin-top: 0px;">
+    <div class="container" style="position: relative;">
+        <h1 class="section-header text-white" >Leilões de Imóveis</h1>
+            <nav class="pt-0 d-none d-md-block"><ol id="w0" class="breadcrumb" itemscope="" itemtype="https://schema.org/Product" itemprop="item" offers='{"@type":"Offer","price":0,"priceCurrency":"BRL"}'><li class="breadcrumb-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem"><a href="/"><i class="fa fa-home"></i></a></li>
+<li class="breadcrumb-item" itemscope itemprop="itemListElement" itemtype="http://schema.org/ListItem" class="active">Imóveis</li>
+</ol></nav>    </div>
+</div>
+
+<section class="container mt-5 mb-5">
+    <div id="pjax-auction-batches" data-pjax-container="" data-pjax-push-state data-pjax-timeout="3600" data-pjax-scrollto="function() { $(&#039;html, body&#039;).animate({scrollTop: 0}, 350); }">    <div id="w1" class="list-view"><div class='float-left'><div class="summary"><div class="summary mb-3"><b>1-32</b> de <b>286</b> itens. Página <b>1</b> de <b>9</b></div></div></div>
+<div class='float-right'><div id="w2" class="dropdown btn-group"><button id="w2-button" class="btn shadow-sm dropdown-toggle" style="margin-top: -15px" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-sort"></i> <span class="d-none d-sm-inline">Ordenação</span></button>
+
+<div id="w3" class="dropdown-menu-right dropdown-menu"><li><a href="/imoveis?sort=menor_preco&amp;pagina=1" tabindex="-1" data-sort="menor_preco">Menor Preço</a></li>
+<li><a href="/imoveis?sort=maior_preco&amp;pagina=1" tabindex="-1" data-sort="maior_preco">Maior Preço</a></li>
+<li><a href="/imoveis?sort=popularidade&amp;pagina=1" tabindex="-1" data-sort="popularidade">Popularidade</a></li>
+<li><a href="/imoveis?sort=data_inicio&amp;pagina=1" tabindex="-1" data-sort="data_inicio">Data de Início</a></li>
+<li><a href="/imoveis?sort=data_termino&amp;pagina=1" tabindex="-1" data-sort="data_termino">Data de Término</a></li>
+<li><a href="/imoveis?sort=lote&amp;pagina=1" tabindex="-1" data-sort="lote">Lote</a></li></div></div></div><div class='clearfix'></div>
+<div class="row"><div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="29034"><div class="card mb-4">
+    <div class="card-counter">25% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/sc/palhoca/imoveis/terrenos-e-lotes/terreno-at-302m2-nova-palhoca-palhoca-sc-29034" alt="Terreno, A.T.: 302m², Nova Palhoça, Palhoça/SC" style="background: url(//cdn.grupolance.com.br/batches/66/29034/f3ccdd27d2000e3f9255a7e3e2c48800_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/sc/palhoca/imoveis/terrenos-e-lotes/terreno-at-302m2-nova-palhoca-palhoca-sc-29034" title="Terreno, A.T.: 302m², Nova Palhoça, Palhoça/SC" data-pjax="0">Terreno, A.T.: 302m², Nova Palhoça, Palhoça/SC</a>                        <div class="card-price">
+            R$ 350.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="29034"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/sc/palhoca" title="Palhoça, SC" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Palhoça, SC</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 59.666666666667%;" data-toggle="tooltip" data-placement="top" title="Encerra em 8 hora(s)"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/sc/palhoca/imoveis/terrenos-e-lotes/terreno-at-302m2-nova-palhoca-palhoca-sc-29034" data-pjax="0">29034 - LOTE 1367</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 3329</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>12/11/2026 às 12:00</li>
+                        <li>13/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 350.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>13/11/2026 às 08:00</li>
+                        <li>12/12/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 262.500,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="29041"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/mg/ipaba/imoveis/imoveis-comerciais/imovel-comercial-at-1444m2-ac-300m2-centro-ipaba-mg-29041" alt="Imóvel Comercial, A.T.: 1.444m², A.C.: 300m², Centro, Ipaba/MG" style="background: url(//cdn.grupolance.com.br/batches/6a/29041/f3ccdd27d2000e3f9255a7e3e2c48800_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/mg/ipaba/imoveis/imoveis-comerciais/imovel-comercial-at-1444m2-ac-300m2-centro-ipaba-mg-29041" title="Imóvel Comercial, A.T.: 1.444m², A.C.: 300m², Centro, Ipaba/MG" data-pjax="0">Imóvel Comercial, A.T.: 1.444m², A.C.: 300m², Centro, Ipaba/MG</a>                        <div class="card-price">
+            R$ 5.500.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="29041"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/mg/ipaba" title="Ipaba, MG" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Ipaba, MG</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 59.666666666667%;" data-toggle="tooltip" data-placement="top" title="Encerra em 8 hora(s)"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/mg/ipaba/imoveis/imoveis-comerciais/imovel-comercial-at-1444m2-ac-300m2-centro-ipaba-mg-29041" data-pjax="0">29041 - LOTE 1371</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 3104</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>12/11/2026 às 12:00</li>
+                        <li>13/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 5.500.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>13/11/2026 às 08:00</li>
+                        <li>12/12/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 2.750.000,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="29042"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/rj/mangaratiba/imoveis/casas/casa-at-788m2-ac-233m2-vila-muriqui-mangaratiba-rj-29042" alt="Casa, A.T.: 788m², A.C.: 233m², Vila Muriqui, Mangaratiba/RJ" style="background: url(//cdn.grupolance.com.br/batches/9b/29042/156005c5baf40ff51a327f1c34f2975b_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/rj/mangaratiba/imoveis/casas/casa-at-788m2-ac-233m2-vila-muriqui-mangaratiba-rj-29042" title="Casa, A.T.: 788m², A.C.: 233m², Vila Muriqui, Mangaratiba/RJ" data-pjax="0">Casa, A.T.: 788m², A.C.: 233m², Vila Muriqui, Mangaratiba/RJ</a>                        <div class="card-price">
+            R$ 1.400.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="29042"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/rj/mangaratiba" title="Mangaratiba, RJ" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Mangaratiba, RJ</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 59.666666666667%;" data-toggle="tooltip" data-placement="top" title="Encerra em 8 hora(s)"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/rj/mangaratiba/imoveis/casas/casa-at-788m2-ac-233m2-vila-muriqui-mangaratiba-rj-29042" data-pjax="0">29042 - LOTE 1372</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 3348</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>12/11/2026 às 12:00</li>
+                        <li>13/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 1.400.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>13/11/2026 às 08:00</li>
+                        <li>12/12/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 700.000,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="29076"><div class="card mb-4">
+    <div class="card-counter">40% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/sp/sao-paulo/imoveis/imoveis-comerciais/predio-comercial-300m2-rua-25-de-marco-centro-sao-paulo-sp-29076" alt="Prédio Comercial, 300m², Rua 25 de Março, Centro, São Paulo/SP" style="background: url(//cdn.grupolance.com.br/batches/74/29076/1aaf0df55784a24fd436617863474227_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/sp/sao-paulo/imoveis/imoveis-comerciais/predio-comercial-300m2-rua-25-de-marco-centro-sao-paulo-sp-29076" title="Prédio Comercial, 300m², Rua 25 de Março, Centro, São Paulo/SP" data-pjax="0">Prédio Comercial, 300m², Rua 25 de Março, Centro, São Paulo/SP</a>                        <div class="card-price">
+            R$ 22.935.427,19        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14698" data-batch="29076"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/sp/sao-paulo" title="São Paulo, SP" data-pjax="0"><i class="fas fa-map-marker-alt"></i> São Paulo, SP</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 83.562439496612%;" data-toggle="tooltip" data-placement="top" title="Encerra em 14 hora(s)"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/sp/sao-paulo/imoveis/imoveis-comerciais/predio-comercial-300m2-rua-25-de-marco-centro-sao-paulo-sp-29076" data-pjax="0">29076 - LOTE 1</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 2232</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 0</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>10/11/2026 às 00:00</li>
+                        <li>13/11/2026 às 14:05</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 22.935.427,19</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>13/11/2026 às 14:05</li>
+                        <li>01/12/2026 às 14:05</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 13.761.256,31</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28879"><div class="card mb-4">
+    <div class="card-counter">40% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/sp/sao-vicente/imoveis/casas/apartamento-area-total-112m2-edificio-brasil-sao-vicente-sp-28879" alt="Apartamento, área total 112m², Edifício Brasil, São Vicente/SP" style="background: url(//cdn.grupolance.com.br/batches/20/28879/f3ccdd27d2000e3f9255a7e3e2c48800_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/sp/sao-vicente/imoveis/casas/apartamento-area-total-112m2-edificio-brasil-sao-vicente-sp-28879" title="Apartamento, área total 112m², Edifício Brasil, São Vicente/SP" data-pjax="0">Apartamento, área total 112m², Edifício Brasil, São Vicente/SP</a>                        <div class="card-price">
+            R$ 403.969,05        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14595" data-batch="28879"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/sp/sao-vicente" title="São Vicente, SP" data-pjax="0"><i class="fas fa-map-marker-alt"></i> São Vicente, SP</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 83.513931888545%;" data-toggle="tooltip" data-placement="top" title="Encerra em 14 hora(s)"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/sp/sao-vicente/imoveis/casas/apartamento-area-total-112m2-edificio-brasil-sao-vicente-sp-28879" data-pjax="0">28879 - LOTE 1</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 524</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 3</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>10/11/2026 às 00:00</li>
+                        <li>13/11/2026 às 14:08</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 403.969,05</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>13/11/2026 às 14:08</li>
+                        <li>01/12/2026 às 14:08</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 242.381,43</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28920"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/pe/moreno/imoveis/terrenos-e-lotes/terreno-30034m2-moreno-pe-28920" alt="Terreno, 30.034m², Moreno/PE" style="background: url(//cdn.grupolance.com.br/batches/ed/28920/799bad5a3b514f096e69bbc4a7896cd9_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/pe/moreno/imoveis/terrenos-e-lotes/terreno-30034m2-moreno-pe-28920" title="Terreno, 30.034m², Moreno/PE" data-pjax="0">Terreno, 30.034m², Moreno/PE</a>                        <div class="card-price">
+            R$ 825.939,50        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="28920"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/pe/moreno" title="Moreno, PE" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Moreno, PE</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 100%;" data-toggle="tooltip" data-placement="top" title="1ª Praça finalizada"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 95.392720306513%;" data-toggle="tooltip" data-placement="top" title="Encerra em 1 dia"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/pe/moreno/imoveis/terrenos-e-lotes/terreno-30034m2-moreno-pe-28920" data-pjax="0">28920 - LOTE 1341</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 5513</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>15/10/2026 às 12:00</li>
+                        <li>16/10/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 1.651.879,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>16/10/2026 às 08:00</li>
+                        <li>14/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 825.939,50</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28921"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/pe/arapirina/imoveis/imoveis-industriais/imovel-industrial-distrito-industrial-araripina-pe-28921" alt="Imóvel Industrial, Distrito Industrial, Araripina/PE" style="background: url(//cdn.grupolance.com.br/batches/8c/28921/156005c5baf40ff51a327f1c34f2975b_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/pe/arapirina/imoveis/imoveis-industriais/imovel-industrial-distrito-industrial-araripina-pe-28921" title="Imóvel Industrial, Distrito Industrial, Araripina/PE" data-pjax="0">Imóvel Industrial, Distrito Industrial, Araripina/PE</a>                        <div class="card-price">
+            R$ 769.798,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="28921"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/pe/arapirina" title="Arapirina, PE" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Arapirina, PE</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 100%;" data-toggle="tooltip" data-placement="top" title="1ª Praça finalizada"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 95.392720306513%;" data-toggle="tooltip" data-placement="top" title="Encerra em 1 dia"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/pe/arapirina/imoveis/imoveis-industriais/imovel-industrial-distrito-industrial-araripina-pe-28921" data-pjax="0">28921 - LOTE 1342</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 6897</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>15/10/2026 às 12:00</li>
+                        <li>16/10/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 1.539.596,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>16/10/2026 às 08:00</li>
+                        <li>14/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 769.798,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="20900"><div class="card mb-4">
+        <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/rj/armacao-dos-buzios/imoveis/imoveis-comerciais/hotel-com-vista-at-9143m2-21-suites-joao-fernandes-armacao-dos-buzios-rj-20900" alt="Hotel com vista, A.T.: 9.143m², 21 suítes, João Fernandes, Armação dos Búzios/RJ" style="background: url(//cdn.grupolance.com.br/batches/55/20900/02519bfb266773f243fdef49420313d1_thumb.jpeg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/rj/armacao-dos-buzios/imoveis/imoveis-comerciais/hotel-com-vista-at-9143m2-21-suites-joao-fernandes-armacao-dos-buzios-rj-20900" title="Hotel com vista, A.T.: 9.143m², 21 suítes, João Fernandes, Armação dos Búzios/RJ" data-pjax="0">Hotel com vista, A.T.: 9.143m², 21 suítes, João Fernandes, Armação dos Búzios/RJ</a>                        <div class="card-price">
+            R$ 10.464.978,89        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="11213" data-batch="20900"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/rj/armacao-dos-buzios" title="Armação Dos Búzios, RJ" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Armação Dos Búzios, RJ</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-holder w-100">
+                    <div class="progress-bar" style="width: 98.871764473424%;" data-toggle="tooltip" data-placement="top" title="Encerra em 1 dia"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/rj/armacao-dos-buzios/imoveis/imoveis-comerciais/hotel-com-vista-at-9143m2-21-suites-joao-fernandes-armacao-dos-buzios-rj-20900" data-pjax="0">20900 - LOTE 1</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 18543</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 17</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 1</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">P. Única</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>25/06/2026 às 00:00</li>
+                        <li>14/11/2026 às 14:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 10.464.978,89</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28837"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/sp/euclides-da-cunha-paulista/imoveis/imoveis-rurais/terreno-42000m2-euclides-da-cunha-paulista-sp-28837" alt="Terreno, 420,00m², Euclides da Cunha Paulista/SP" style="background: url(//cdn.grupolance.com.br/batches/2c/28837/4a47a0db6e60853dedfcfdf08a5ca249_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/sp/euclides-da-cunha-paulista/imoveis/imoveis-rurais/terreno-42000m2-euclides-da-cunha-paulista-sp-28837" title="Terreno, 420,00m², Euclides da Cunha Paulista/SP" data-pjax="0">Terreno, 420,00m², Euclides da Cunha Paulista/SP</a>                        <div class="card-price">
+            R$ 102.147,31        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14577" data-batch="28837"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/sp/euclides-da-cunha-paulista" title="Euclides Da Cunha Paulista, SP" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Euclides Da Cunha Paulista, SP</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 100%;" data-toggle="tooltip" data-placement="top" title="1ª Praça finalizada"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 88.923611111111%;" data-toggle="tooltip" data-placement="top" title="Encerra em 3 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/sp/euclides-da-cunha-paulista/imoveis/imoveis-rurais/terreno-42000m2-euclides-da-cunha-paulista-sp-28837" data-pjax="0">28837 - LOTE 1</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 6115</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 0</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>14/09/2026 às 00:00</li>
+                        <li>14/10/2026 às 13:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 204.294,61</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>14/10/2026 às 13:00</li>
+                        <li>16/11/2026 às 13:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 102.147,31</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28319"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1201-salvador-ba-28319" alt="Sala comercial, Ed. Cosmopolitan Mix, Sala 1201, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/4f/28319/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1201-salvador-ba-28319" title="Sala comercial, Ed. Cosmopolitan Mix, Sala 1201, Salvador/BA" data-pjax="0">Sala comercial, Ed. Cosmopolitan Mix, Sala 1201, Salvador/BA</a>                        <div class="card-price">
+            R$ 187.452,79        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28319"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1201-salvador-ba-28319" data-pjax="0">28319 - LOTE 2</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1593</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 187.452,79</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 93.726,40</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28320"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-sala-1202-salvador-ba-28320" alt="Sala comercial, Edifício  Cosmopolitan Mix, Sala 1202, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/fe/28320/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-sala-1202-salvador-ba-28320" title="Sala comercial, Edifício  Cosmopolitan Mix, Sala 1202, Salvador/BA" data-pjax="0">Sala comercial, Edifício  Cosmopolitan Mix, Sala 1202, Salvador/BA</a>                        <div class="card-price">
+            R$ 168.363,04        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28320"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-sala-1202-salvador-ba-28320" data-pjax="0">28320 - LOTE 3</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1380</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 168.363,04</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 84.181,52</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28321"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-salvador-ba-28321" alt="Sala comercial, Edificio Cosmopolitan Mix, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/8f/28321/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-salvador-ba-28321" title="Sala comercial, Edificio Cosmopolitan Mix, Salvador/BA" data-pjax="0">Sala comercial, Edificio Cosmopolitan Mix, Salvador/BA</a>                        <div class="card-price">
+            R$ 174.499,03        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28321"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-salvador-ba-28321" data-pjax="0">28321 - LOTE 4</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1420</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 174.499,03</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 87.249,52</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28322"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1204-salvador-ba-28322" alt="Sala comercial, Ed. Cosmopolitan Mix, Sala 1204, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/d7/28322/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1204-salvador-ba-28322" title="Sala comercial, Ed. Cosmopolitan Mix, Sala 1204, Salvador/BA" data-pjax="0">Sala comercial, Ed. Cosmopolitan Mix, Sala 1204, Salvador/BA</a>                        <div class="card-price">
+            R$ 174.499,03        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28322"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1204-salvador-ba-28322" data-pjax="0">28322 - LOTE 5</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 3771</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 174.499,03</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 87.249,52</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28323"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1209-salvador-ba-28323" alt="Sala comercial, Ed. Cosmopolitan Mix, Sala 1209, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/85/28323/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1209-salvador-ba-28323" title="Sala comercial, Ed. Cosmopolitan Mix, Sala 1209, Salvador/BA" data-pjax="0">Sala comercial, Ed. Cosmopolitan Mix, Sala 1209, Salvador/BA</a>                        <div class="card-price">
+            R$ 151.677,44        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28323"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1209-salvador-ba-28323" data-pjax="0">28323 - LOTE 6</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1365</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 151.677,44</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 75.838,72</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28324"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1210-salvador-ba-28324" alt="Sala comercial, Ed. Cosmopolitan Mix, Sala 1210, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/8a/28324/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1210-salvador-ba-28324" title="Sala comercial, Ed. Cosmopolitan Mix, Sala 1210, Salvador/BA" data-pjax="0">Sala comercial, Ed. Cosmopolitan Mix, Sala 1210, Salvador/BA</a>                        <div class="card-price">
+            R$ 151.677,44        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28324"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1210-salvador-ba-28324" data-pjax="0">28324 - LOTE 7</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 3825</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 151.677,44</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 75.838,72</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28325"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1205-salvador-ba-28325" alt="Sala comercial, Ed. Cosmopolitan Mix, Sala 1205, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/40/28325/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1205-salvador-ba-28325" title="Sala comercial, Ed. Cosmopolitan Mix, Sala 1205, Salvador/BA" data-pjax="0">Sala comercial, Ed. Cosmopolitan Mix, Sala 1205, Salvador/BA</a>                        <div class="card-price">
+            R$ 163.590,60        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28325"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1205-salvador-ba-28325" data-pjax="0">28325 - LOTE 8</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1375</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 163.590,60</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 81.795,30</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28326"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1206-salvador-ba-28326" alt="Sala comercial, Ed. Cosmopolitan Mix, Sala 1206, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/30/28326/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1206-salvador-ba-28326" title="Sala comercial, Ed. Cosmopolitan Mix, Sala 1206, Salvador/BA" data-pjax="0">Sala comercial, Ed. Cosmopolitan Mix, Sala 1206, Salvador/BA</a>                        <div class="card-price">
+            R$ 177.082,61        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28326"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1206-salvador-ba-28326" data-pjax="0">28326 - LOTE 9</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1360</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 177.082,61</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 88.541,31</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28327"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-sala-1207-salvador-ba-28327" alt="Sala comercial, Edifício  Cosmopolitan Mix, sala 1207, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/43/28327/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-sala-1207-salvador-ba-28327" title="Sala comercial, Edifício  Cosmopolitan Mix, sala 1207, Salvador/BA" data-pjax="0">Sala comercial, Edifício  Cosmopolitan Mix, sala 1207, Salvador/BA</a>                        <div class="card-price">
+            R$ 151.892,74        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28327"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-edificio-cosmopolitan-mix-sala-1207-salvador-ba-28327" data-pjax="0">28327 - LOTE 10</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1378</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 151.892,74</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 75.946,37</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28328"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1208-salvador-ba-28328" alt="Sala comercial, Ed. Cosmopolitan Mix, sala 1208, Salvador/BA" style="background: url(//cdn.grupolance.com.br/batches/b9/28328/6a040a398e8b0f7cff1536f41c7be8af_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1208-salvador-ba-28328" title="Sala comercial, Ed. Cosmopolitan Mix, sala 1208, Salvador/BA" data-pjax="0">Sala comercial, Ed. Cosmopolitan Mix, sala 1208, Salvador/BA</a>                        <div class="card-price">
+            R$ 151.892,74        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28328"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/salvador" title="Salvador, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Salvador, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/salvador/imoveis/imoveis-comerciais/sala-comercial-ed-cosmopolitan-mix-sala-1208-salvador-ba-28328" data-pjax="0">28328 - LOTE 11</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1421</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 151.892,74</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 75.946,37</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28329"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/rn/mossoro/imoveis/imoveis-rurais/area-de-terras-2053043m2-fazenda-novo-horizonte-mossoro-rn-28329" alt="Área de Terras, 20.530,43m², Fazenda Novo Horizonte, Mossoró/RN" style="background: url(//cdn.grupolance.com.br/batches/46/28329/4a47a0db6e60853dedfcfdf08a5ca249_thumb.png) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/rn/mossoro/imoveis/imoveis-rurais/area-de-terras-2053043m2-fazenda-novo-horizonte-mossoro-rn-28329" title="Área de Terras, 20.530,43m², Fazenda Novo Horizonte, Mossoró/RN" data-pjax="0">Área de Terras, 20.530,43m², Fazenda Novo Horizonte, Mossoró/RN</a>                        <div class="card-price">
+            R$ 65.228,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14331" data-batch="28329"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/rn/mossoro" title="Mossoró, RN" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Mossoró, RN</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.34460547504%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/rn/mossoro/imoveis/imoveis-rurais/area-de-terras-2053043m2-fazenda-novo-horizonte-mossoro-rn-28329" data-pjax="0">28329 - LOTE 12</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 1418</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 48</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 65.228,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:00</li>
+                        <li>25/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 32.614,00</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="26308"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/marau/imoveis/casas/lote-de-terreno-362m2-condominio-jardim-das-bromelias-marau-ba-26308" alt="Lote de Terreno, 362m², Condomínio Jardim das Bromélias, Maraú/BA" style="background: url(//cdn.grupolance.com.br/batches/47/26308/fe5df232cafa4c4e0f1a0294418e5660_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/marau/imoveis/casas/lote-de-terreno-362m2-condominio-jardim-das-bromelias-marau-ba-26308" title="Lote de Terreno, 362m², Condomínio Jardim das Bromélias, Maraú/BA" data-pjax="0">Lote de Terreno, 362m², Condomínio Jardim das Bromélias, Maraú/BA</a>                        <div class="card-price">
+            R$ 216.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="13567" data-batch="26308"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/marau" title="Maraú, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Maraú, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.307320997586%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/marau/imoveis/casas/lote-de-terreno-362m2-condominio-jardim-das-bromelias-marau-ba-26308" data-pjax="0">26308 - LOTE 1</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 648</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 20</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:10</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 216.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:10</li>
+                        <li>25/11/2026 às 15:10</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 108.000,00</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="26310"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/marau/imoveis/terrenos-e-lotes/lote-de-terreno-360m2-condominio-jardim-das-bromelias-marau-ba-26310" alt="Lote de Terreno, 360m², Condomínio Jardim das Bromélias, Maraú/BA" style="background: url(//cdn.grupolance.com.br/batches/ea/26310/fe5df232cafa4c4e0f1a0294418e5660_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/marau/imoveis/terrenos-e-lotes/lote-de-terreno-360m2-condominio-jardim-das-bromelias-marau-ba-26310" title="Lote de Terreno, 360m², Condomínio Jardim das Bromélias, Maraú/BA" data-pjax="0">Lote de Terreno, 360m², Condomínio Jardim das Bromélias, Maraú/BA</a>                        <div class="card-price">
+            R$ 215.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="13567" data-batch="26310"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/marau" title="Maraú, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Maraú, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.307320997586%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/marau/imoveis/terrenos-e-lotes/lote-de-terreno-360m2-condominio-jardim-das-bromelias-marau-ba-26310" data-pjax="0">26310 - LOTE 2</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 636</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 20</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:10</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 215.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:10</li>
+                        <li>25/11/2026 às 15:10</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 107.500,00</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="26312"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/ba/marau/imoveis/terrenos-e-lotes/lote-de-terreno-360m2-condominio-jardim-das-bromelias-marau-ba-26312" alt="Lote de Terreno, 360m², Condomínio Jardim das Bromélias, Maraú/BA" style="background: url(//cdn.grupolance.com.br/batches/7e/26312/fe5df232cafa4c4e0f1a0294418e5660_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/ba/marau/imoveis/terrenos-e-lotes/lote-de-terreno-360m2-condominio-jardim-das-bromelias-marau-ba-26312" title="Lote de Terreno, 360m², Condomínio Jardim das Bromélias, Maraú/BA" data-pjax="0">Lote de Terreno, 360m², Condomínio Jardim das Bromélias, Maraú/BA</a>                        <div class="card-price">
+            R$ 215.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="13567" data-batch="26312"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/ba/marau" title="Maraú, BA" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Maraú, BA</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 46.307320997586%;" data-toggle="tooltip" data-placement="top" title="Encerra em 4 dias"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 0%;" data-toggle="tooltip" data-placement="top" title="Leilão não iniciado"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/ba/marau/imoveis/terrenos-e-lotes/lote-de-terreno-360m2-condominio-jardim-das-bromelias-marau-ba-26312" data-pjax="0">26312 - LOTE 3</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 626</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 20</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/11/2026 às 00:00</li>
+                        <li>17/11/2026 às 15:10</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 215.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>17/11/2026 às 15:10</li>
+                        <li>25/11/2026 às 15:10</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 107.500,00</li>                    </ol>
+                </div>
+                                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28926"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/mg/governador-valadares/imoveis/terrenos-e-lotes/terreno-20000m2-planalto-governador-valadares-mg-28926" alt="Terreno, 20.000m², Planalto, Governador Valadares/MG" style="background: url(//cdn.grupolance.com.br/batches/e9/28926/799bad5a3b514f096e69bbc4a7896cd9_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/mg/governador-valadares/imoveis/terrenos-e-lotes/terreno-20000m2-planalto-governador-valadares-mg-28926" title="Terreno, 20.000m², Planalto, Governador Valadares/MG" data-pjax="0">Terreno, 20.000m², Planalto, Governador Valadares/MG</a>                        <div class="card-price">
+            R$ 600.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="28926"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/mg/governador-valadares" title="Governador Valadares, MG" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Governador Valadares, MG</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 100%;" data-toggle="tooltip" data-placement="top" title="1ª Praça finalizada"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 81.599616858238%;" data-toggle="tooltip" data-placement="top" title="Encerra em 5 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/mg/governador-valadares/imoveis/terrenos-e-lotes/terreno-20000m2-planalto-governador-valadares-mg-28926" data-pjax="0">28926 - LOTE 1347</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 6017</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>19/10/2026 às 12:00</li>
+                        <li>20/10/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 1.200.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>20/10/2026 às 08:00</li>
+                        <li>18/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 600.000,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28384"><div class="card mb-4">
+        <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/sp/cubatao/imoveis/terrenos-e-lotes/area-industrial-at-100000m2-cubatao-sp-28384" alt="Área industrial, A.T.: 100.000m², Cubatão/SP" style="background: url(//cdn.grupolance.com.br/batches/d7/28384/dae19f94a82b3441af36cc9af98508cd_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/sp/cubatao/imoveis/terrenos-e-lotes/area-industrial-at-100000m2-cubatao-sp-28384" title="Área industrial, A.T.: 100.000m², Cubatão/SP" data-pjax="0">Área industrial, A.T.: 100.000m², Cubatão/SP</a>                        <div class="card-price">
+            R$ 30.000.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12044" data-batch="28384"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/sp/cubatao" title="Cubatão, SP" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Cubatão, SP</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-holder w-100">
+                    <div class="progress-bar" style="width: 96.956793012011%;" data-toggle="tooltip" data-placement="top" title="Encerra em 5 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/sp/cubatao/imoveis/terrenos-e-lotes/area-industrial-at-100000m2-cubatao-sp-28384" data-pjax="0">28384 - LOTE 368</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 11433</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 104</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">P. Única</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>21/05/2026 às 08:00</li>
+                        <li>18/11/2026 às 10:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 30.000.000,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28947"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/rj/rio-de-janeiro/imoveis/imoveis-comerciais/sala-comercial-at-85m2-saude-rio-de-janeiro-rj-28947" alt="Sala Comercial, A.T.: 85m², Saúde, Rio de Janeiro/RJ" style="background: url(//cdn.grupolance.com.br/batches/7b/28947/156005c5baf40ff51a327f1c34f2975b_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/rj/rio-de-janeiro/imoveis/imoveis-comerciais/sala-comercial-at-85m2-saude-rio-de-janeiro-rj-28947" title="Sala Comercial, A.T.: 85m², Saúde, Rio de Janeiro/RJ" data-pjax="0">Sala Comercial, A.T.: 85m², Saúde, Rio de Janeiro/RJ</a>                        <div class="card-price">
+            R$ 170.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="28947"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/rj/rio-de-janeiro" title="Rio De Janeiro, RJ" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Rio De Janeiro, RJ</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 100%;" data-toggle="tooltip" data-placement="top" title="1ª Praça finalizada"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 71.254789272031%;" data-toggle="tooltip" data-placement="top" title="Encerra em 8 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/rj/rio-de-janeiro/imoveis/imoveis-comerciais/sala-comercial-at-85m2-saude-rio-de-janeiro-rj-28947" data-pjax="0">28947 - LOTE 1350</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 6001</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>22/10/2026 às 12:00</li>
+                        <li>23/10/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 340.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>23/10/2026 às 08:00</li>
+                        <li>21/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 170.000,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28530"><div class="card mb-4">
+    <div class="card-counter">30% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/pe/recife/imoveis/apartamentos/apartamento-268m2-4-suites-4-vagas-19o-andar-pina-recife-pe-28530" alt="Apartamento, 268m², 4 suítes, 4 vagas, 19º andar, Pina, Recife/PE" style="background: url(//cdn.grupolance.com.br/batches/b9/28530/f3ccdd27d2000e3f9255a7e3e2c48800_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/pe/recife/imoveis/apartamentos/apartamento-268m2-4-suites-4-vagas-19o-andar-pina-recife-pe-28530" title="Apartamento, 268m², 4 suítes, 4 vagas, 19º andar, Pina, Recife/PE" data-pjax="0">Apartamento, 268m², 4 suítes, 4 vagas, 19º andar, Pina, Recife/PE</a>                        <div class="card-price">
+            R$ 3.176.158,72        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="28530"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/pe/recife" title="Recife, PE" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Recife, PE</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 100%;" data-toggle="tooltip" data-placement="top" title="1ª Praça finalizada"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 71.254789272031%;" data-toggle="tooltip" data-placement="top" title="Encerra em 8 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/pe/recife/imoveis/apartamentos/apartamento-268m2-4-suites-4-vagas-19o-andar-pina-recife-pe-28530" data-pjax="0">28530 - LOTE 1244</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 8854</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>22/10/2026 às 12:00</li>
+                        <li>23/10/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 4.537.369,60</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>23/10/2026 às 08:00</li>
+                        <li>21/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 3.176.158,72</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28746"><div class="card mb-4">
+    <div class="card-counter">50% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/rn/natal/imoveis/imoveis-comerciais/shopping-at-35638m2-213-lojas-lagoa-nova-natal-rn-28746" alt="Shopping, A.T.: 35.638m², 213 lojas, Lagoa Nova, Natal/RN" style="background: url(//cdn.grupolance.com.br/batches/04/28746/9876c9a3f300f29c8ee619765c1ad768_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/rn/natal/imoveis/imoveis-comerciais/shopping-at-35638m2-213-lojas-lagoa-nova-natal-rn-28746" title="Shopping, A.T.: 35.638m², 213 lojas, Lagoa Nova, Natal/RN" data-pjax="0">Shopping, A.T.: 35.638m², 213 lojas, Lagoa Nova, Natal/RN</a>                        <div class="card-price">
+            R$ 76.250.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12039" data-batch="28746"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/rn/natal" title="Natal, RN" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Natal, RN</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 100%;" data-toggle="tooltip" data-placement="top" title="1ª Praça finalizada"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 67.806513409962%;" data-toggle="tooltip" data-placement="top" title="Encerra em 9 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/rn/natal/imoveis/imoveis-comerciais/shopping-at-35638m2-213-lojas-lagoa-nova-natal-rn-28746" data-pjax="0">28746 - LOTE 1308</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 9256</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 840</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>23/10/2026 às 12:00</li>
+                        <li>24/10/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 152.500.000,00</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>24/10/2026 às 08:00</li>
+                        <li>22/11/2026 às 08:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 76.250.000,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="27633"><div class="card mb-4">
+        <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/rs/braga/imoveis/terrenos-e-lotes/terreno-1049m2-braga-rs-27633" alt="Terreno, 1.049m², Braga/RS" style="background: url(//cdn.grupolance.com.br/batches/13/27633/dae19f94a82b3441af36cc9af98508cd_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/rs/braga/imoveis/terrenos-e-lotes/terreno-1049m2-braga-rs-27633" title="Terreno, 1.049m², Braga/RS" data-pjax="0">Terreno, 1.049m², Braga/RS</a>                        <div class="card-price">
+            R$ 180.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12044" data-batch="27633"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/rs/braga" title="Braga, RS" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Braga, RS</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-holder w-100">
+                    <div class="progress-bar" style="width: 97.230254022707%;" data-toggle="tooltip" data-placement="top" title="Encerra em 9 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/rs/braga/imoveis/terrenos-e-lotes/terreno-1049m2-braga-rs-27633" data-pjax="0">27633 - LOTE 328</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 18139</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 104</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">P. Única</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>12/12/2025 às 08:00</li>
+                        <li>22/11/2026 às 10:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 180.000,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="27553"><div class="card mb-4">
+        <div class="card-image-holder" style="position: relative;"><div class="card-unoccupied" style="background-image: url(/img/unoccupied.png);"></div><a class="card-image d-block" href="https://www.grupolance.com.br/sp/guaruja/imoveis/casas/sobrado-alto-padrao-4-quartos-piscina-churrasqueira-cozinha-americana-sauna-6-vagas-frente-praca-excelente-acabamento-518m2-loteamento-jardim-acapulco-guaruja-sp-27553" alt="Sobrado alto padrão, 4 quartos, piscina, churrasqueira, cozinha americana, sauna, 6 vagas,  frente praça, excelente acabamento 518m², Loteamento Jardim Acapulco, Guarujá/SP" style="background: url(//cdn.grupolance.com.br/batches/2f/27553/bb68475470fbe9717510cef0447a79ba_thumb.jpeg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/sp/guaruja/imoveis/casas/sobrado-alto-padrao-4-quartos-piscina-churrasqueira-cozinha-americana-sauna-6-vagas-frente-praca-excelente-acabamento-518m2-loteamento-jardim-acapulco-guaruja-sp-27553" title="Sobrado alto padrão, 4 quartos, piscina, churrasqueira, cozinha americana, sauna, 6 vagas,  frente praça, excelente acabamento 518m², Loteamento Jardim Acapulco, Guarujá/SP" data-pjax="0">Sobrado alto padrão, 4 quartos, piscina, churrasqueira, cozinha americana, sauna, 6 vagas,  frente praça, excelente acabamento 518m², Loteamento Jardim Acapulco, Guarujá/SP</a>                        <div class="card-price">
+            R$ 2.510.000,00        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14022" data-batch="27553"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/extrajudiciais" data-pjax="0">Extrajudicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/sp/guaruja" title="Guarujá, SP" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Guarujá, SP</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-holder w-100">
+                    <div class="progress-bar" style="width: 93.516682764815%;" data-toggle="tooltip" data-placement="top" title="Encerra em 10 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/sp/guaruja/imoveis/casas/sobrado-alto-padrao-4-quartos-piscina-churrasqueira-cozinha-americana-sauna-6-vagas-frente-praca-excelente-acabamento-518m2-loteamento-jardim-acapulco-guaruja-sp-27553" data-pjax="0">27553 - LOTE 1</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 12943</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 6</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 2</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">P. Única</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>09/06/2026 às 16:48</li>
+                        <li>23/11/2026 às 15:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 2.490.000,00</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="28649"><div class="card mb-4">
+        <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/rj/rio-de-janeiro/imoveis/imoveis-comerciais/imovel-hospitalar-2-andares-3-vagas-840m2-botafogo-rio-de-janeiro-rj-28649" alt="Imóvel Hospitalar, 2 andares, 3 vagas, 840m², Botafogo, Rio de Janeiro/RJ" style="background: url(//cdn.grupolance.com.br/batches/ae/28649/ad5af8551ece2a2051052d27018a5177_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/rj/rio-de-janeiro/imoveis/imoveis-comerciais/imovel-hospitalar-2-andares-3-vagas-840m2-botafogo-rio-de-janeiro-rj-28649" title="Imóvel Hospitalar, 2 andares, 3 vagas, 840m², Botafogo, Rio de Janeiro/RJ" data-pjax="0">Imóvel Hospitalar, 2 andares, 3 vagas, 840m², Botafogo, Rio de Janeiro/RJ</a>                        <div class="card-price">
+            R$ 6.445.174,14        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="12044" data-batch="28649"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/rj/rio-de-janeiro" title="Rio De Janeiro, RJ" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Rio De Janeiro, RJ</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-holder w-100">
+                    <div class="progress-bar" style="width: 90.686331212647%;" data-toggle="tooltip" data-placement="top" title="Encerra em 13 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/rj/rio-de-janeiro/imoveis/imoveis-comerciais/imovel-hospitalar-2-andares-3-vagas-840m2-botafogo-rio-de-janeiro-rj-28649" data-pjax="0">28649 - LOTE 383</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 11817</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 104</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">P. Única</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>02/07/2026 às 08:00</li>
+                        <li>26/11/2026 às 10:00</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 6.445.174,14</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div>
+<div class="card-item col-sm-12 col-md-6 col-lg-4 col-xl-3" data-key="29084"><div class="card mb-4">
+    <div class="card-counter">40% <span>abaixo na<br>2ª praça</span></div>    <div class="card-image-holder" style="position: relative;"><a class="card-image d-block" href="https://www.grupolance.com.br/sp/santa-cruz-do-rio-pardo/imoveis/casas/casa-334024-bosque-dos-eucaliptos-santa-cruz-do-rio-pardo-sp-29084" alt="Casa, 3.340,24, Bosque dos Eucaliptos, Santa Cruz do Rio Pardo/SP" style="background: url(//cdn.grupolance.com.br/batches/61/29084/51cc51ec00c008fc0cf08b38f8c74692_thumb.jpg) center center no-repeat; background-size: cover;" data-pjax="0"></a></div>    <div class="card-body">
+        <a class="card-title" href="/sp/santa-cruz-do-rio-pardo/imoveis/casas/casa-334024-bosque-dos-eucaliptos-santa-cruz-do-rio-pardo-sp-29084" title="Casa, 3.340,24, Bosque dos Eucaliptos, Santa Cruz do Rio Pardo/SP" data-pjax="0">Casa, 3.340,24, Bosque dos Eucaliptos, Santa Cruz do Rio Pardo/SP</a>                        <div class="card-price">
+            R$ 2.150.816,07        </div>
+                            <button type="button" class="card-gavel-card" data-toggle="tooltip" title="Adicionar ao auditório" data-auction="14701" data-batch="29084"><i class="fas fa-gavel" title="Lances" aria-hidden="true"></i></button>
+                <div class="card-info">
+            <div class="float-left text-uppercase">
+                <a href="/leiloes/judiciais" data-pjax="0">Judicial</a>            </div>
+                        <div class="float-left ml-3"><a class="card-locality" href="/sp/santa-cruz-do-rio-pardo" title="Santa Cruz Do Rio Pardo, SP" data-pjax="0"><i class="fas fa-map-marker-alt"></i> Santa Cruz Do Rio Pardo, SP</a></div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="card-progress">
+                            <div class="progress-join"></div>
+                <div class="progress-holder w-50">
+                    <div class="progress-bar" style="width: 100%;" data-toggle="tooltip" data-placement="top" title="1ª Praça finalizada"></div>
+                </div>
+                <div class="progress-holder w-50">
+                    <div class=" progress-bar" style="width: 32.017361111111%;" data-toggle="tooltip" data-placement="top" title="Encerra em 13 dias"></div>
+                </div>
+                    </div>
+        <div class="card-instance-info">
+            <div><a href="/sp/santa-cruz-do-rio-pardo/imoveis/casas/casa-334024-bosque-dos-eucaliptos-santa-cruz-do-rio-pardo-sp-29084" data-pjax="0">29084 - LOTE 1</a></div>
+            <div><span class="card-status open badge badge-success text-white">Faça seu lance</span></div>
+        </div>
+                    <div class="card-instance-info text-center">
+                <span><i class="far fa-eye" title="Visualizações"></i> 756</span>
+                <span class="ml-3"><i class="fas fa-users" title="Habilitados"></i></i> 0</span>
+                <span class="ml-3"><i class="fas fa-gavel" title="Lances"></i> 0</span>
+            </div>
+                <div class="card-dates">
+                                                        <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">1ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>03/11/2026 às 00:00</li>
+                        <li>06/11/2026 às 14:15</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 3.584.693,45</li>                    </ol>
+                </div>
+                                            <div class="card-date-row">
+                    <div class="card-instance-label"><span class="badge badge-primary">2ª Praça</span>
+                    </div>
+                    <ol class="card-instance-date">
+                        <li>06/11/2026 às 14:15</li>
+                        <li>26/11/2026 às 14:15</li>
+                        <li class="fs-px-12" style="line-height: 1;">R$ 2.150.816,07</li>                    </ol>
+                </div>
+                    </div>
+            </div>
+</div>
+</div></div>
+<nav id="w4"><ul class="pagination pagination-lg justify-content-center mt-3"><li class="page-item prev disabled"><a class="page-link" href="/imoveis?pagina=1" data-page="0" tabindex="-1"><</a></li>
+<li class="page-item active disabled"><a class="page-link" href="/imoveis?pagina=1" data-page="0" tabindex="-1">1</a></li>
+<li class="page-item"><a class="page-link" href="/imoveis?pagina=2" data-page="1">2</a></li>
+<li class="page-item"><a class="page-link" href="/imoveis?pagina=3" data-page="2">3</a></li>
+<li class="page-item"><a class="page-link" href="/imoveis?pagina=4" data-page="3">4</a></li>
+<li class="page-item"><a class="page-link" href="/imoveis?pagina=5" data-page="4">5</a></li>
+<li class="page-item next"><a class="page-link" href="/imoveis?pagina=2" data-page="1">></a></li>
+<li class="page-item last"><a class="page-link" href="/imoveis?pagina=9" data-page="8">>></a></li></ul></nav></div>    </div></section>
+    </main>
+    <div class="modal" id="ouibounce-modal" data-backdrop="static" data-keyboard="false" tabindex="-1">
+    <div class="underlay" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; background-color: rgba(0, 0, 0, 0.3);"></div>
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div class="modal-content p-0">
+            <div class="modal-body p-0 text-justify">
+                <div class="row">
+  <div class="col-12">
+    <div class="newsletter-card card shadow-newsletter-card">
+      <div class="card-body p-4 p-sm-4">
+        <button type="button" class="close text-white" id="close-newsletter" data-dismiss="modal" aria-label="Close">
+          <span class="display-5" aria-hidden="true">&times;</span>
+        </button>
+        <div class="row">
+          <div class="col-12 col-md-4 d-flex align-items-center">
+            <div class="row pl-sm-5">
+              <div class="col-12">
+                <div class="display-5 text-white mb-2 text-left font-weight-bold">Não vá ainda!</div>
+              </div>
+              <div class="col-12">
+                <div class="display-6 text-white text-left">Cadastre-se em nossa newsletter e receba oportunidades <b>segmentadas para você</b></div> 
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-8">
+          <!-- Substitua o src abaixo pelo link do formulário do Brevo -->
+          <iframe width="100%" height="400" src="https://sibforms.com/serve/SUA_CHAVE_DO_FORMULARIO_BREVO" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>            </div>
+        </div>
+    </div>
+</div>    
+<script>window.glWhatsappConfig = {"trafficNumbers":["551321917614"]};</script>
+<a id="whatsapp-chat-container" href="https://wa.me/551321910940?text=Olá,%20quero%20obter%20suporte" target="_blank" rel="noopener noreferrer nofollow" data-meta-event="Contact" data-meta-params-json='{"contact_channel":"whatsapp_floating_button"}'><i class="fab fa-whatsapp"></i></a>
+    <section class="ads-banners py-4 bg-light">
+    <div class="container">
+        <div class="row align-items-stretch">
+            <div class="col-12 mb-3">
+                <h2 class="h5 text-center text-uppercase text-secondary mb-3">Publicidade</h2>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="h5 mb-1">Mentoria</div>
+                            <div class="text-muted">Aprenda com especialistas do Grupo Lance</div>
+                        </div>
+                        <a class="btn btn-primary" href="https://blog.grupolance.com.br/consultoria/" target="_blank"><i class="fas fa-external-link-alt mr-1"></i> Conheça</a>                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6 mb-3">
+                <div class="card shadow-sm h-100">
+                    <div class="card-body d-flex align-items-center justify-content-between">
+                        <div>
+                            <div class="h5 mb-1"><i class="fas fa-podcast mr-1"></i> Podcast</div>
+                            <div class="text-muted">Conteúdos sobre leilões e mercado</div>
+                        </div>
+                        <a class="btn btn-primary" href="https://www.youtube.com/@leilao.podcast" rel="noopener" target="_blank"><i class="fas fa-external-link-alt mr-1"></i> Ouvir agora</a>                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container pt-5 pb-5">
+        <div class="row text-center text-sm-left">
+            <div id="col-2 d-flex align-self-center" class="col-sm-12 col-md-3">
+                <a href="/"><img class="navbar-brand m-auto ml-sm-0 mt-lg-0 mb-5 d-block" src="/img/logo-w.svg" height="50px" alt=""></a>                <p class="mb-3 mt-3 h5 text-white">Se liga na lance ;)</p>
+                <a class="btn-social" href="https://www.instagram.com/grupolancebr/" target="_blank"><i class="fab fa-instagram"></i></a>                <a class="btn-social" href="https://www.facebook.com/grupolancebr" target="_blank"><i class="fab fa-facebook"></i></a>                <a class="btn-social" href="https://www.youtube.com/@grupolancebr" target="_blank"><i class="fab fa-youtube"></i></a>                <a class="btn-social" href="https://www.linkedin.com/company/lance-judicial/about/" target="_blank"><i class="fab fa-linkedin-in"></i></a>            </div>
+            <div id="col-1" class="col-sm-12 col-md-2 d-none d-sm-block">
+                <div class="footer-label h5 mt-3 mt-sm-0" role="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Leilões
+                </div>
+                <ul id="w8" class="navbar-nav nav"><li class="nav-item"><a class="nav-link" href="/leiloes/judiciais">Judiciais</a></li>
+<li class="nav-item"><a class="nav-link" href="/leiloes/extrajudiciais">Extrajudiciais</a></li></ul>            </div>
+            <div id="col-3" class="col-sm-12 col-md-2">
+                <div class="footer-label h5 mt-3 mt-sm-0" role="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Institucional
+                </div>
+                <ul id="w9" class="navbar-nav nav"><li class="nav-item"><a class="nav-link" href="/empresa">Sobre a Empresa</a></li>
+<li class="nav-item"><a class="nav-link" href="https://www.linkedin.com/company/lance-judicial/about/" target="_blank">Trabalhe conosco</a></li>
+<li class="nav-item"><a class="nav-link" href="/politica-de-privacidade">Política de Privacidade</a></li>
+<li class="nav-item"><a class="nav-link" href="/termos-de-uso">Termos de Uso</a></li>
+<li class="nav-item"><a class="nav-link" href="/faq">Perguntas Frequentes</a></li>
+<li class="nav-item"><a class="nav-link" href="/dpo">LGPD - Encarregado de Dados Pessoais (DPO)</a></li></ul>            </div>
+            <div id="col-2" class="col-sm-12 col-md-2">
+                <div class="footer-label h5 mt-3 mt-sm-0">Atendimento</div>
+                <a href="tel:3003-0577" class="display-6">3003-0577</a>
+                <div class="d-none footer-label h5 mt-3 mt-sm-0" role="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Ajuda
+                </div>
+                            </div>
+            <div id="col-4" class="col-sm-12 col-md-3 text-right d-none d-sm-block">
+                <a href="https://www.tjsp.jus.br"><img class="ml-auto mb-3 d-block" src="/img/tjsp.png" alt="" target="_blank" style="width: 88.99px"></a>                <a href="https://transparencyreport.google.com/safe-browsing/search?url=www.grupolance.com.br" target="_blank" rel="noreferrer noopener" class="d-block mt-3 m-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="88.99" viewBox="0 0 146.021 37" class="google-badge">
+                        <g transform="translate(-1143.5 -3851)">
+                            <path fill="#333" d="M6.589-32.724a12.6 12.6 0 0 1-3.781-9.4 12.572 12.572 0 0 1 3.8-9.4 12.816 12.816 0 0 1 9.3-3.707 13.254 13.254 0 0 1 7.437 2.131 11.684 11.684 0 0 1 4.643 5.983h-6.2a6.062 6.062 0 0 0-5.873-3.377 7.476 7.476 0 0 0-5.671 2.294 8.471 8.471 0 0 0-2.187 6.1 8.471 8.471 0 0 0 2.184 6.093 7.111 7.111 0 0 0 5.359 2.292 7.415 7.415 0 0 0 4.992-1.56 6.806 6.806 0 0 0 2.257-4.2h-8.515V-43.4h14.058v3.927a12.335 12.335 0 0 1-4.111 7.323 12.411 12.411 0 0 1-8.681 3.134 12.425 12.425 0 0 1-9.011-3.708zm31.626.04a4.254 4.254 0 0 0 3.152-1.351 5.238 5.238 0 0 0 1.32-3.82 5.22 5.22 0 0 0-1.3-3.8A4.245 4.245 0 0 0 38.23-43a4.146 4.146 0 0 0-3.121 1.336 5.321 5.321 0 0 0-1.273 3.82 5.321 5.321 0 0 0 1.273 3.82 4.128 4.128 0 0 0 3.106 1.34zm-6.3 1.242a8.577 8.577 0 0 1-2.516-6.429 8.421 8.421 0 0 1 2.547-6.4 8.815 8.815 0 0 1 6.32-2.423 8.815 8.815 0 0 1 6.32 2.423 8.421 8.421 0 0 1 2.547 6.4 8.5 8.5 0 0 1-2.562 6.429 8.827 8.827 0 0 1-6.351 2.454 8.667 8.667 0 0 1-6.31-2.454zM57-32.684a4.254 4.254 0 0 0 3.152-1.351 5.238 5.238 0 0 0 1.32-3.82 5.22 5.22 0 0 0-1.3-3.8A4.245 4.245 0 0 0 57.021-43a4.146 4.146 0 0 0-3.121 1.34 5.321 5.321 0 0 0-1.273 3.82 5.321 5.321 0 0 0 1.273 3.82 4.128 4.128 0 0 0 3.1 1.336zm-6.3 1.242a8.577 8.577 0 0 1-2.516-6.429 8.421 8.421 0 0 1 2.547-6.4 8.815 8.815 0 0 1 6.32-2.423 8.815 8.815 0 0 1 6.32 2.423 8.421 8.421 0 0 1 2.547 6.4 8.5 8.5 0 0 1-2.562 6.429A8.827 8.827 0 0 1 57-28.988a8.667 8.667 0 0 1-6.3-2.454zm18.557-.047a9.028 9.028 0 0 1-2.314-6.383 8.951 8.951 0 0 1 2.3-6.351 7.629 7.629 0 0 1 5.839-2.469 6.025 6.025 0 0 1 5.4 2.919v-2.671h4.348v17.331a8.533 8.533 0 0 1-2.174 6.041 7.91 7.91 0 0 1-6.1 2.345 10.651 10.651 0 0 1-6.243-1.631A6.169 6.169 0 0 1 67.689-27h4.286a3.356 3.356 0 0 0 1.553 1.817 5.679 5.679 0 0 0 2.888.668 3.969 3.969 0 0 0 2.9-1.149 4.644 4.644 0 0 0 1.165-3.447v-3.013a6.1 6.1 0 0 1-5.435 3.137 7.563 7.563 0 0 1-5.788-2.501zm9.861-2.64a4.983 4.983 0 0 0 1.367-3.711 4.983 4.983 0 0 0-1.367-3.711 4.406 4.406 0 0 0-3.2-1.351 4.38 4.38 0 0 0-3.183 1.336 4.962 4.962 0 0 0-1.351 3.7 5.036 5.036 0 0 0 1.367 3.727 4.365 4.365 0 0 0 3.183 1.367 4.389 4.389 0 0 0 3.185-1.356zm9.131 4.892V-52.22h4.379v22.983zm15.063.248a8.137 8.137 0 0 1-6.118-2.438 8.872 8.872 0 0 1-2.36-6.445 8.732 8.732 0 0 1 2.376-6.414 8.263 8.263 0 0 1 6.15-2.407 8.541 8.541 0 0 1 6.2 2.345 8.309 8.309 0 0 1 2.423 6.258 10.632 10.632 0 0 1-.124 1.677H99.307a4.088 4.088 0 0 0 1.242 2.7 3.868 3.868 0 0 0 2.764 1.025 3.618 3.618 0 0 0 3.354-1.864h4.721a7.553 7.553 0 0 1-2.888 4.007 8.6 8.6 0 0 1-5.187 1.557zm4.131-10.249a3.75 3.75 0 0 0-1.258-2.733 4.108 4.108 0 0 0-2.81-1.029 3.882 3.882 0 0 0-2.749 1.025 4.341 4.341 0 0 0-1.32 2.733z" data-name="Caminho 40" transform="translate(1177.542 3908.001)"></path>
+                            <path fill="#333" d="M2.428-9.168a.694.694 0 0 0-.451.142.477.477 0 0 0-.175.392.562.562 0 0 0 .128.392.824.824 0 0 0 .339.217 4.288 4.288 0 0 0 .461.135q.25.059.5.145a2.46 2.46 0 0 1 .461.211.913.913 0 0 1 .339.366 1.223 1.223 0 0 1 .128.583 1.272 1.272 0 0 1-.451.975 1.719 1.719 0 0 1-1.2.408A1.938 1.938 0 0 1 1.3-5.554a1.176 1.176 0 0 1-.46-.991h.988a.607.607 0 0 0 .692.606.724.724 0 0 0 .5-.165.559.559 0 0 0 .184-.438.49.49 0 0 0-.244-.432 1.821 1.821 0 0 0-.59-.237q-.346-.079-.7-.191a1.3 1.3 0 0 1-.593-.392 1.089 1.089 0 0 1-.237-.741 1.233 1.233 0 0 1 .455-1 1.775 1.775 0 0 1 1.169-.376 1.869 1.869 0 0 1 1.15.326 1.26 1.26 0 0 1 .474.992H3.073a.624.624 0 0 0-.2-.418.643.643 0 0 0-.445-.157zm5.639 3.92l-.3-.863H5.979l-.3.863H4.7l1.628-4.611h1.1l1.621 4.611zM6.223-6.822h1.311l-.659-1.917zm3.471 1.574v-4.6h2.846v.712h-1.917v1.206h1.463v.712h-1.463v1.97zm6.232-4.612v.712H14.2v1.206h1.528v.712H14.2v1.272h1.726v.712h-2.654v-4.613zm2.925.013h1.864a1.666 1.666 0 0 1 1.11.343 1.089 1.089 0 0 1 .405.87 1.05 1.05 0 0 1-.9 1.034 1.124 1.124 0 0 1 .728.392 1.139 1.139 0 0 1 .273.754 1.071 1.071 0 0 1-.408.873 1.7 1.7 0 0 1-1.107.333h-1.97zm.929.712v1.192h.837a.731.731 0 0 0 .491-.155.545.545 0 0 0 .181-.438.555.555 0 0 0-.181-.441.721.721 0 0 0-.491-.158zm0 3.175h.936a.718.718 0 0 0 .5-.168.591.591 0 0 0 .188-.464.6.6 0 0 0-.191-.468.722.722 0 0 0-.5-.171h-.929zm4.282-1.12v1.832h-.929v-4.6h1.693a1.745 1.745 0 0 1 1.229.4 1.287 1.287 0 0 1 .432.985 1.383 1.383 0 0 1-.264.81 1.359 1.359 0 0 1-.83.514l1.173 1.891h-1.1l-1.1-1.832zm0-2.056v1.344h.764a.73.73 0 0 0 .534-.181.657.657 0 0 0 .184-.491.657.657 0 0 0-.184-.491.73.73 0 0 0-.534-.181zm6.458 2.673a1.533 1.533 0 0 0 .389-1.1 1.521 1.521 0 0 0-.389-1.094 1.337 1.337 0 0 0-1.015-.408 1.342 1.342 0 0 0-1.018.412 1.52 1.52 0 0 0-.387 1.096 1.52 1.52 0 0 0 .392 1.094 1.342 1.342 0 0 0 1.018.412 1.331 1.331 0 0 0 1.01-.412zM29.505-5.2a2.3 2.3 0 0 1-1.673-.665 2.266 2.266 0 0 1-.679-1.69 2.26 2.26 0 0 1 .682-1.69 2.3 2.3 0 0 1 1.673-.665 2.293 2.293 0 0 1 1.67.665 2.266 2.266 0 0 1 .679 1.69 2.266 2.266 0 0 1-.679 1.69 2.3 2.3 0 0 1-1.673.665zm8.229-4.645h.995L37.4-5.248h-1.056l-.889-3.208-.916 3.208h-1.055l-1.3-4.6h.988l.879 3.548.929-3.551h1.048l.872 3.523zm3.063.679a.694.694 0 0 0-.451.142.477.477 0 0 0-.175.392.562.562 0 0 0 .128.392.824.824 0 0 0 .339.217 4.288 4.288 0 0 0 .461.135q.25.059.5.145a2.46 2.46 0 0 1 .461.211.913.913 0 0 1 .339.366 1.223 1.223 0 0 1 .128.583 1.272 1.272 0 0 1-.451.975 1.719 1.719 0 0 1-1.2.408 1.938 1.938 0 0 1-1.209-.352 1.176 1.176 0 0 1-.461-.992h.994a.607.607 0 0 0 .692.606.724.724 0 0 0 .5-.165.559.559 0 0 0 .184-.438.49.49 0 0 0-.244-.432 1.821 1.821 0 0 0-.59-.237q-.346-.079-.7-.191a1.3 1.3 0 0 1-.593-.392 1.089 1.089 0 0 1-.244-.741 1.233 1.233 0 0 1 .455-1 1.775 1.775 0 0 1 1.169-.376 1.869 1.869 0 0 1 1.15.326 1.26 1.26 0 0 1 .474.992h-1.01a.624.624 0 0 0-.2-.418.642.642 0 0 0-.443-.158zm2.622 3.92v-4.6h.929v4.6zm4.928-4.612h.929v4.612h-.929l-2.082-3.19v3.189h-.929v-4.612h.929l2.082 3.189zm2.339 3.986a2.262 2.262 0 0 1-.679-1.687 2.256 2.256 0 0 1 .682-1.687 2.3 2.3 0 0 1 1.67-.665 2.379 2.379 0 0 1 1.334.382 2.1 2.1 0 0 1 .833 1.074h-1.113a1.088 1.088 0 0 0-1.054-.606 1.342 1.342 0 0 0-1.018.412 1.52 1.52 0 0 0-.392 1.094 1.52 1.52 0 0 0 .392 1.094 1.276 1.276 0 0 0 .962.412 1.331 1.331 0 0 0 .9-.28 1.222 1.222 0 0 0 .405-.754h-1.532v-.7H54.6v.7a2.214 2.214 0 0 1-.738 1.314 2.228 2.228 0 0 1-1.558.563 2.23 2.23 0 0 1-1.618-.667z" data-name="Caminho 41" transform="translate(1207.76 3863.777)"></path>
+                            <path fill="rgba(0,0,0,.7)" d="M16.074 37v-.1a24.037 24.037 0 0 1-3.574-1.389 24.739 24.739 0 0 1-5.432-3.5 19.959 19.959 0 0 1-4.944-6.248 21.005 21.005 0 0 1-2.118-9.634c0-.06-.013-6.037 0-8.871v-1C-.01 4.375-.01 4.339 1.243 4.032c.363-.089 1.333-.381 2.675-.786C7.592 2.138 13.743.284 16.044.029V0c.07 0 .145 0 .224.009S16.426 0 16.494 0v.03c2.285.256 8.382 2.11 12.026 3.218 1.329.4 2.29.7 2.649.785 1.242.306 1.242.342 1.229 2.23v1c.013 2.846 0 8.811 0 8.871a21.153 21.153 0 0 1-2.1 9.634 19.932 19.932 0 0 1-4.9 6.247 24.505 24.505 0 0 1-5.385 3.5 23.69 23.69 0 0 1-3.552 1.386V37c-.008 0-.075-.017-.195-.05-.126.035-.193.051-.193.051zM9.4 15.446a.8.8 0 0 0-.56.226L7.1 17.353a.806.806 0 0 0-.02 1.14l4.751 4.92.01.01 1.681 1.741a.806.806 0 0 0 1.14.02L25.4 14.821a.806.806 0 0 0 .02-1.14l-1.681-1.74a.806.806 0 0 0-1.14-.02l-8.412 8.123-4.2-4.351a.8.8 0 0 0-.587-.247z" data-name="Caminho 39" transform="translate(1143.5 3851)"></path>
+                        </g>
+                    </svg>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col mt-5 fs-px-14 text-center text-white">
+                Todos os direitos reservados &copy; Lance Alienações Virtuais LTDA 2026 - CNPJ: 23.341.409/0001-77
+                <br>
+                <span style="font-size: 13px; color: rgba(255,255,255,.7);">
+                    <a href="/politica-de-privacidade" style="color: rgba(255,255,255,.85); text-decoration: underline;">Política de Privacidade</a>
+                    &middot;
+                    <a href="/termos-de-uso" style="color: rgba(255,255,255,.85); text-decoration: underline;">Termos de Uso</a>
+                    &middot;
+                    <a href="/dpo" style="color: rgba(255,255,255,.85); text-decoration: underline;">LGPD (DPO)</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+        <script src="//sibforms.com/forms/end-form/build/main.js" async deffer></script>
+<script src="/assets/bf012556/dist/jquery.min.js?v=1794508576"></script>
+<script src="/assets/c773e0d5/js/bootstrap.bundle.js?v=1794508577"></script>
+<script src="/assets/d7622c87/jquery.pjax.js?v=1794508577"></script>
+<script src="/assets/2faa0b31/cookiealert.js?v=1794508577"></script>
+<script src="/assets/c9f01859/lazysizes.min.js?v=1794508577"></script>
+<script src="/assets/c9f01859/plugins/unveilhooks/ls.unveilhooks.js?v=1794508577"></script>
+<script src="/assets/a835176b/yii.js?v=1794508577"></script>
+<script src="//www.grupolance.com.br/js/main-1.12.js?v=1784086354"></script>
+<script src="/assets/63c61f6f/ouibounce.min.js?v=1794508577"></script>
+<script>jQuery(function ($) {
+jQuery('#w2-button').dropdown();
+jQuery(document).pjax("#pjax-auction-batches a", {"push":true,"replace":false,"timeout":3600,"scrollTo":function() { $('html, body').animate({scrollTop: 0}, 350); },"container":"#pjax-auction-batches"});
+jQuery(document).off("submit", "#pjax-auction-batches form[data-pjax]").on("submit", "#pjax-auction-batches form[data-pjax]", function (event) {jQuery.pjax.submit(event, {"push":true,"replace":false,"timeout":3600,"scrollTo":function() { $('html, body').animate({scrollTop: 0}, 350); },"container":"#pjax-auction-batches"});});
+
+    ouibounce($("#ouibounce-modal")[0], { 
+        sensitivity: 40,
+        timer: 5,
+        delay: 200,
+        agressive: false,
+        cookieExpire: 30,
+    });
+
+    $("#ouibounce-modal #close-newsletter").on("click", function() {
+        $("#ouibounce-modal").hide();
+    });
+
+});</script></body>
+
+</html>
