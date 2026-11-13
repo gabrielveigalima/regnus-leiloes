@@ -1,24 +1,20 @@
 import type { ReactNode } from "react";
-import Link from "next/link";
 import { requireSession } from "@/lib/session";
-import { SignOutButton } from "./SignOutButton";
+import { AppHeader, type NavItem } from "@/components/AppHeader";
 
 export default async function AppLayout({ children }: { children: ReactNode }) {
   const user = await requireSession();
+  const admin = user.role === "OWNER" || user.role === "ADMIN";
+  const items: NavItem[] = [
+    { href: "/busca", label: "Buscar imóveis" },
+    { href: "/favoritos", label: "Favoritos" },
+    { href: "/alertas", label: "Alertas" },
+    ...(admin ? [{ href: "/usuarios", label: "Usuários" }, { href: "/chaves", label: "API" }] : []),
+    ...(user.isPlatformAdmin ? [{ href: "/admin/fontes", label: "Admin" }] : []),
+  ];
   return (
     <>
-      <header className="top">
-        <Link href="/busca"><img src="/logo_transparente.png" alt="Regnus Leilões" height={32} /></Link>
-        <Link href="/busca">Buscar imóveis</Link>
-        <Link href="/favoritos">Favoritos</Link>
-        <Link href="/alertas">Alertas</Link>
-        {(user.role === "OWNER" || user.role === "ADMIN") && <Link href="/usuarios">Usuários</Link>}
-        {(user.role === "OWNER" || user.role === "ADMIN") && <Link href="/chaves">API</Link>}
-        {user.isPlatformAdmin && <Link href="/admin/fontes">Admin</Link>}
-        <span style={{ flex: 1 }} />
-        <Link href="/conta" style={{ fontSize: 13 }}>{user.name ?? user.email}</Link>
-        <SignOutButton />
-      </header>
+      <AppHeader items={items} userLabel={user.name ?? user.email ?? ""} />
       <main className="wrap">{children}</main>
     </>
   );

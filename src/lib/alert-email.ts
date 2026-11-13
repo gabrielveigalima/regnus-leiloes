@@ -22,9 +22,9 @@ export function buildAlertEmail(opts: { searchName: string; items: AlertItem[]; 
   const more = total > items.length ? `\n… e mais ${total - items.length}. Veja todos no sistema.` : "";
 
   const text = `Sua busca salva "${searchName}" tem novidades:\n\n${items.map((i) => `${line(i)}\n${link(i)}`).join("\n\n")}${more}\n\nGerenciar alertas: ${appUrl}/alertas\n${unsubscribeUrl ? `Parar de receber este alerta: ${unsubscribeUrl}\n` : ""}`;
-  const html = `<div style="font-family:system-ui,sans-serif;max-width:640px"><h2>Busca salva: ${esc(searchName)}</h2><ul style="padding-left:18px">${items
+  const html = `<div style="font-family:Inter,system-ui,sans-serif;max-width:640px"><h2>Busca salva: ${esc(searchName)}</h2><ul style="padding-left:18px">${items
     .map((i) => `<li style="margin-bottom:10px"><a href="${esc(link(i))}">${esc(line(i))}</a></li>`).join("")}</ul>${
     total > items.length ? `<p>… e mais ${total - items.length}. <a href="${esc(appUrl)}/busca">Ver todos no sistema</a></p>` : ""
-  }<p style="color:#667085;font-size:12px"><a href="${esc(appUrl)}/alertas">Gerenciar alertas</a>${unsubscribeUrl ? ` · <a href="${esc(unsubscribeUrl)}">Parar de receber este alerta</a>` : ""}</p></div>`;
+  }<p style="color:#626457;font-size:12px"><a href="${esc(appUrl)}/alertas">Gerenciar alertas</a>${unsubscribeUrl ? ` · <a href="${esc(unsubscribeUrl)}">Parar de receber este alerta</a>` : ""}</p></div>`;
   return { subject, text, html };
 }

@@ -10,11 +10,11 @@ export function CreateKeyForm() {
         <input name="name" placeholder="Nome da chave (ex.: integração CRM)" maxLength={60} required />
         <button className="primary" type="submit" disabled={pending}>{pending ? "Criando…" : "Criar chave"}</button>
       </form>
-      {state?.error && <p role="alert" style={{ color: "#b42318" }}>{state.error}</p>}
+      {state?.error && <p role="alert" className="err">{state.error}</p>}
       {state?.key && (
         <div role="status" style={{ marginTop: 8 }}>
           <strong>Copie agora — esta chave não será exibida novamente:</strong>
-          <pre style={{ background: "#f2f4f7", padding: 8, overflowX: "auto" }}>{state.key}</pre>
+          <pre className="secret">{state.key}</pre>
         </div>
       )}
     </div>

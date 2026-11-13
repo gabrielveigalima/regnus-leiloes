@@ -12,5 +12,5 @@ export async function proxy(req: NextRequest) {
 
 // Tudo exige login, exceto login, recuperação de senha, página do robô, descadastro de alertas, rotas do next-auth, health, a API pública (autenticada por chave) e assets.
 export const config = {
-  matcher: ["/((?!login|esqueci-senha|redefinir-senha|bot|alertas/cancelar|api/auth|api/health|api/v1|_next/static|_next/image|favicon.ico|logo_transparente.png|icon.png).*)"],
+  matcher: ["/((?!login|esqueci-senha|redefinir-senha|bot|alertas/cancelar|api/auth|api/health|api/v1|_next/static|_next/image|favicon.ico|logo-horizontal.png|logo_transparente.png|icon.png).*)"],
 };

@@ -10,8 +10,8 @@ export const dynamic = "force-dynamic";
 export const metadata = { title: "Fontes — Admin Regnus" };
 
 const COLOR: Record<Health, string> = {
-  OK: "#067647", INACTIVE: "#667085", NO_CONNECTOR: "#667085", BLOCKED: "#b42318", NEVER: "#667085",
-  FAILING: "#b42318", VOLUME_DROP: "#b54708", STALE: "#b54708",
+  OK: "#0d7a55", INACTIVE: "#626457", NO_CONNECTOR: "#626457", BLOCKED: "#b42318", NEVER: "#626457",
+  FAILING: "#b42318", VOLUME_DROP: "#b45309", STALE: "#b45309",
 };
 
 export default async function FontesPage() {

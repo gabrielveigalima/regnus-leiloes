@@ -14,11 +14,11 @@ export function CreateOrgForm({ plans }: { plans: { id: string; name: string }[]
         <input name="ownerName" placeholder="Nome do proprietário" maxLength={80} />
         <button className="primary" disabled={pending}>{pending ? "Criando…" : "Criar e convidar"}</button>
       </form>
-      {s?.error && <p role="alert" style={{ color: "#b42318" }}>{s.error}</p>}
+      {s?.error && <p role="alert" className="err">{s.error}</p>}
       {s?.link && (
         <div role="status">
           <p>{s.emailed ? "Convite enviado por e-mail." : "E-mail não enviado."} Link de ativação (72 h):</p>
-          <pre style={{ background: "#f2f4f7", padding: 8, overflowX: "auto" }}>{s.link}</pre>
+          <pre className="secret">{s.link}</pre>
         </div>
       )}
     </div>

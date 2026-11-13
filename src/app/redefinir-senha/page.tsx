@@ -9,11 +9,16 @@ export default async function RedefinirSenhaPage({ searchParams }: { searchParam
   const { token } = await searchParams;
   const valid = await isTokenValid(token);
   return (
-    <div className="filters" style={{ maxWidth: 380, margin: "10vh auto" }}>
-      <h1 style={{ fontSize: 20, margin: 0 }}>Definir senha</h1>
-      {valid && token ? <ResetForm token={token} /> : (
-        <p role="alert">Link inválido ou expirado. <Link href="/esqueci-senha">Solicitar um novo</Link></p>
-      )}
+    <div className="auth-wrap">
+      <div className="auth-card">
+        <div className="auth-top"><img src="/logo-horizontal.png" alt="Regnus Leilões" /></div>
+        <div className="auth-body">
+          <h1>Definir senha</h1>
+          {valid && token ? <ResetForm token={token} /> : (
+            <p role="alert" className="err">Link inválido ou expirado. <Link href="/esqueci-senha">Solicitar um novo</Link></p>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

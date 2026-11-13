@@ -17,7 +17,7 @@ export default async function AlertasPage({ searchParams }: { searchParams: Prom
       <h1>Buscas salvas e alertas</h1>
       <p className="muted">Você recebe um e-mail em <strong>{u.email}</strong> quando surgem imóveis novos ou queda de preço que casam com a busca. Crie alertas em <Link href="/busca">Buscar imóveis</Link>.</p>
       {ok && <div className="panel" role="status">Busca salva. Alertas valem a partir de agora.</div>}
-      {erro && <div className="panel" role="alert" style={{ color: "#b42318" }}>{erro}</div>}
+      {erro && <div className="panel err" role="alert">{erro}</div>}
       {searches.length === 0 && <div className="panel">Nenhuma busca salva ainda.</div>}
       {searches.map((s) => {
         const qs = new URLSearchParams(s.filters as Record<string, string>).toString();

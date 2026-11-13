@@ -27,7 +27,7 @@ export function PropertyMap({ query, single, height = 520 }: { query?: string; s
       L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: "© OpenStreetMap" }).addTo(map);
 
       if (single) {
-        L.circleMarker([single.lat, single.lng], { radius: 9, color: "#0f2a4a", fillColor: "#c8963e", fillOpacity: 0.9 }).addTo(map).bindPopup(esc(single.title));
+        L.circleMarker([single.lat, single.lng], { radius: 9, color: "#24310f", fillColor: "#324415", fillOpacity: 0.9 }).addTo(map).bindPopup(esc(single.title));
         map.setView([single.lat, single.lng], 16);
         setInfo("");
         return;
@@ -39,7 +39,7 @@ export function PropertyMap({ query, single, height = 520 }: { query?: string; s
       const cluster = (L as unknown as { markerClusterGroup: () => import("leaflet").FeatureGroup }).markerClusterGroup();
       for (const p of data.points) {
         const approx = p.precision === "STREET" || p.precision === "CITY";
-        L.circleMarker([p.lat, p.lng], { radius: 7, color: "#0f2a4a", weight: 1, fillColor: approx ? "#98a2b3" : "#c8963e", fillOpacity: 0.9 })
+        L.circleMarker([p.lat, p.lng], { radius: 7, color: "#24310f", weight: 1, fillColor: approx ? "#b8b6a3" : "#324415", fillOpacity: 0.9 })
           .bindPopup(`<strong>${esc(p.title)}</strong><br>${brl(p.minBid)}${p.discountPct ? ` (-${p.discountPct.toFixed(0)}%)` : ""}${approx ? `<br><em>localização aproximada (${p.precision === "CITY" ? "cidade" : "rua"})</em>` : ""}<br><a href="/imovel/${encodeURIComponent(p.propertyId)}">Ver imóvel</a>`)
           .addTo(cluster);
       }

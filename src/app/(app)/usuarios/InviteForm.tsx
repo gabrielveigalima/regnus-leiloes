@@ -17,11 +17,11 @@ export function InviteForm({ isOwner }: { isOwner: boolean }) {
         </select>
         <button className="primary" disabled={pending}>{pending ? "Convidando…" : "Convidar"}</button>
       </form>
-      {s?.error && <p role="alert" style={{ color: "#b42318" }}>{s.error}</p>}
+      {s?.error && <p role="alert" className="err">{s.error}</p>}
       {s?.link && (
         <div role="status">
           <p>{s.emailed ? "Convite enviado por e-mail." : "E-mail não enviado (SMTP não configurado ou falhou)."} Link de ativação (72 h) — copie e envie ao usuário:</p>
-          <pre style={{ background: "#f2f4f7", padding: 8, overflowX: "auto" }}>{s.link}</pre>
+          <pre className="secret">{s.link}</pre>
         </div>
       )}
     </div>

@@ -1,23 +1,176 @@
-:root { --brand: #0f2a4a; --accent: #c8963e; --bg: #f5f6f8; --card: #fff; --muted: #667085; --line: #e4e7ec; }
+/* Identidade visual Regnus (mesmos tokens do house-flipping-app). */
+:root {
+  --regnus-blue: #324415;        /* verde-oliva principal (nome histórico da variável) */
+  --regnus-blue-dark: #24310f;
+  --regnus-blue-light: #435a1c;
+  --regnus-gold: #929079;
+  --regnus-gold-hover: #aaa891;
+  --regnus-gold-dark: #62604f;
+  --regnus-silver: #d4c9b5;
+  --regnus-alabaster: #f7f5f0;
+  --regnus-graphite: #29301f;
+
+  --bg-main: #f7f5f0;
+  --bg-card: #ffffff;
+  --text-main: #29301f;
+  --text-muted: #626457;
+  --primary: #324415;
+  --primary-hover: #435a1c;
+  --secondary: #929079;
+
+  --success: #10b981;
+  --success-bg: #d1fae5;
+  --danger: #ef4444;
+  --danger-text: #b42318;
+  --danger-bg: #fee2e2;
+  --warning: #f59e0b;
+  --warning-bg: #fef3c7;
+  --info: #0ea5e9;
+
+  --border-color: rgba(41, 48, 31, 0.12);
+  --border-radius: 12px;
+  --card-shadow: 0 2px 10px rgba(50, 68, 21, 0.06), 0 1px 3px rgba(50, 68, 21, 0.04);
+  --card-shadow-hover: 0 12px 28px rgba(50, 68, 21, 0.12), 0 4px 10px rgba(146, 144, 121, 0.1);
+  --header-height: 68px;
+
+  /* compatibilidade com classes antigas */
+  --brand: var(--regnus-blue);
+  --accent: var(--regnus-gold);
+  --bg: var(--bg-main);
+  --card: var(--bg-card);
+  --muted: var(--text-muted);
+  --line: var(--border-color);
+}
+
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--bg); color: #1d2939; font-family: system-ui, sans-serif; }
-a { color: var(--brand); }
-header.top { background: var(--brand); padding: 12px 24px; display: flex; align-items: center; gap: 24px; }
-header.top a { color: #fff; text-decoration: none; }
-main.wrap { max-width: 1200px; margin: 0 auto; padding: 16px; }
-.layout { display: grid; grid-template-columns: 260px 1fr; gap: 16px; }
-@media (max-width: 800px) { .layout { grid-template-columns: 1fr; } }
-form.filters { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 12px; display: grid; gap: 8px; align-content: start; }
-form.filters label { font-size: 12px; color: var(--muted); display: grid; gap: 2px; }
-input, select, button { font: inherit; padding: 6px 8px; border: 1px solid var(--line); border-radius: 6px; }
-button.primary { background: var(--brand); color: #fff; cursor: pointer; }
-.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
-.card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; }
-.card .photo { height: 150px; background: #dde1e7; object-fit: cover; width: 100%; }
-.card .body { padding: 10px; display: grid; gap: 4px; }
-.price { font-size: 18px; font-weight: 700; color: var(--brand); }
-.badge { background: var(--accent); color: #fff; border-radius: 4px; padding: 1px 6px; font-size: 12px; font-weight: 600; }
-.muted { color: var(--muted); font-size: 13px; }
-.panel { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
-table.t { border-collapse: collapse; width: 100%; } table.t td, table.t th { border-bottom: 1px solid var(--line); padding: 6px; text-align: left; font-size: 14px; }
-.gallery { display: flex; gap: 8px; overflow-x: auto; } .gallery img { height: 220px; border-radius: 6px; }
+html, body { min-height: 100%; max-width: 100%; overflow-x: clip; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body, "Inter", -apple-system, BlinkMacSystemFont, sans-serif);
+  background: var(--bg-main);
+  color: var(--text-main);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4 { font-family: var(--font-heading, "Montserrat", sans-serif); color: var(--regnus-blue); line-height: 1.25; }
+h1 { font-size: 1.7rem; font-weight: 700; letter-spacing: -0.3px; margin: 0.4rem 0 0.8rem; }
+h2 { font-size: 1.15rem; font-weight: 600; margin: 0 0 0.6rem; }
+a { color: var(--regnus-blue); text-underline-offset: 2px; }
+code { background: rgba(146, 144, 121, 0.15); border-radius: 4px; padding: 0.1rem 0.35rem; font-size: 0.88em; }
+
+/* ─── Cabeçalho ─────────────────────────────── */
+header.main-header {
+  background: var(--regnus-blue);
+  border-bottom: 2px solid var(--regnus-gold);
+  min-height: var(--header-height);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 4px 20px rgba(36, 49, 15, 0.22);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-logo { display: flex; align-items: center; flex-shrink: 0; }
+.header-logo img { height: 46px; width: auto; display: block; }
+.header-nav { display: flex; gap: clamp(0.15rem, 1vw, 1rem); flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+.header-nav::-webkit-scrollbar { display: none; }
+.header-nav-link {
+  font-family: var(--font-heading, "Montserrat", sans-serif);
+  font-weight: 500;
+  color: rgba(212, 201, 181, 0.82);
+  font-size: 0.92rem;
+  white-space: nowrap;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.15s;
+}
+.header-nav-link:hover { color: #fff; background: rgba(146, 144, 121, 0.12); }
+.header-nav-link.active { color: var(--regnus-silver); background: rgba(146, 144, 121, 0.16); font-weight: 600; }
+.header-actions { display: flex; align-items: center; gap: 0.8rem; flex-shrink: 0; }
+.header-profile { font-family: var(--font-heading, "Montserrat", sans-serif); color: var(--regnus-silver); font-weight: 500; font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; text-decoration: none; }
+.header-profile-label { max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.header-avatar {
+  font-family: var(--font-brand, "Cinzel", serif);
+  width: 34px; height: 34px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--regnus-gold), var(--regnus-gold-dark));
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: var(--regnus-blue); font-size: 0.85rem; flex-shrink: 0;
+}
+header.main-header button.ghost { background: transparent; color: var(--regnus-silver); border: 1px solid rgba(146, 144, 121, 0.45); }
+header.main-header button.ghost:hover { background: rgba(146, 144, 121, 0.16); color: #fff; }
+@media (max-width: 800px) {
+  header.main-header { padding: 0.5rem 1rem; flex-wrap: wrap; row-gap: 0.4rem; }
+  .header-nav { order: 3; flex-basis: 100%; }
+  .header-profile-label { display: none; }
+}
+
+/* ─── Layout ────────────────────────────────── */
+main.wrap { max-width: 1200px; margin: 0 auto; padding: 1.5rem 1rem 3rem; }
+.layout { display: grid; grid-template-columns: 270px 1fr; gap: 1.25rem; align-items: start; }
+@media (max-width: 860px) { .layout { grid-template-columns: 1fr; } }
+
+/* ─── Formulários ───────────────────────────── */
+form.filters, .panel, .card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+form.filters { padding: 1rem; display: grid; gap: 0.6rem; align-content: start; }
+form.filters label { font-size: 0.78rem; color: var(--text-muted); display: grid; gap: 3px; font-family: var(--font-heading, "Montserrat", sans-serif); font-weight: 500; }
+input, select, textarea {
+  font: inherit; font-size: 0.92rem; padding: 0.55rem 0.75rem; color: var(--text-main); background: var(--bg-card);
+  border: 1px solid rgba(41, 48, 31, 0.16); border-radius: 8px; width: auto; max-width: 100%;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+form.filters input:not([type="checkbox"]), form.filters select, form.filters textarea { width: 100%; }
+input:focus, select:focus, textarea:focus { outline: none; border-color: var(--regnus-gold); box-shadow: 0 0 0 3px rgba(146, 144, 121, 0.25); }
+input[type="checkbox"] { accent-color: var(--regnus-blue); width: 1rem; height: 1rem; padding: 0; }
+
+button {
+  font-family: var(--font-heading, "Montserrat", sans-serif); font-weight: 600; font-size: 0.88rem; letter-spacing: 0.2px;
+  padding: 0.5rem 1rem; border-radius: 8px; cursor: pointer; background: var(--bg-card); color: var(--regnus-blue);
+  border: 1px solid rgba(41, 48, 31, 0.2); transition: all 0.2s ease-in-out;
+}
+button:hover:not(:disabled) { border-color: var(--regnus-gold); background: rgba(146, 144, 121, 0.1); }
+button.primary { background: var(--regnus-blue); color: #fff; border-color: var(--regnus-blue); }
+button.primary:hover:not(:disabled) { background: var(--regnus-blue-light); border-color: var(--regnus-gold); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(50, 68, 21, 0.2); }
+button:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ─── Cartões de imóvel ─────────────────────── */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
+.card { overflow: hidden; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: box-shadow 0.2s, border-color 0.2s; }
+.card:hover { box-shadow: var(--card-shadow-hover); border-color: rgba(146, 144, 121, 0.35); }
+.card .photo { height: 150px; background: var(--regnus-silver); object-fit: cover; width: 100%; }
+.card .body { padding: 0.8rem 0.9rem 0.9rem; display: grid; gap: 4px; }
+.card .body strong { font-family: var(--font-heading, "Montserrat", sans-serif); font-weight: 600; font-size: 0.95rem; color: var(--regnus-graphite); }
+.price { font-family: var(--font-heading, "Montserrat", sans-serif); font-size: 1.15rem; font-weight: 700; color: var(--regnus-blue); }
+.badge { background: var(--regnus-gold); color: #fff; border-radius: 6px; padding: 1px 7px; font-size: 0.75rem; font-weight: 600; font-family: var(--font-heading, "Montserrat", sans-serif); vertical-align: middle; }
+.muted { color: var(--text-muted); font-size: 0.85rem; }
+.panel { padding: 1.1rem 1.25rem; margin-bottom: 1rem; }
+.err { color: var(--danger-text); }
+.secret { background: rgba(146, 144, 121, 0.14); border-radius: 8px; padding: 0.6rem 0.8rem; overflow-x: auto; font-size: 0.85rem; }
+
+table.t { border-collapse: collapse; width: 100%; }
+table.t th { font-family: var(--font-heading, "Montserrat", sans-serif); font-weight: 600; font-size: 0.78rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
+table.t td, table.t th { border-bottom: 1px solid var(--border-color); padding: 0.55rem 0.5rem; text-align: left; font-size: 0.9rem; vertical-align: top; }
+.gallery { display: flex; gap: 8px; overflow-x: auto; }
+.gallery img { height: 220px; border-radius: 8px; }
+
+/* ─── Login / páginas públicas ──────────────── */
+.auth-wrap { min-height: 100vh; display: grid; place-items: center; padding: 1.5rem; }
+.auth-card { width: 100%; max-width: 400px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; box-shadow: var(--card-shadow-hover); overflow: hidden; }
+.auth-card .auth-top { background: var(--regnus-blue); border-bottom: 2px solid var(--regnus-gold); padding: 1.4rem; display: grid; place-items: center; }
+.auth-card .auth-top img { height: 58px; width: auto; }
+.auth-card .auth-body { padding: 1.4rem; display: grid; gap: 0.7rem; }
+.auth-card .auth-body label { font-size: 0.8rem; color: var(--text-muted); display: grid; gap: 3px; font-family: var(--font-heading, "Montserrat", sans-serif); font-weight: 500; }
+.auth-card .auth-body input { width: 100%; }
+.auth-card h1 { font-size: 1.15rem; margin: 0; }
+
+/* ─── Leaflet: mantém controles legíveis ────── */
+.leaflet-container { font-family: var(--font-body, "Inter", sans-serif); }

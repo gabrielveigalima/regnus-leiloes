@@ -3,7 +3,8 @@ export const metadata = { title: "RegnusBot — Regnus Leilões" };
 export default function BotPage() {
   const contact = process.env.BOT_CONTACT_EMAIL || process.env.ADMIN_EMAIL || "";
   return (
-    <main style={{ maxWidth: 720, margin: "6vh auto", padding: 16, lineHeight: 1.6 }}>
+    <main style={{ maxWidth: 720, margin: "6vh auto", padding: 16 }}>
+      <img src="/logo-horizontal.png" alt="Regnus Leilões" style={{ height: 46, background: "var(--regnus-blue)", padding: "8px 14px", borderRadius: 10, borderBottom: "2px solid var(--regnus-gold)" }} />
       <h1>RegnusBot</h1>
       <p>O <strong>RegnusBot</strong> é o robô de coleta do sistema <strong>Regnus Leilões</strong> (Grupo Regnus), que reúne anúncios públicos de imóveis em leilão para uso dos nossos analistas.</p>
       <h2>Como ele se comporta</h2>
