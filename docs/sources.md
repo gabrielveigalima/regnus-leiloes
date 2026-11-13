@@ -10,7 +10,8 @@
 | frazao | Leiloeiro | conector pronto (sitemap + lote, coordenadas da fonte); Source ainda desativada | 398 | 12h | 2026-11-12 |
 | biasi | Leiloeiro | conector pronto (endpoint de listagem do site + lote, coordenadas da fonte); Source ainda desativada | 388 | 12h | 2026-11-12 |
 | pestana | Leiloeiro | **precisa de parceria**: o site é uma SPA e os dados vêm de `api.pestanaleiloes.com.br`, protegida por anti-bot (Radware: 302 para `validate.perfdrive.com`); o sitemap não lista lotes. Foco em veículos. Não contornado. | — | — | 2026-11-12 |
-| bb, santander, itau, bradesco | Banco | não iniciado (muitos publicam via leiloeiros; ver Mega Leilões como comitente) | — | — | — |
+| bb | Banco | conector pronto (Seu Imóvel BB: listagem POST + imóvel); Source ainda desativada | 975 | 12h | 2026-11-12 |
+| santander, itau, bradesco | Banco | venda via leiloeiros parceiros (Frazão, Mega, Biasi, Zuk) — já coletados como comitente nessas fontes; portal próprio do Santander responde 403 (precisa de parceria); Itaú e Bradesco sem portal próprio de listagem | — | — | 2026-11-12 |
 
 Cada conector exige: README próprio, fixtures reais em `test/fixtures/<id>/`, testes de `parse` e `crawl --dry-run` real antes de ativar a `Source`.
 Fontes que exijam CAPTCHA/login/anti-bot: marcar "precisa de parceria" e pular.
