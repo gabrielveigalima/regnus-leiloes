@@ -40,3 +40,8 @@ Estado: Fases 1–6 e 8 do plano implementadas e testadas (91 testes, incluindo 
 
 ## 5. Repositório
 - Existe `origin` (`github.com/gabrielveigalima/regnus-leiloes`) e o commit "first commit" (73aa003) foi feito por você durante a sessão; `origin/main` está em `f7702d0`. Os commits posteriores (Pestana, dependências, esta lista) **não foram enviados** — não fiz push.
+
+## 6. Fontes avaliadas e não implementadas
+- **PGFN (Procuradoria-Geral da Fazenda Nacional):** os leilões de imóveis são operados por leiloeiros contratados (Comprei/Lance e outros). Os lotes já entram via `lancejudicial`; não há portal próprio com listagem estruturada. Sem conector dedicado.
+- **Justiça Federal (TRFs):** editais saem como PDF/diário oficial e a execução fica com leiloeiros privados; não há listagem pública estruturada. Não viável sem parceria; fontes privadas que a executam entram quando mapeadas.
+- **Ativar em produção:** criar/ativar as Sources `vendasgov`, `lancejudicial`, `freitas` e `bb` em Admin → Fontes (as que ainda não existirem precisam do seed) após o `git push origin main`, feito por você.
