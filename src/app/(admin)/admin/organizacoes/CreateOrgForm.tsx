@@ -7,7 +7,7 @@ export function CreateOrgForm({ plans }: { plans: { id: string; name: string }[]
   return (
     <div className="panel">
       <h2 style={{ marginTop: 0 }}>Nova organização</h2>
-      <form action={action} style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+      <form action={action} className="inline-form">
         <input name="name" placeholder="Nome da organização" required maxLength={80} />
         <select name="planId" defaultValue={plans[0]?.id}>{plans.map((p) => <option key={p.id} value={p.id}>{p.name}</option>)}</select>
         <input name="ownerEmail" type="email" placeholder="E-mail do proprietário" required />

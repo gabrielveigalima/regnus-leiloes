@@ -26,7 +26,7 @@ export default async function DuplicadosPage() {
       {pending.map((c) => (
         <div className="panel" key={c.id}>
           <p><strong>Confiança {(Number(c.score) * 100).toFixed(0)}%</strong> <span className="muted">— {c.reason}</span></p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 12 }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 300px), 1fr))", gap: 12 }}>
             {([["A", c.propertyA], ["B", c.propertyB]] as const).map(([k, p]) => (
               <div key={k} style={{ border: "1px solid var(--line)", borderRadius: 6, padding: 10 }}>
                 <strong>Imóvel {k}</strong> <span className="muted">· {TYPE_LABEL[p.type]}</span>

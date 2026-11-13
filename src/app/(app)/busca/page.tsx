@@ -5,6 +5,7 @@ import { allowedUfsFor, canExportCsv } from "@/lib/access";
 import { tenantDb } from "@/lib/tenancy";
 import { saveSearch } from "../actions";
 import { PropertyMap } from "../PropertyMap";
+import { SearchFilters } from "../SearchFilters";
 import { prisma } from "@/lib/prisma";
 import { AUCTION_LABEL, OCC_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtDaysUntil, fmtM2, fmtPricePerM2, pricePerM2 } from "@/lib/format";
 
@@ -25,6 +26,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
   const { items, nextCursor, total } = vista === "mapa" ? { items: [], nextCursor: null, total: null } : await searchListings(f, { allowedUfs });
   const favIds = await tenantDb(u.organizationId, u.id).favorites.ids(items.map((l) => l.propertyId).filter((x): x is string => !!x));
   const val = (k: string) => { const v = sp[k]; return Array.isArray(v) ? v[0] : v ?? ""; };
+  const activeCount = ["q", "uf", "cidade", "bairro", "tipo", "leilao", "fonte", "ocupacao", "precoMin", "precoMax", "descMin", "areaMin", "quartos", "pracaAte", "financia", "fgts"].filter((k) => (val(k) ?? "").trim() !== "").length;
 
   const mapQuery = new URLSearchParams(Object.entries(sp).filter(([k, v]) => k !== "cursor" && k !== "vista" && v != null).map(([k, v]) => [k, Array.isArray(v) ? v.join(",") : v!])).toString();
   const toggle = (v: string) => `/busca?${new URLSearchParams([...new URLSearchParams(mapQuery), ["vista", v]]).toString()}`;
@@ -36,6 +38,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
 
   return (
     <div className="layout">
+      <SearchFilters activeCount={activeCount}>
       <form className="filters" method="get">
         {vista === "mapa" && <input type="hidden" name="vista" value="mapa" />}
         <label>Busca livre<input name="q" defaultValue={val("q")} placeholder="rua, bairro, palavra…" /></label>
@@ -73,26 +76,32 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
         <button className="primary" type="submit">Buscar</button>
         <Link href="/busca" className="muted">Limpar filtros</Link>
       </form>
+      </SearchFilters>
 
-      <section>
+      <section className="search-results" aria-label="Resultados da busca">
+        <div className="search-heading">
+          <h1>Buscar imóveis</h1>
+          {total != null && <p className="muted">{total.toLocaleString("pt-BR")} imóveis encontrados</p>}
+        </div>
         <details className="panel">
           <summary>🔔 Salvar esta busca e receber alertas</summary>
-          <form action={saveSearch} style={{ display: "flex", gap: 8, flexWrap: "wrap", marginTop: 8 }}>
+          <form action={saveSearch} className="inline-form" style={{ marginTop: 8 }}>
             <input type="hidden" name="params" value={JSON.stringify(Object.fromEntries(Object.entries(sp).filter(([k, v]) => k !== "cursor" && v != null && v !== "").map(([k, v]) => [k, Array.isArray(v) ? v.join(",") : v])))} />
-            <input name="name" placeholder="Nome da busca" required maxLength={80} />
-            <select name="frequency" defaultValue="DAILY"><option value="DAILY">Resumo diário</option><option value="IMMEDIATE">Imediato</option></select>
+            <input name="name" aria-label="Nome da busca" placeholder="Nome da busca" required maxLength={80} />
+            <select name="frequency" aria-label="Frequência dos alertas" defaultValue="DAILY"><option value="DAILY">Resumo diário</option><option value="IMMEDIATE">Imediato</option></select>
             <button className="primary" type="submit">Salvar</button>
           </form>
         </details>
-        <p style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-          <Link href={toggle("lista")} style={{ fontWeight: vista === "lista" ? 700 : 400 }}>☰ Lista</Link>{" · "}
-          <Link href={toggle("mapa")} style={{ fontWeight: vista === "mapa" ? 700 : 400 }}>🗺 Mapa</Link>
+        <div className="search-toolbar">
+          <nav className="view-switch" aria-label="Visualização dos imóveis">
+            <Link href={toggle("lista")} aria-current={vista === "lista" ? "page" : undefined}>☰ Lista</Link>
+            <Link href={toggle("mapa")} aria-current={vista === "mapa" ? "page" : undefined}>🗺 Mapa</Link>
+          </nav>
           {csvOk
             ? <a href={`/api/busca/export?${mapQuery}`}>⬇ Exportar CSV (até 5.000)</a>
             : <span className="muted" title="Disponível em planos com exportação">⬇ Exportar CSV (indisponível no seu plano)</span>}
-        </p>
+        </div>
         {vista === "mapa" && <PropertyMap query={mapQuery} />}
-        <p className="muted">{total != null ? `${total.toLocaleString("pt-BR")} imóveis encontrados` : ""}</p>
         {vista === "lista" && items.length === 0 && <div className="panel">Nenhum imóvel encontrado com esses filtros.</div>}
         <div className="grid">
           {items.map((l) => (
@@ -109,7 +118,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
             </Link>
           ))}
         </div>
-        {vista === "lista" && nextCursor && <p><Link href={`/busca?${next.toString()}`}>Próxima página →</Link></p>}
+        {vista === "lista" && nextCursor && <p className="pagination"><Link href={`/busca?${next.toString()}`}>Próxima página →</Link></p>}
       </section>
     </div>
   );

@@ -7,7 +7,7 @@ export function InviteForm({ isOwner }: { isOwner: boolean }) {
   return (
     <div className="panel">
       <h2 style={{ marginTop: 0 }}>Convidar usuário</h2>
-      <form action={action} style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+      <form action={action} className="inline-form">
         <input name="email" type="email" placeholder="E-mail" required />
         <input name="name" placeholder="Nome (opcional)" maxLength={80} />
         <select name="role" defaultValue="MEMBER">

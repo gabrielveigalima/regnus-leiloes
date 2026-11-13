@@ -25,7 +25,7 @@ export default async function AlertasPage({ searchParams }: { searchParams: Prom
           <div className="panel" key={s.id}>
             <h3 style={{ margin: 0 }}><Link href={`/busca?${qs}`}>{s.name}</Link></h3>
             <p className="muted">Última verificação: {fmtDate(s.lastRunAt ?? s.createdAt)}</p>
-            <form action={setSearchFrequency.bind(null, s.id)} style={{ display: "inline-flex", gap: 6 }}>
+            <form action={setSearchFrequency.bind(null, s.id)} className="inline-form" style={{ marginBottom: 8 }}>
               <select name="frequency" defaultValue={s.frequency}><option value="DAILY">Resumo diário</option><option value="IMMEDIATE">Imediato</option></select>
               <button type="submit">Alterar</button>
             </form>{" "}

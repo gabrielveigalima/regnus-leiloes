@@ -6,7 +6,7 @@ export function CreateKeyForm() {
   const [state, action, pending] = useActionState<ApiKeyResult | null, FormData>(createApiKeyAction, null);
   return (
     <div className="panel">
-      <form action={action} style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+      <form action={action} className="inline-form">
         <input name="name" placeholder="Nome da chave (ex.: integração CRM)" maxLength={60} required />
         <button className="primary" type="submit" disabled={pending}>{pending ? "Criando…" : "Criar chave"}</button>
       </form>

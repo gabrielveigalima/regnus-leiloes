@@ -13,7 +13,7 @@ export function AppHeader({ items, userLabel, home = "/busca" }: { items: NavIte
         {items.map((i) => <NavLink key={i.href} href={i.href}>{i.label}</NavLink>)}
       </nav>
       <div className="header-actions">
-        <Link href="/conta" className="header-profile" title="Minha conta">
+        <Link href="/conta" className="header-profile" title="Minha conta" aria-label="Minha conta">
           <span className="header-avatar" aria-hidden="true">{initial}</span>
           <span className="header-profile-label">{userLabel}</span>
         </Link>

@@ -38,7 +38,10 @@ export default async function ImovelPage({ params }: { params: Promise<{ id: str
   return (
     <>
       <p><Link href="/busca">← Voltar à busca</Link></p>
-      <h1>{main?.title ?? "Imóvel"} <FavoriteButton propertyId={p.id} favorited={!!fav} /></h1>
+      <div className="property-heading">
+        <h1>{main?.title ?? "Imóvel"}</h1>
+        <FavoriteButton propertyId={p.id} favorited={!!fav} />
+      </div>
       {fav && (
         <form action={updateFavorite.bind(null, p.id)} className="panel" style={{ display: "grid", gap: 6, maxWidth: 520 }}>
           <input name="label" placeholder="Etiqueta" defaultValue={fav.label ?? ""} maxLength={40} />
@@ -56,12 +59,16 @@ export default async function ImovelPage({ params }: { params: Promise<{ id: str
 
       <div className="panel">
         <h2>Dados do imóvel</h2>
-        <table className="t"><tbody>
-          <tr><th>Tipo</th><td>{TYPE_LABEL[p.type]}</td><th>Ocupação</th><td>{OCC_LABEL[p.occupation]}</td></tr>
-          <tr><th>Área privativa</th><td>{fmtM2(p.privateArea)}</td><th>Área total</th><td>{fmtM2(p.totalArea)}</td></tr>
-          <tr><th>Terreno</th><td>{fmtM2(p.landArea)}</td><th>Quartos / vagas</th><td>{p.bedrooms ?? "—"} / {p.parking ?? "—"}</td></tr>
-          <tr><th>Matrícula</th><td>{p.registry ?? "—"}</td><th>Cartório</th><td>{p.registryOffice ?? "—"}</td></tr>
-        </tbody></table>
+        <dl className="property-facts">
+          <div><dt>Tipo</dt><dd>{TYPE_LABEL[p.type]}</dd></div>
+          <div><dt>Ocupação</dt><dd>{OCC_LABEL[p.occupation]}</dd></div>
+          <div><dt>Área privativa</dt><dd>{fmtM2(p.privateArea)}</dd></div>
+          <div><dt>Área total</dt><dd>{fmtM2(p.totalArea)}</dd></div>
+          <div><dt>Terreno</dt><dd>{fmtM2(p.landArea)}</dd></div>
+          <div><dt>Quartos / vagas</dt><dd>{p.bedrooms ?? "—"} / {p.parking ?? "—"}</dd></div>
+          <div><dt>Matrícula</dt><dd>{p.registry ?? "—"}</dd></div>
+          <div><dt>Cartório</dt><dd>{p.registryOffice ?? "—"}</dd></div>
+        </dl>
         {p.lat != null && p.lng != null && (
           <>
             {p.geoPrecision && p.geoPrecision !== "ADDRESS" && <p className="muted">Localização aproximada ({p.geoPrecision === "CITY" ? "centro da cidade" : "rua"}).</p>}
@@ -80,8 +87,10 @@ export default async function ImovelPage({ params }: { params: Promise<{ id: str
               {l.seller ? ` · Comitente: ${l.seller}` : ""}{l.acceptsFinancing ? " · Aceita financiamento" : ""}{l.acceptsFgts ? " · Aceita FGTS" : ""}</span>
           </p>
           {l.rounds.length > 0 && (
-            <table className="t"><thead><tr><th>Praça</th><th>Data</th><th>Lance mínimo</th></tr></thead>
-              <tbody>{l.rounds.map((r) => <tr key={r.id}><td>{r.number}ª</td><td>{fmtDate(r.date)}</td><td>{fmtBRL(r.minBid)}</td></tr>)}</tbody></table>
+            <div className="table-scroll" role="region" aria-label={`Praças de ${l.source.name}`} tabIndex={0}>
+              <table className="t"><thead><tr><th>Praça</th><th>Data</th><th>Lance mínimo</th></tr></thead>
+                <tbody>{l.rounds.map((r) => <tr key={r.id}><td>{r.number}ª</td><td>{fmtDate(r.date)}</td><td>{fmtBRL(r.minBid)}</td></tr>)}</tbody></table>
+            </div>
           )}
           {l.description && <p>{l.description}</p>}
           {l.caseNumber && <p className="muted">Processo: {l.caseNumber}</p>}
@@ -95,9 +104,11 @@ export default async function ImovelPage({ params }: { params: Promise<{ id: str
       <div className="panel">
         <h2>Linha do tempo</h2>
         {events.length === 0 ? <p className="muted">Sem eventos.</p> : (
-          <table className="t"><tbody>{events.map((e) => (
-            <tr key={e.id}><td>{fmtDate(e.at)}</td><td>{e.source}</td><td>{eventLabel(e.kind)}</td><td>{e.oldValue ?? ""} {e.oldValue && e.newValue ? "→" : ""} {e.newValue ?? ""}</td></tr>
-          ))}</tbody></table>
+          <div className="table-scroll" role="region" aria-label="Linha do tempo do imóvel" tabIndex={0}>
+            <table className="t"><tbody>{events.map((e) => (
+              <tr key={e.id}><td>{fmtDate(e.at)}</td><td>{e.source}</td><td>{eventLabel(e.kind)}</td><td>{e.oldValue ?? ""} {e.oldValue && e.newValue ? "→" : ""} {e.newValue ?? ""}</td></tr>
+            ))}</tbody></table>
+          </div>
         )}
       </div>
     </>

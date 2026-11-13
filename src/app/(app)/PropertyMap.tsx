@@ -55,7 +55,7 @@ export function PropertyMap({ query, single, height = 520 }: { query?: string; s
   return (
     <div>
       {info && <p className="muted">{info}</p>}
-      <div ref={el} style={{ height, borderRadius: 8, border: "1px solid var(--line)" }} />
+      <div ref={el} className="property-map" style={{ height, borderRadius: 8, border: "1px solid var(--line)" }} />
     </div>
   );
 }
