@@ -24,16 +24,32 @@ while [ $# -gt 0 ]; do
 done
 [ -n "$ENVF" ] && [ ! -f .env.prod ] && { echo ".env.prod não existe"; exit 1; }
 
-echo "== Banco: ${ENVF:-.env (local)} | fontes: $FONTES =="
-FALHAS=""
-for s in ${FONTES//,/ }; do
-  echo "-- varrendo $s ($(date +%H:%M))"
-  npx tsx $ENVF src/crawler/cli.ts --source "$s" || FALHAS="$FALHAS $s"
-done
+echo "== Banco: ${ENVF:-.env (local)} | fontes: $FONTES | em paralelo (1 processo por fonte) =="
+mkdir -p logs
+
+# Cada fonte é um site diferente, então rodam ao mesmo tempo sem quebrar o limite de 1 req/s POR SITE.
+paralelo() { # $1 = rótulo, resto = comando
+  local nome="$1"; shift
+  ( "$@" 2>&1 | sed -u "s/^/[$nome] /" | tee "logs/$nome.log" >/dev/null; exit "${PIPESTATUS[0]}" ) &
+  PIDS+=("$!"); NOMES+=("$nome")
+}
+esperar() {
+  for i in "${!PIDS[@]}"; do wait "${PIDS[$i]}" || FALHAS="$FALHAS ${NOMES[$i]}"; done
+  PIDS=(); NOMES=()
+}
+FALHAS=""; PIDS=(); NOMES=()
+
+echo "-- 1/2 varrendo listagens ($(date +%H:%M)); acompanhe com: tail -f logs/*.log"
+for s in ${FONTES//,/ }; do paralelo "varrer-$s" npx tsx $ENVF src/crawler/cli.ts --source "$s"; done
+esperar
 
 if [ "$SO_VARRER" = 0 ]; then
-  echo "-- enriquecendo e geocodificando por ${HORAS}h (Ctrl+C é seguro; retoma na próxima)"
-  npx tsx $ENVF src/overnight.ts --hours "$HORAS" --sources "caixa,megaleiloes,biasi" || FALHAS="$FALHAS overnight"
+  echo "-- 2/2 enriquecendo (uma fonte por processo) e geocodificando, por ${HORAS}h (Ctrl+C é seguro; retoma na próxima)"
+  for s in caixa megaleiloes biasi; do
+    case ",$FONTES," in *",$s,"*) paralelo "enriquecer-$s" npx tsx $ENVF src/overnight.ts --hours "$HORAS" --sources "$s" --no-geocode ;; esac
+  done
+  paralelo "geocodificar" npx tsx $ENVF src/overnight.ts --hours "$HORAS" --sources "" 
+  esperar
 fi
 
 [ "$DUMP" = 1 ] && { echo "-- gerando dump"; bash deploy/export-data.sh; }
