@@ -3,9 +3,10 @@ import type { Prisma } from "@prisma/client";
 import { prisma } from "./prisma";
 import { buildWhere, parseFilters } from "./search";
 import { allowedUfsFor } from "./access";
+import { unsubscribeUrl } from "./unsub";
 import { buildAlertEmail, type AlertItem } from "./alert-email";
 
-export interface Mailer { send(msg: { to: string; subject: string; text: string; html: string }): Promise<void> }
+export interface Mailer { send(msg: { to: string; subject: string; text: string; html: string; headers?: Record<string, string> }): Promise<void> }
 
 const MAX_ITEMS = 25;
 const DAILY_MS = 23 * 3600_000;
@@ -66,7 +67,8 @@ export async function runAlerts(opts: { mailer?: Mailer | null; now?: Date; appU
       const { items, total } = await findAlertItems(s.filters as SavedFilters, since, now, { allowedUfs: await allowedUfsFor(s.organizationId) });
       if (items.length === 0) { await prisma.savedSearch.update({ where: { id: s.id }, data: { lastRunAt: now } }); result.skipped++; continue; }
       if (!mailer) { log("alertas: SMTP_HOST não configurado; envio adiado"); result.skipped++; continue; }
-      await mailer.send({ to: s.user.email, ...buildAlertEmail({ searchName: s.name, items, total, appUrl }) });
+      const unsub = unsubscribeUrl(appUrl, s.id);
+      await mailer.send({ to: s.user.email, headers: { "List-Unsubscribe": `<${unsub}>` }, ...buildAlertEmail({ searchName: s.name, items, total, appUrl, unsubscribeUrl: unsub }) });
       await prisma.$transaction([
         prisma.alertDelivery.create({ data: { savedSearchId: s.id, listingIds: items.map((i) => i.id) } }),
         prisma.savedSearch.update({ where: { id: s.id }, data: { lastRunAt: now } }),

@@ -5,7 +5,8 @@ import { allowedUfsFor, canExportCsv } from "@/lib/access";
 import { tenantDb } from "@/lib/tenancy";
 import { saveSearch } from "../actions";
 import { PropertyMap } from "../PropertyMap";
-import { AUCTION_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtM2 } from "@/lib/format";
+import { prisma } from "@/lib/prisma";
+import { AUCTION_LABEL, OCC_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtDaysUntil, fmtM2, fmtPricePerM2, pricePerM2 } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Buscar imóveis — Regnus Leilões" };
@@ -18,6 +19,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
   const sp = await searchParams;
   const f = parseFilters(sp);
   const u = await requireSession();
+  const sources = await prisma.source.findMany({ where: { listings: { some: {} } }, select: { id: true, name: true }, orderBy: { name: "asc" } });
   const [allowedUfs, csvOk] = await Promise.all([allowedUfsFor(u.organizationId), canExportCsv(u.organizationId)]);
   const vista = val0(sp.vista) === "mapa" ? "mapa" : "lista";
   const { items, nextCursor, total } = vista === "mapa" ? { items: [], nextCursor: null, total: null } : await searchListings(f, { allowedUfs });
@@ -47,6 +49,12 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
         </label>
         <label>Modalidade
           <select name="leilao" defaultValue={val("leilao")}><option value="">Todas</option>{Object.entries(AUCTION_LABEL).map(([k, l]) => <option key={k} value={k}>{l}</option>)}</select>
+        </label>
+        <label>Fonte
+          <select name="fonte" defaultValue={val("fonte")}><option value="">Todas</option>{sources.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</select>
+        </label>
+        <label>Ocupação
+          <select name="ocupacao" defaultValue={val("ocupacao")}><option value="">Qualquer</option>{["UNOCCUPIED", "OCCUPIED"].map((k) => <option key={k} value={k}>{OCC_LABEL[k]}</option>)}</select>
         </label>
         <label>Lance mínimo de (R$)<input name="precoMin" inputMode="decimal" defaultValue={val("precoMin")} /></label>
         <label>Lance mínimo até (R$)<input name="precoMax" inputMode="decimal" defaultValue={val("precoMax")} /></label>
@@ -95,7 +103,8 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
                 <strong>{l.title}</strong>
                 <span className="price">{fmtBRL(l.minBid)} {l.discountPct != null && Number(l.discountPct) > 0 && <span className="badge">-{Number(l.discountPct).toFixed(0)}%</span>}</span>
                 <span className="muted">Avaliação {fmtBRL(l.appraisalValue)} · {fmtM2(l.property?.privateArea ?? l.property?.totalArea ?? l.property?.landArea)}</span>
-                <span className="muted">{AUCTION_LABEL[l.auctionType]} · {l.source.name}{l.nextAuctionAt ? ` · praça ${fmtDate(l.nextAuctionAt)}` : ""}</span>
+                <span className="muted">{AUCTION_LABEL[l.auctionType]} · {l.source.name}{l.nextAuctionAt ? ` · praça ${fmtDate(l.nextAuctionAt)}${fmtDaysUntil(l.nextAuctionAt) ? ` (${fmtDaysUntil(l.nextAuctionAt)})` : ""}` : ""}</span>
+                {pricePerM2(l.minBid, l.property) != null && <span className="muted">{fmtPricePerM2(pricePerM2(l.minBid, l.property))}</span>}
               </div>
             </Link>
           ))}

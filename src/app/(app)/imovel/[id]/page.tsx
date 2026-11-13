@@ -6,7 +6,7 @@ import { tenantDb } from "@/lib/tenancy";
 import { PropertyMap } from "../../PropertyMap";
 import { FavoriteButton } from "../../FavoriteButton";
 import { updateFavorite } from "../../actions";
-import { AUCTION_LABEL, OCC_LABEL, STATUS_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtM2 } from "@/lib/format";
+import { AUCTION_LABEL, OCC_LABEL, STATUS_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtDaysUntil, fmtM2, fmtPricePerM2, pricePerM2 } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 
@@ -76,7 +76,7 @@ export default async function ImovelPage({ params }: { params: Promise<{ id: str
           <p>
             <strong className="price">{fmtBRL(l.minBid)}</strong>{" "}
             {l.discountPct != null && Number(l.discountPct) > 0 && <span className="badge">-{Number(l.discountPct).toFixed(1)}%</span>}
-            <span className="muted"> · Avaliação {fmtBRL(l.appraisalValue)} · {AUCTION_LABEL[l.auctionType]}
+            <span className="muted"> · Avaliação {fmtBRL(l.appraisalValue)} · {fmtPricePerM2(pricePerM2(l.minBid, p))}{l.nextAuctionAt && fmtDaysUntil(l.nextAuctionAt) ? ` · praça ${fmtDaysUntil(l.nextAuctionAt)}` : ""} · {AUCTION_LABEL[l.auctionType]}
               {l.seller ? ` · Comitente: ${l.seller}` : ""}{l.acceptsFinancing ? " · Aceita financiamento" : ""}{l.acceptsFgts ? " · Aceita FGTS" : ""}</span>
           </p>
           {l.rounds.length > 0 && (
