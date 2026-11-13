@@ -7,7 +7,7 @@ import { saveSearch } from "../actions";
 import { PropertyMap } from "../PropertyMap";
 import { SearchFilters } from "../SearchFilters";
 import { prisma } from "@/lib/prisma";
-import { AUCTION_LABEL, OCC_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtDaysUntil, fmtM2, fmtPricePerM2, pricePerM2 } from "@/lib/format";
+import { AUCTION_LABEL, OCC_LABEL, STATUS_LABEL, TYPE_LABEL, fmtBRL, fmtDate, fmtDaysUntil, fmtM2, fmtPricePerM2, pricePerM2 } from "@/lib/format";
 
 export const dynamic = "force-dynamic";
 export const metadata = { title: "Buscar imóveis — Regnus Leilões" };
@@ -26,7 +26,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
   const { items, nextCursor, total } = vista === "mapa" ? { items: [], nextCursor: null, total: null } : await searchListings(f, { allowedUfs });
   const favIds = await tenantDb(u.organizationId, u.id).favorites.ids(items.map((l) => l.propertyId).filter((x): x is string => !!x));
   const val = (k: string) => { const v = sp[k]; return Array.isArray(v) ? v[0] : v ?? ""; };
-  const activeCount = ["q", "uf", "cidade", "bairro", "tipo", "leilao", "fonte", "ocupacao", "precoMin", "precoMax", "descMin", "areaMin", "quartos", "pracaAte", "financia", "fgts"].filter((k) => (val(k) ?? "").trim() !== "").length;
+  const activeCount = ["q", "uf", "cidade", "bairro", "tipo", "leilao", "fonte", "ocupacao", "status", "precoMin", "precoMax", "descMin", "areaMin", "quartos", "pracaAte", "financia", "fgts"].filter((k) => (val(k) ?? "").trim() !== "").length;
 
   const mapQuery = new URLSearchParams(Object.entries(sp).filter(([k, v]) => k !== "cursor" && k !== "vista" && v != null).map(([k, v]) => [k, Array.isArray(v) ? v.join(",") : v!])).toString();
   const toggle = (v: string) => `/busca?${new URLSearchParams([...new URLSearchParams(mapQuery), ["vista", v]]).toString()}`;
@@ -55,6 +55,13 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
         </label>
         <label>Fonte
           <select name="fonte" defaultValue={val("fonte")}><option value="">Todas</option>{sources.map((x) => <option key={x.id} value={x.id}>{x.name}</option>)}</select>
+        </label>
+        <label>Situação
+          <select name="status" defaultValue={val("status")}>
+            <option value="">Ativos (abertos e em breve)</option>
+            <option value="CLOSED,SOLD,CANCELLED,SUSPENDED">Encerrados / retirados (histórico)</option>
+            <option value="UPCOMING,OPEN,CLOSED,SOLD,CANCELLED,SUSPENDED">Todos</option>
+          </select>
         </label>
         <label>Ocupação
           <select name="ocupacao" defaultValue={val("ocupacao")}><option value="">Qualquer</option>{["UNOCCUPIED", "OCCUPIED"].map((k) => <option key={k} value={k}>{OCC_LABEL[k]}</option>)}</select>
@@ -109,7 +116,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
               {l.images[0] ? <img className="photo" src={l.images[0].url} alt="" referrerPolicy="no-referrer" loading="lazy" /> : <div className="photo" />}
               <div className="body">
                 <span className="muted">{l.propertyId && favIds.has(l.propertyId) ? "★ " : ""}{TYPE_LABEL[l.property?.type ?? "OTHER"]} · {l.property?.city}/{l.property?.uf}</span>
-                <strong>{l.title}</strong>
+                <strong>{l.status !== "OPEN" && l.status !== "UPCOMING" && <span className="badge">{STATUS_LABEL[l.status]}</span>} {l.title}</strong>
                 <span className="price">{fmtBRL(l.minBid)} {l.discountPct != null && Number(l.discountPct) > 0 && <span className="badge">-{Number(l.discountPct).toFixed(0)}%</span>}</span>
                 <span className="muted">Avaliação {fmtBRL(l.appraisalValue)} · {fmtM2(l.property?.privateArea ?? l.property?.totalArea ?? l.property?.landArea)}</span>
                 <span className="muted">{AUCTION_LABEL[l.auctionType]} · {l.source.name}{l.nextAuctionAt ? ` · praça ${fmtDate(l.nextAuctionAt)}${fmtDaysUntil(l.nextAuctionAt) ? ` (${fmtDaysUntil(l.nextAuctionAt)})` : ""}` : ""}</span>
