@@ -105,7 +105,7 @@ export default async function BuscaPage({ searchParams }: { searchParams: Promis
         {vista === "lista" && items.length === 0 && <div className="panel">Nenhum imóvel encontrado com esses filtros.</div>}
         <div className="grid">
           {items.map((l) => (
-            <Link key={l.id} href={`/imovel/${l.propertyId ?? ""}`} className="card">
+            <Link key={l.id} href={`/imovel/${l.propertyId ?? ""}`} className="card" target="_blank" rel="noopener">
               {l.images[0] ? <img className="photo" src={l.images[0].url} alt="" referrerPolicy="no-referrer" loading="lazy" /> : <div className="photo" />}
               <div className="body">
                 <span className="muted">{l.propertyId && favIds.has(l.propertyId) ? "★ " : ""}{TYPE_LABEL[l.property?.type ?? "OTHER"]} · {l.property?.city}/{l.property?.uf}</span>

@@ -40,7 +40,7 @@ export function PropertyMap({ query, single, height = 520 }: { query?: string; s
       for (const p of data.points) {
         const approx = p.precision === "STREET" || p.precision === "CITY";
         L.circleMarker([p.lat, p.lng], { radius: 7, color: "#24310f", weight: 1, fillColor: approx ? "#b8b6a3" : "#324415", fillOpacity: 0.9 })
-          .bindPopup(`<strong>${esc(p.title)}</strong><br>${brl(p.minBid)}${p.discountPct ? ` (-${p.discountPct.toFixed(0)}%)` : ""}${approx ? `<br><em>localização aproximada (${p.precision === "CITY" ? "cidade" : "rua"})</em>` : ""}<br><a href="/imovel/${encodeURIComponent(p.propertyId)}">Ver imóvel</a>`)
+          .bindPopup(`<strong>${esc(p.title)}</strong><br>${brl(p.minBid)}${p.discountPct ? ` (-${p.discountPct.toFixed(0)}%)` : ""}${approx ? `<br><em>localização aproximada (${p.precision === "CITY" ? "cidade" : "rua"})</em>` : ""}<br><a href="/imovel/${encodeURIComponent(p.propertyId)}" target="_blank" rel="noopener">Ver imóvel</a>`)
           .addTo(cluster);
       }
       cluster.addTo(map);

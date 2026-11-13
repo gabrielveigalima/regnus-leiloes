@@ -19,7 +19,7 @@ export default async function FavoritosPage() {
         const l = f.property.listings[0];
         return (
           <div className="panel" key={f.id}>
-            <h3 style={{ margin: 0 }}><Link href={`/imovel/${f.propertyId}`}>{l?.title ?? "Imóvel"}</Link></h3>
+            <h3 style={{ margin: 0 }}><Link href={`/imovel/${f.propertyId}`} target="_blank" rel="noopener">{l?.title ?? "Imóvel"}</Link></h3>
             <p className="muted">{TYPE_LABEL[f.property.type]} · {f.property.city}/{f.property.uf} · {fmtBRL(l?.minBid)}{f.label ? ` · [${f.label}]` : ""}</p>
             <form action={updateFavorite.bind(null, f.propertyId)} style={{ display: "grid", gap: 6, maxWidth: 520 }}>
               <input name="label" placeholder="Etiqueta (ex.: analisar)" defaultValue={f.label ?? ""} maxLength={40} />
