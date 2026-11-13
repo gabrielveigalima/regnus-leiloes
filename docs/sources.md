@@ -7,7 +7,7 @@
 | zuk | Leiloeiro | adiado: a listagem só traz 30 cards e a paginação é por `ajax-lote`, proibido no robots.txt | — | — | 2026-11-12 |
 | sodresantoro, superbid, leje | Leiloeiro | **precisa de parceria**: HTTP 403 (anti-bot) para o RegnusBot | — | — | 2026-11-12 |
 | lancejudicial | Leiloeiro | conector pronto (listagem /imoveis + lote; inclui lotes da PGFN); Source ainda desativada | 286 | 12h | 2026-11-13 |
-| freitas | Leiloeiro | a investigar (a pesquisa carrega por JavaScript) | — | — | 2026-11-13 |
+| freitas | Leiloeiro | conector pronto (`/Leiloes/PesquisarLotes?Categoria=2` paginado + página do lote); Source ainda desativada | 51 | 12h | 2026-11-13 |
 | frazao | Leiloeiro | conector pronto (sitemap + lote, coordenadas da fonte); Source ainda desativada | 398 | 12h | 2026-11-12 |
 | biasi | Leiloeiro | conector pronto (endpoint de listagem do site + lote, coordenadas da fonte); Source ainda desativada | 388 | 12h | 2026-11-12 |
 | pestana | Leiloeiro | **precisa de parceria**: o site é uma SPA e os dados vêm de `api.pestanaleiloes.com.br`, protegida por anti-bot (Radware: 302 para `validate.perfdrive.com`); o sitemap não lista lotes. Foco em veículos. Não contornado. | — | — | 2026-11-12 |
