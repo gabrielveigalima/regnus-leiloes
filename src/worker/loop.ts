@@ -6,10 +6,11 @@ import { runAlerts } from "@/lib/alerts";
 import { geocodeBatch } from "@/lib/geocode";
 
 /** Agenda FULL_SYNC das fontes ativas vencidas e consome a fila até acabar o tempo (maxMs) ou para sempre. */
-export async function runWorker({ maxMs }: { maxMs?: number }) {
+export async function runWorker({ maxMs, onLoop }: { maxMs?: number; onLoop?: () => void }) {
   let lastIdleAlerts = 0;
   const deadline = maxMs ? Date.now() + maxMs : Infinity;
   while (Date.now() < deadline) {
+    onLoop?.();
     await scheduleDue();
     const job = await claimJob();
     if (!job) {

@@ -7,7 +7,7 @@ Estado: Fases 1–6 e 8 do plano implementadas e testadas (91 testes, incluindo 
 |---|---|---|
 | 1 | Validar a interface no navegador | Login, mapa (Leaflet + tiles OSM), formulários/server actions e **CSP** (`unsafe-inline` em script/estilo). Se algo quebrar com a CSP, ajustar `next.config.js`. |
 | 2 | Deploy real | Hostinger (web) + VPS ou cron (worker), SMTP real, `NEXTAUTH_SECRET`, monitor em `/api/health`. `deploy/backup-db.sh`, `Dockerfile`, `docker-compose.yml`, PM2 e o workflow `crawl-tick.yml` **nunca foram executados**. |
-| 3 | Ativar fontes e subir o worker | Todas as `Source` nascem desativadas. Ativar `caixa`, `megaleiloes`, `frazao`, `biasi` em Admin → Fontes. Sem worker, "Rodar agora" só enfileira. |
+| 3 | Ativar fontes e subir o worker | Todas as `Source` nascem desativadas. Ativar `caixa`, `megaleiloes`, `frazao`, `biasi` em Admin → Fontes. Sem worker, "Rodar agora" só enfileira: use `ENABLE_WORKER=1` (worker embutido, sem VPS) ou `npm run worker` num VPS. |
 | 4 | Trocar a senha do admin | Agora existe: **Minha conta** (`/conta`) e **Esqueci minha senha** (`/esqueci-senha`, exige SMTP). Falta executar no ambiente real. |
 | 5 | Página `/bot` | O User-Agent `RegnusBot/1.0 (+https://regnus.com.br/bot)` promete uma página de contato; ela não existe. |
 | 6 | Revisão jurídica dos termos de uso das fontes | Obrigatória antes de comercializar (ver `docs/compliance.md`). |

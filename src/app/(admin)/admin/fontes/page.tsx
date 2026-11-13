@@ -3,6 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { connectors } from "@/crawler/registry";
 import { HEALTH_LABEL, computeHealth, errorRate, volumeDrop, type Health } from "@/lib/source-health";
 import { fmtDate } from "@/lib/format";
+import { workerState } from "@/worker/state";
 import { clearRobotsBlock, runSourceNow, setSourceActive } from "../actions";
 
 export const dynamic = "force-dynamic";
@@ -25,6 +26,9 @@ export default async function FontesPage() {
   return (
     <>
       <h1>Fontes</h1>
+      {(() => { const w = workerState(); return w.running
+        ? <p className="muted">Worker embutido: <strong>ativo</strong>{w.lastLoopAt ? ` (último ciclo ${fmtDate(new Date(w.lastLoopAt))})` : " (iniciando…)"}{w.lastError ? ` · último erro: ${w.lastError}` : ""}</p>
+        : <p className="muted">Worker embutido: desligado (defina <code>ENABLE_WORKER=1</code> ou rode <code>npm run worker</code> em outro servidor).</p>; })()}
       <p className="muted">“Rodar agora” enfileira uma coleta completa; o worker (<code>npm run worker</code> ou <code>worker:tick</code>) precisa estar ativo para executá-la.</p>
       <div className="panel" style={{ overflowX: "auto" }}>
         <table className="t">

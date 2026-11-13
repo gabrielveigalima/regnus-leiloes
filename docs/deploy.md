@@ -32,7 +32,13 @@ npm i -g pm2 && pm2 start ecosystem.config.cjs && pm2 save && pm2 startup
 Alternativas: `docker build -t regnus . && docker run -d --env-file .env --restart=always regnus npm run worker`, ou unit systemd com `ExecStart=/usr/bin/npm run worker`.
 O worker: agenda `FULL_SYNC` das fontes ativas vencidas (`Source.intervalMinutes`), consome a fila (lease de 5 min, retry exponencial), envia alertas após cada coleta e (com `GEOCODE=1`) geocodifica em lotes.
 
-**B) Fallback sem VPS: cron + `worker:tick`**
+**B) Sem VPS: worker embutido no próprio site (Hostinger)**
+Defina `ENABLE_WORKER=1` nas variáveis da aplicação e faça um novo deploy/reinício. O `src/instrumentation.ts` inicia o worker dentro do processo do Next (20 s depois de subir; `WORKER_START_DELAY_MS`), que agenda as fontes **ativas**, executa a fila, envia alertas (se houver SMTP) e reinicia sozinho se cair. Acompanhe em **Admin → Fontes** ("Worker embutido: ativo") e em `/api/health` (`embeddedWorker`).
+- Limitações: compartilha CPU/memória do plano web; se a hospedagem reiniciar ou suspender o processo, a coleta retoma no próximo início (a fila tem lease). Conectores com Playwright não funcionam aqui (nenhum usa hoje). Mantenha `GEOCODE=0` (ou `1` só se quiser geocodificar no mesmo processo).
+- Vários processos ao mesmo tempo são seguros.
+- Fluxo para encher a produção: ative as fontes em Admin → Fontes (`megaleiloes` ≈ 1 min, `caixa` ≈ 4–10 min, `frazao` e `biasi` ≈ 7 min cada, por causa da página de cada lote); a primeira coleta começa em até 15 s depois de ativar (ou use "Rodar agora").
+
+**C) Fallback: cron + `worker:tick`**
 `npm run worker:tick -- --max-minutes 10` termina sozinho. Dispare pelo cron da Hostinger ou use `.github/workflows/crawl-tick.yml` (exige MySQL acessível pelo GitHub e segredos configurados). Não serve para conectores com browser. Coletas longas (Caixa completa, ~4 min; Frazão/Biasi com detalhe, ~7 min cada) cabem em 10 min **uma por vez** — a fila continua na próxima execução.
 
 ## 4. Verificações pós-deploy
