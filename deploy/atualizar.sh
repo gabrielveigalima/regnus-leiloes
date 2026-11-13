@@ -40,7 +40,7 @@ s.on("error",()=>process.exit(1));s.on("timeout",()=>process.exit(1));' 2>/dev/n
 fi
 
 # trava: duas atualizações ao mesmo tempo disputam as mesmas linhas (erros de chave única)
-LOCK="/tmp/regnus-atualizar-${ENVF:+prod}${ENVF:-local}.lock"
+LOCK="/tmp/regnus-atualizar-$([ -n "$ENVF" ] && echo prod || echo local).lock"
 exec 9>"$LOCK"
 if ! flock -n 9; then echo "Já existe uma atualização rodando para este banco (trava $LOCK). Espere terminar ou acompanhe: tail -f logs/*.log"; exit 1; fi
 
