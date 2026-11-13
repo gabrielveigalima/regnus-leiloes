@@ -110,7 +110,7 @@ test("BB_DETAIL=0 publica só o card", async () => {
     const ref = { externalId: "110", url: "https://seuimovelbb.com.br/imovel/id/110", data: p8.cards[0] };
     const raw = await seuimovelbb.fetchDetail!(ref, { http: { get: async () => { throw new Error("não deveria buscar"); } } } as unknown as CrawlContext);
     const l = seuimovelbb.parse(raw);
-    assert.equal(l.detail, false);
-    assert.equal(l.minBid, 16860);
+    assert.equal(l!.detail, false);
+    assert.equal(l!.minBid, 16860);
   } finally { delete process.env.BB_DETAIL; }
 });

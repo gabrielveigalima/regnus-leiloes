@@ -106,7 +106,7 @@ test("BIASI_DETAIL=0 publica só os dados do card", async () => {
   try {
     const ref = { externalId: "64793", url: p1.cards[0]!.url, data: p1.cards[0] };
     const raw = await biasi.fetchDetail!(ref, { http: { get: async () => { throw new Error("não deveria buscar"); } } } as unknown as CrawlContext);
-    assert.equal(biasi.parse(raw).property.registry ?? null, null);
+    assert.equal(biasi.parse(raw)!.property.registry ?? null, null);
   } finally { delete process.env.BIASI_DETAIL; }
 });
 

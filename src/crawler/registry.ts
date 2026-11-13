@@ -6,8 +6,9 @@ import { megaleiloes } from "./connectors/megaleiloes";
 import { frazao } from "./connectors/frazao";
 import { biasi } from "./connectors/biasi";
 import { seuimovelbb } from "./connectors/seuimovelbb";
+import { vendasgov } from "./connectors/vendasgov";
 
-export const connectors: Record<string, Connector> = { [caixa.id]: caixa, [megaleiloes.id]: megaleiloes, [frazao.id]: frazao, [biasi.id]: biasi, [seuimovelbb.id]: seuimovelbb };
+export const connectors: Record<string, Connector> = { [caixa.id]: caixa, [megaleiloes.id]: megaleiloes, [frazao.id]: frazao, [biasi.id]: biasi, [seuimovelbb.id]: seuimovelbb, [vendasgov.id]: vendasgov };
 
 export function getConnector(id: string): Connector {
   const c = connectors[id];

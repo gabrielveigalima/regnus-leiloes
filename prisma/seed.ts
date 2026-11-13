@@ -19,6 +19,7 @@ const SOURCES = [
   ["freitas", "Freitas Leiloeiro", "AUCTIONEER", "https://www.freitasleiloeiro.com.br"],
   ["leje", "Leje", "AUCTIONEER", "https://www.leje.com.br"],
   ["pestana", "Pestana Leilões", "AUCTIONEER", "https://www.pestanaleiloes.com.br"],
+  ["vendasgov", "VendasGov — Imóveis da União", "GOVERNMENT", "https://imoveis.vendasgov.serpro.gov.br"],
 ] as const;
 
 async function main() {
@@ -37,7 +38,7 @@ async function main() {
   }
 
   for (const [id, name, type, baseUrl] of SOURCES) {
-    await prisma.source.upsert({ where: { id }, update: {}, create: { id, name, type, baseUrl, active: false } });
+    await prisma.source.upsert({ where: { id }, update: {}, create: { id, name, type, baseUrl, active: false, ...(id === "vendasgov" ? { intervalMinutes: 1440 } : {}) } });
   }
 }
 main().finally(() => prisma.$disconnect());

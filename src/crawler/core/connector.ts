@@ -47,5 +47,6 @@ export interface Connector {
   discover(ctx: CrawlContext): AsyncIterable<ListingRef>;
   fetchDetail?(ref: ListingRef, ctx: CrawlContext): Promise<RawListing>;
   /** Puro e testável com fixtures; deve validar com NormalizedListingSchema. */
-  parse(raw: RawListing): NormalizedListing;
+  /** `null` = o item não está à venda agora (ex.: já vendido); é ignorado e, se já existia, fechado pela coleta completa. */
+  parse(raw: RawListing): NormalizedListing | null;
 }

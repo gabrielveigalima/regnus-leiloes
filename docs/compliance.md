@@ -24,6 +24,7 @@
 | Biasi | `Allow: /` | endpoint de listagem usado pelo próprio site | **pendente** |
 | Portal Zuk | `Disallow: /ajax-lote*` | paginação só por ajax proibido → não coletado | n/a |
 | Sodré Santoro, Superbid, Leje | — | HTTP 403 ao robô → "precisa de parceria" | n/a |
+| VendasGov (Serpro) | portal devolve a SPA para /robots.txt (sem regras) | API JSON pública que o próprio portal usa; dados de órgãos públicos | **pendente** |
 | Pestana | `Disallow:` vazio (site); API só nega `/edital/` | API de dados atrás de anti-bot (Radware) → "precisa de parceria" | n/a |
 
 ## Checklist antes de vender

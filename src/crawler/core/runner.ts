@@ -52,6 +52,7 @@ export async function runConnector(connector: Connector, opts: RunOptions = {}, 
         try {
           const raw = connector.fetchDetail ? await connector.fetchDetail(ref, ctx) : { ref, body: ref.data };
           const item = connector.parse(raw);
+          if (!item) { skipped++; return; } // fora de venda
           sum.seen++; seenIds.add(item.externalId);
           if (opts.dryRun) { sum.samples.push(item); return; }
           // Gravação em segundo plano (`writeConcurrency`): a latência do banco não atrasa a leitura das próximas páginas.

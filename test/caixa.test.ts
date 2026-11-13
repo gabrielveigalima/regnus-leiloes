@@ -68,7 +68,7 @@ test("detalhe leilão SFI: duas praças com data, valor e edital", () => {
 test("connector.parse aceita linha crua", () => {
   const ref = { externalId: "1", url: "https://x.com" };
   const l = caixa.parse({ ref, body: rows[0] });
-  assert.equal(l.externalId, rows[0]!.id);
+  assert.equal(l!.externalId, rows[0]!.id);
 });
 
 test("flag detail: só a página de detalhe marca o anúncio como completo", () => {

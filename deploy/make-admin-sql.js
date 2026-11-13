@@ -43,6 +43,7 @@ const SOURCES = [
   ['freitas', 'Freitas Leiloeiro', 'AUCTIONEER', 'https://www.freitasleiloeiro.com.br'],
   ['leje', 'Leje', 'AUCTIONEER', 'https://www.leje.com.br'],
   ['pestana', 'Pestana Leilões', 'AUCTIONEER', 'https://www.pestanaleiloes.com.br'],
+  ['vendasgov', 'VendasGov — Imóveis da União', 'GOVERNMENT', 'https://imoveis.vendasgov.serpro.gov.br'],
 ];
 
 const sql = `-- Regnus Leilões: administrador inicial (gerado por deploy/make-admin-sql.js)
