@@ -56,7 +56,7 @@ export class NominatimProvider implements GeocodeProvider {
 }
 
 /** Geocodifica um lote de imóveis ainda não tentados. Fora do caminho da coleta; roda no worker/CLI. */
-export async function geocodeBatch(opts: { limit?: number; provider?: GeocodeProvider; log?: (m: string) => void; filter?: import("@prisma/client").Prisma.PropertyWhereInput } = {}) {
+export async function geocodeBatch(opts: { limit?: number; provider?: GeocodeProvider; log?: (m: string) => void; filter?: import("@prisma/client").Prisma.PropertyWhereInput; deadline?: number } = {}) {
   const provider = opts.provider ?? new NominatimProvider();
   const log = opts.log ?? (() => {});
   const props = await prisma.property.findMany({
@@ -67,6 +67,7 @@ export async function geocodeBatch(opts: { limit?: number; provider?: GeocodePro
   });
   const stats = { processed: 0, address: 0, street: 0, city: 0, failed: 0, cacheHits: 0 };
   for (const p of props) {
+    if (opts.deadline && Date.now() > opts.deadline) break;
     let found: { r: GeoResult; precision: Precision } | null = null;
     for (const a of buildAttempts(p)) {
       const key = cacheKey(provider.name, a.query);

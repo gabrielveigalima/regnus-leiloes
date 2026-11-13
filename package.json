@@ -25,7 +25,9 @@
     "test:build": "tsx --test test/build.test.ts",
     "build:docker": "next build --webpack",
     "crawl:prod": "tsx --env-file=.env.prod src/crawler/cli.ts",
-    "geocode:prod": "tsx --env-file=.env.prod src/geocode-cli.ts"
+    "geocode:prod": "tsx --env-file=.env.prod src/geocode-cli.ts",
+    "overnight": "tsx src/overnight.ts",
+    "overnight:prod": "tsx --env-file=.env.prod src/overnight.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

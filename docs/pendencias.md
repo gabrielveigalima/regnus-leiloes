@@ -25,7 +25,7 @@ Estado: Fases 1–6 e 8 do plano implementadas e testadas (91 testes, incluindo 
 - **Admin:** alerta de queda de volume é só visual (não notifica); sem edição do intervalo de coleta.
 
 ## 3. Dados e qualidade
-- **Enriquecimento incremental:** `npm run crawl:prod -- --source caixa --enrich` (do seu PC) lê só o detalhe do que falta; ver `docs/deploy.md`.
+- **Carga inicial por dump:** coletar no MySQL local, `deploy/export-data.sh` e importar no phpMyAdmin; depois o worker embutido faz o incremental (`docs/deploy.md`). Enriquecimento: `npm run crawl -- --source caixa --enrich` / `npm run overnight`.
 - **Cruzamento entre fontes nunca foi exercitado com dados reais.** O Mega Leilões, sem `MEGA_DETAIL=1`, não traz endereço/número, então a deduplicação não casa com Frazão/Biasi/Caixa (que têm). A Caixa sem `CAIXA_DETAIL=1` não traz matrícula/CEP/praças. Decidir quais fontes rodam com detalhe (custo: ~1 req/s).
 - Geocodificar ~25 mil imóveis no Nominatim público leva horas; Frazão/Biasi já trazem coordenadas (`SOURCE`). Considerar provedor pago ou Nominatim próprio.
 - Revisar os candidatos de duplicado gerados (Frazão ~8, Biasi 2, Caixa 1) em `/admin/duplicados`. Sem varredura retroativa: a dedup só vale para o que entra na coleta. Depois de mesclar, o registro do par some (o histórico fica no `AuditLog`).

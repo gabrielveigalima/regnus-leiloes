@@ -21,6 +21,8 @@ Ative as fontes em **Admin → Fontes** (ou `UPDATE Source SET active = 1 WHERE 
 |---|---|
 | `npm run dev` / `build` / `start` | Next.js (build com webpack; `start` = `server.js`) |
 | `npm run crawl -- --source <id> [--uf SP] [--limit N] [--dry-run] [--enrich]` | roda um conector (`--enrich`: só lê o detalhe do que ainda não foi detalhado) |
+| `npm run overnight -- --until 07:00 [--concurrency 3]` | detalhe da Caixa/Mega + geocodificação sem supervisão (retomável) |
+| `deploy/export-data.sh` | exporta os dados de imóveis do banco local em `.sql.gz` para importar na produção (ver `docs/deploy.md`) |
 | `npm run crawl:prod` / `geocode:prod` | iguais, usando `.env.prod` (banco de produção a partir do seu PC) |
 | `npm run worker` | loop contínuo: agenda fontes vencidas, consome a fila, envia alertas, geocodifica (`GEOCODE=1`) |
 | `npm run worker:tick -- --max-minutes 10` | igual, mas termina sozinho (cron) |

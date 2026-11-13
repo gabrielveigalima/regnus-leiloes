@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { prisma } from "@/lib/prisma";
 import { discountPct } from "@/lib/normalize";
 import { fingerprint, recordCandidates, reconcileProperty, resolveProperty, type PropLike } from "@/lib/dedup";
+import pLimit from "p-limit";
 import { HttpClient, RobotsBlockedError } from "./http";
 import type { Connector, CrawlContext, NormalizedListing } from "./connector";
 
@@ -9,6 +10,12 @@ export interface RunOptions {
   uf?: string; limit?: number; dryRun?: boolean;
   /** Só lê a página de detalhe do que ainda não foi detalhado (listing.detailAt nulo). Não conta para "removidos". */
   enrichOnly?: boolean;
+  /** Epoch ms: interrompe a coleta (de forma limpa) ao passar desse horário. */
+  deadline?: number;
+  /** Gravações simultâneas no banco (a leitura das páginas continua 1 por vez). Padrão: 4 no modo enrich, senão 1. */
+  writeConcurrency?: number;
+  /** Páginas lidas ao mesmo tempo (padrão 1). A taxa máxima por domínio continua valendo (CRAWLER_MIN_INTERVAL_MS). */
+  concurrency?: number;
 }
 export interface RunSummary { seen: number; created: number; updated: number; removed: number; errors: number; samples: NormalizedListing[] }
 
@@ -23,28 +30,50 @@ export async function runConnector(connector: Connector, opts: RunOptions = {}, 
   const detailed = opts.enrichOnly && !opts.dryRun
     ? new Set((await prisma.listing.findMany({ where: { sourceId: connector.id, detailAt: { not: null } }, select: { externalId: true } })).map((l) => l.externalId))
     : new Set<string>();
-  let skipped = 0;
+  let skipped = 0, written = 0;
+  const writes = pLimit(Math.max(1, opts.writeConcurrency ?? (opts.enrichOnly ? 4 : 1)));
+  const pending: Promise<void>[] = [];
   const run = opts.dryRun ? null : await prisma.crawlRun.create({ data: { sourceId: connector.id, isFull: full } });
   const seenIds = new Set<string>();
   let status: "SUCCESS" | "PARTIAL" | "FAILED" | "BLOCKED" = "SUCCESS";
 
   try {
+    const fetchers = new Set<Promise<void>>();
+    const maxFetch = Math.max(1, opts.concurrency ?? 1);
+    let scheduled = 0, fatal: Error | null = null;
     for await (const ref of connector.discover(ctx)) {
-      if (opts.limit && sum.seen >= opts.limit) break;
+      if (fatal) break;
+      if (opts.limit && scheduled >= opts.limit) break;
+      if (opts.deadline && Date.now() > opts.deadline) { ctx.log("tempo limite atingido; encerrando"); break; }
       if (detailed.has(ref.externalId)) { skipped++; continue; } // já detalhado
-      try {
-        const raw = connector.fetchDetail ? await connector.fetchDetail(ref, ctx) : { ref, body: ref.data };
-        const item = connector.parse(raw);
-        sum.seen++; seenIds.add(item.externalId);
-        if (opts.dryRun) { sum.samples.push(item); continue; }
-        const r = await upsertListing(connector.id, item);
-        if (r === "created") sum.created++; else if (r === "updated") sum.updated++;
-        if (opts.enrichOnly && sum.seen % 50 === 0) ctx.log(`enrich ${connector.id}: ${sum.seen} detalhados (${skipped} já estavam completos)`);
-      } catch (e) {
-        if (e instanceof RobotsBlockedError) throw e;
-        sum.errors++; logs.push(`erro ${ref.externalId}: ${(e as Error).message}`);
-      }
+      scheduled++;
+      // Leitura (rede) + interpretação em até `maxFetch` tarefas simultâneas; a taxa por domínio é imposta pelo HttpClient.
+      const task: Promise<void> = (async () => {
+        try {
+          const raw = connector.fetchDetail ? await connector.fetchDetail(ref, ctx) : { ref, body: ref.data };
+          const item = connector.parse(raw);
+          sum.seen++; seenIds.add(item.externalId);
+          if (opts.dryRun) { sum.samples.push(item); return; }
+          // Gravação em segundo plano (`writeConcurrency`): a latência do banco não atrasa a leitura das próximas páginas.
+          pending.push(writes(async () => {
+            try {
+              const r = await upsertListing(connector.id, item);
+              if (r === "created") sum.created++; else if (r === "updated") sum.updated++;
+            } catch (e) { sum.errors++; logs.push(`erro ${ref.externalId}: ${(e as Error).message}`); }
+            if (opts.enrichOnly && ++written % 50 === 0) ctx.log(`enrich ${connector.id}: ${written} detalhados (${skipped} já estavam completos)`);
+          }));
+        } catch (e) {
+          if (e instanceof RobotsBlockedError) { fatal = e; return; }
+          sum.errors++; logs.push(`erro ${ref.externalId}: ${(e as Error).message}`);
+        }
+      })().finally(() => fetchers.delete(task));
+      fetchers.add(task);
+      while (fetchers.size >= maxFetch) await Promise.race(fetchers);
+      if (pending.length > 200) await Promise.all(pending.splice(0, pending.length - 20)); // evita fila sem limite
     }
+    await Promise.all(fetchers);
+    if (fatal) throw fatal;
+    await Promise.all(pending);
     if (!opts.dryRun && full && sum.errors === 0) sum.removed = await markMissing(connector.id, seenIds);
     if (sum.errors > 0) status = "PARTIAL";
   } catch (e) {

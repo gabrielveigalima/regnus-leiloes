@@ -38,24 +38,43 @@ Defina `ENABLE_WORKER=1` nas variáveis da aplicação e faça um novo deploy/re
 - Vários processos ao mesmo tempo são seguros.
 - Fluxo para encher a produção: ative as fontes em Admin → Fontes (`megaleiloes` ≈ 1 min, `caixa` ≈ 4–10 min, `frazao` e `biasi` ≈ 7 min cada, por causa da página de cada lote); a primeira coleta começa em até 15 s depois de ativar (ou use "Rodar agora").
 
-**Divisão de trabalho recomendada (sem VPS): servidor leve, PC pesado**
-- **Servidor (worker embutido, `ENABLE_WORKER=1`)**: coletas de *listagem* de todas as fontes — rápidas e incrementais (preço, novos anúncios, saída de anúncios). Anúncios já detalhados **não** são desfeitos por elas (só o preço é atualizado).
-- **Seu PC**: o trabalho lento e limitado a 1 req/s — ler a página de detalhe da Caixa/Mega (matrícula, CEP, praças, edital, fotos) e geocodificar. Roda contra o banco de produção e é **retomável**: cada execução só pega o que ainda não foi detalhado.
+**Caminho recomendado sem VPS: coletar no PC e carregar na produção por dump**
+Rodar o trabalho pesado direto contra o MySQL remoto é lento (cada imóvel faz ~15 consultas e cada uma paga a latência da internet). O caminho rápido é coletar tudo num MySQL **local** e levar os dados à produção em arquivos `.sql.gz`; depois o servidor (worker embutido, `ENABLE_WORKER=1`) só faz as atualizações incrementais.
 
-Preparação (uma vez):
-1. hPanel → Bancos de dados → **MySQL remoto**: libere o IP público do PC (ipinfo.io). Se o IP de casa muda, refaça a liberação ou use um túnel SSH, se o plano tiver SSH.
-2. `cp .env.prod.example .env.prod` e preencha (host remoto, nome, usuário, senha). O arquivo não vai para o Git.
-
-Uso (da pasta do projeto):
+1. **MySQL local** (uma vez): `docker compose up -d mysql` (Docker Desktop) ou `sudo apt install mysql-server`. No `.env`: `DATABASE_URL="mysql://root:root@127.0.0.1:3306/regnus_leiloes"`. Depois: `npx prisma migrate deploy && npm run db:seed`.
+2. **Coletar** (tudo local, sem latência de rede):
 ```bash
-npm run crawl:prod -- --source caixa --uf SP --limit 1500 --enrich   # detalha até 1.500 imóveis da Caixa-SP ainda sem detalhe (~30 min)
-npm run crawl:prod -- --source megaleiloes --enrich                 # detalha os lotes do Mega que faltam
-npm run geocode:prod -- --limit 2000                                 # geocodifica imóveis sem coordenadas (Nominatim, 1 req/s)
+npm run crawl -- --source caixa            # lista de 27 UFs (~5 min)
+npm run crawl -- --source megaleiloes      # ~1 min
+npm run crawl -- --source frazao           # ~7 min (lê cada lote)
+npm run crawl -- --source biasi            # ~7 min
+npm run overnight -- --until 07:00 --sources caixa,megaleiloes --concurrency 3   # detalhe da Caixa/Mega + geocodificação, até 07:00
 ```
-- Repita até acabar (a saída mostra quantos foram detalhados; `seen: 0` = nada mais a fazer). `Ctrl+C` a qualquer momento é seguro.
-- Use `--uf` para ir estado por estado. Estimativa: Caixa inteira ≈ 24 mil páginas ≈ 7–8 h em várias sessões.
-- O modo `--enrich` não fecha anúncios e não conta como coleta completa (não afeta o alerta de queda de volume).
-- Como a latência até o banco remoto não importa para tarefas de 1 req/s, isso funciona bem pela internet; **não** rode a coleta *completa* de listagem da Caixa do PC (24 mil gravações pela internet são lentas) — deixe para o servidor.
+   Pode deixar rodando de madrugada (veja "Deixar rodando sem supervisão"). É retomável: rode de novo e ele continua de onde parou.
+3. **Exportar** (dados de imóveis apenas — não leva usuários, organizações, fontes, favoritos nem chaves):
+```bash
+deploy/export-data.sh ./export 20      # gera export/regnus-dados-001.sql.gz, 002, ... (até 20 MB cada)
+```
+   Precisa de `mysqldump` (`sudo apt install mysql-client`) ou do contêiner do compose.
+4. **Importar na produção**: phpMyAdmin → banco do projeto → **Importar** → escolha `regnus-dados-001.sql.gz`, depois `002`… **em ordem**. Se o phpMyAdmin recusar pelo tamanho/tempo, exporte com partes menores (`deploy/export-data.sh ./export 5`). Cada arquivo desliga a checagem de chaves e confirma no fim.
+5. **Ligar o incremental**: `ENABLE_WORKER=1`, deploy, e ative as fontes em Admin → Fontes. O servidor passa a atualizar preços/novos/removidos; anúncios já detalhados não perdem o detalhe.
+
+- **Só para a carga inicial**: use quando a produção ainda não tem imóveis. Se a produção já tiver dados próprios, os ids não combinam; limpe antes (**apaga também os favoritos**): `DELETE FROM ListingEvent; DELETE FROM ListingImage; DELETE FROM AuctionRound; DELETE FROM DuplicateCandidate; DELETE FROM Listing; DELETE FROM Property;`.
+- Validado em teste: exportar de um banco e importar noutro vazio manteve contagens, ids e conteúdo (acentos, valores, datas) idênticos.
+- Antes de importar na produção, faça um backup (`deploy/backup-db.sh`).
+
+**Velocidade da coleta (o que limita)**
+Medido: o site da Caixa responde em 0,15–0,3 s por página; o que limita é a taxa por domínio (padrão **1 requisição/s**, política do projeto de ser educado com os sites). Com banco local o ritmo é ~1 imóvel/s (Caixa inteira ≈ 7 h). Duas alavancas, por sua conta e risco com o site de terceiros:
+- `CRAWLER_MIN_INTERVAL_MS=400` (≈2,5 req/s) com `--concurrency 3`: medido **2,2× mais rápido** (40 imóveis: 43 s → 19 s) → Caixa inteira ≈ 3 h. O cliente já recua sozinho em 429/5xx e respeita `Retry-After`; se o site começar a recusar, volte ao padrão.
+- Não passe de poucas requisições por segundo contra um único site; o padrão (1/s) permanece o recomendado para uso contínuo no servidor.
+
+**Deixar rodando sem supervisão (PC, de madrugada)**
+```bash
+CRAWLER_MIN_INTERVAL_MS=400 nohup npm run overnight -- --until 07:00 --sources caixa,megaleiloes --concurrency 3 > overnight.log 2>&1 &
+tail -f overnight.log
+```
+- O PC não pode dormir: Windows → Energia → "Nunca suspender" enquanto roda; não feche o WSL; atualizações do Windows podem reiniciar.
+- Ele para sozinho no horário (`--until`), quando não há mais nada a fazer, ou após 10 falhas seguidas de rede/banco (espera e tenta de novo entre elas).
 
 **C) Fallback: cron + `worker:tick`**
 `npm run worker:tick -- --max-minutes 10` termina sozinho. Dispare pelo cron da Hostinger ou use `.github/workflows/crawl-tick.yml` (exige MySQL acessível pelo GitHub e segredos configurados). Não serve para conectores com browser. Coletas longas (Caixa completa, ~4 min; Frazão/Biasi com detalhe, ~7 min cada) cabem em 10 min **uma por vez** — a fila continua na próxima execução.
