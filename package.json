@@ -26,6 +26,7 @@
     "build:docker": "next build --webpack",
     "crawl:prod": "tsx --env-file=.env.prod src/crawler/cli.ts",
     "geocode:prod": "tsx --env-file=.env.prod src/geocode-cli.ts",
+    "atualizar": "bash deploy/atualizar.sh",
     "overnight": "tsx src/overnight.ts",
     "overnight:prod": "tsx --env-file=.env.prod src/overnight.ts"
   },
