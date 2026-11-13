@@ -24,6 +24,21 @@ while [ $# -gt 0 ]; do
 done
 [ -n "$ENVF" ] && [ ! -f .env.prod ] && { echo ".env.prod não existe"; exit 1; }
 
+if [ -z "$ENVF" ] && [ ! -f .env ]; then
+  echo "Falta o .env com o banco local. Crie-o:  cp .env.example .env  (DATABASE_URL já aponta para mysql://root:root@127.0.0.1:3306/regnus_leiloes)"; exit 1
+fi
+# confere se o MySQL responde antes de disparar 8 processos que falhariam juntos
+if ! node ${ENVF:+$ENVF} -e '
+require("dotenv/config");
+const u=new URL((process.env.DATABASE_URL||"").replace(/^"|"$/g,""));
+const s=require("net").connect(+(u.port||3306),u.hostname);
+s.setTimeout(4000);
+s.on("connect",()=>{s.end();process.exit(0)});
+s.on("error",()=>process.exit(1));s.on("timeout",()=>process.exit(1));' 2>/dev/null; then
+  echo "O MySQL não responde. Suba-o primeiro:  docker compose up -d mysql   (ou: sudo service mysql start)"
+  echo "Primeira vez: npx prisma migrate deploy && npm run db:seed"; exit 1
+fi
+
 echo "== Banco: ${ENVF:-.env (local)} | fontes: $FONTES | em paralelo (1 processo por fonte) =="
 mkdir -p logs
 
