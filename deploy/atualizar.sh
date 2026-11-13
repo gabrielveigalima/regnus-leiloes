@@ -30,8 +30,8 @@ fi
 # confere se o MySQL responde antes de disparar 8 processos que falhariam juntos
 if ! node ${ENVF:+$ENVF} -e '
 require("dotenv/config");
-const u=new URL((process.env.DATABASE_URL||"").replace(/^"|"$/g,""));
-const s=require("net").connect(+(u.port||3306),u.hostname);
+let h,p;try{const u=new URL((process.env.DATABASE_URL||"").replace(/^"|"$/g,""));h=u.hostname;p=+(u.port||3306)}catch{h=process.env.DB_HOST;p=+(process.env.DB_PORT||3306)}
+const s=require("net").connect(p,h);
 s.setTimeout(4000);
 s.on("connect",()=>{s.end();process.exit(0)});
 s.on("error",()=>process.exit(1));s.on("timeout",()=>process.exit(1));' 2>/dev/null; then
