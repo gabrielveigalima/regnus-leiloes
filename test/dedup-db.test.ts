@@ -15,7 +15,7 @@ test("dedup no runner: funde com alta confiança, cria candidatos, respeita mesm
 
   const item = (ext: string, o: Partial<NormalizedListing["property"]> = {}, bid = 100000): NormalizedListing => ({
     externalId: ext, url: `https://x/${ext}`, title: `Imóvel ${ext}`, auctionType: "EXTRAJUDICIAL", status: "OPEN", minBid: bid, appraisalValue: 200000,
-    acceptsFinancing: false, acceptsFgts: false, rounds: [], images: [],
+    acceptsFinancing: false, acceptsFgts: false, rounds: [], images: [], detail: false,
     property: { type: "APARTMENT", street: "RUA DAS FLORES", number: "100", complement: "Apto 52", city, uf: "SP", privateArea: 60, occupation: "UNKNOWN", ...o },
   });
   const fake = (id: string, items: NormalizedListing[]): Connector => ({

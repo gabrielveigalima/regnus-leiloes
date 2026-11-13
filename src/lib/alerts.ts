@@ -67,8 +67,12 @@ export async function runAlerts(opts: { mailer?: Mailer | null; now?: Date; appU
       const { items, total } = await findAlertItems(s.filters as SavedFilters, since, now, { allowedUfs: await allowedUfsFor(s.organizationId) });
       if (items.length === 0) { await prisma.savedSearch.update({ where: { id: s.id }, data: { lastRunAt: now } }); result.skipped++; continue; }
       if (!mailer) { log("alertas: SMTP_HOST não configurado; envio adiado"); result.skipped++; continue; }
-      const unsub = unsubscribeUrl(appUrl, s.id);
-      await mailer.send({ to: s.user.email, headers: { "List-Unsubscribe": `<${unsub}>` }, ...buildAlertEmail({ searchName: s.name, items, total, appUrl, unsubscribeUrl: unsub }) });
+      let unsub: string | undefined;
+      try { unsub = unsubscribeUrl(appUrl, s.id); } catch { /* sem NEXTAUTH_SECRET: envia sem o link de descadastro */ }
+      await mailer.send({
+        to: s.user.email, ...(unsub ? { headers: { "List-Unsubscribe": `<${unsub}>` } } : {}),
+        ...buildAlertEmail({ searchName: s.name, items, total, appUrl, unsubscribeUrl: unsub }),
+      });
       await prisma.$transaction([
         prisma.alertDelivery.create({ data: { savedSearchId: s.id, listingIds: items.map((i) => i.id) } }),
         prisma.savedSearch.update({ where: { id: s.id }, data: { lastRunAt: now } }),

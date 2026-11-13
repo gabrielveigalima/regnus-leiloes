@@ -8,3 +8,4 @@ next-env.d.ts
 /admin.sql
 *.sql.gz
 backups/
+.env.prod

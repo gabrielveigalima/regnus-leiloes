@@ -23,7 +23,9 @@
     "db:migrate": "prisma migrate deploy",
     "db:drift": "prisma migrate diff --from-url \"$DATABASE_URL\" --to-schema-datamodel prisma/schema.prisma --exit-code",
     "test:build": "tsx --test test/build.test.ts",
-    "build:docker": "next build --webpack"
+    "build:docker": "next build --webpack",
+    "crawl:prod": "tsx --env-file=.env.prod src/crawler/cli.ts",
+    "geocode:prod": "tsx --env-file=.env.prod src/geocode-cli.ts"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",

@@ -5,7 +5,11 @@ import { fingerprint, recordCandidates, reconcileProperty, resolveProperty, type
 import { HttpClient, RobotsBlockedError } from "./http";
 import type { Connector, CrawlContext, NormalizedListing } from "./connector";
 
-export interface RunOptions { uf?: string; limit?: number; dryRun?: boolean }
+export interface RunOptions {
+  uf?: string; limit?: number; dryRun?: boolean;
+  /** Só lê a página de detalhe do que ainda não foi detalhado (listing.detailAt nulo). Não conta para "removidos". */
+  enrichOnly?: boolean;
+}
 export interface RunSummary { seen: number; created: number; updated: number; removed: number; errors: number; samples: NormalizedListing[] }
 
 const hash = (v: unknown) => createHash("sha256").update(JSON.stringify(v)).digest("hex");
@@ -15,7 +19,11 @@ export async function runConnector(connector: Connector, opts: RunOptions = {}, 
   const sum: RunSummary = { seen: 0, created: 0, updated: 0, removed: 0, errors: 0, samples: [] };
   const logs: string[] = [];
   const ctx: CrawlContext = { http, filters: { uf: opts.uf, limit: opts.limit }, log: (m) => { logs.push(m); console.log(m); } };
-  const full = !opts.limit && !opts.uf;
+  const full = !opts.limit && !opts.uf && !opts.enrichOnly;
+  const detailed = opts.enrichOnly && !opts.dryRun
+    ? new Set((await prisma.listing.findMany({ where: { sourceId: connector.id, detailAt: { not: null } }, select: { externalId: true } })).map((l) => l.externalId))
+    : new Set<string>();
+  let skipped = 0;
   const run = opts.dryRun ? null : await prisma.crawlRun.create({ data: { sourceId: connector.id, isFull: full } });
   const seenIds = new Set<string>();
   let status: "SUCCESS" | "PARTIAL" | "FAILED" | "BLOCKED" = "SUCCESS";
@@ -23,6 +31,7 @@ export async function runConnector(connector: Connector, opts: RunOptions = {}, 
   try {
     for await (const ref of connector.discover(ctx)) {
       if (opts.limit && sum.seen >= opts.limit) break;
+      if (detailed.has(ref.externalId)) { skipped++; continue; } // já detalhado
       try {
         const raw = connector.fetchDetail ? await connector.fetchDetail(ref, ctx) : { ref, body: ref.data };
         const item = connector.parse(raw);
@@ -30,6 +39,7 @@ export async function runConnector(connector: Connector, opts: RunOptions = {}, 
         if (opts.dryRun) { sum.samples.push(item); continue; }
         const r = await upsertListing(connector.id, item);
         if (r === "created") sum.created++; else if (r === "updated") sum.updated++;
+        if (opts.enrichOnly && sum.seen % 50 === 0) ctx.log(`enrich ${connector.id}: ${sum.seen} detalhados (${skipped} já estavam completos)`);
       } catch (e) {
         if (e instanceof RobotsBlockedError) throw e;
         sum.errors++; logs.push(`erro ${ref.externalId}: ${(e as Error).message}`);
@@ -73,6 +83,7 @@ async function upsertListing(sourceId: string, item: NormalizedListing): Promise
     caseNumber: item.caseNumber ?? null, noticeUrl: item.noticeUrl ?? null,
     acceptsFinancing: item.acceptsFinancing, acceptsFgts: item.acceptsFgts, nextAuctionAt: nextRound,
     rawHash, lastSeenAt: now, missedRuns: 0,
+    ...(item.detail ? { detailAt: now } : {}),
   };
 
   if (!existing) {
@@ -98,6 +109,22 @@ async function upsertListing(sourceId: string, item: NormalizedListing): Promise
       },
     });
     return "created";
+  }
+  // Coleta só da listagem sobre um anúncio já detalhado: atualiza apenas o preço e a presença. Status, praças, datas, fotos
+  // e dados do imóvel vêm do detalhe e não podem ser desfeitos (nem gerar eventos falsos) por uma listagem mais pobre.
+  if (!item.detail && existing.detailAt) {
+    const priceChanged = String(existing.minBid ?? "") !== String(item.minBid ?? "") && item.minBid != null;
+    await prisma.listing.update({
+      where: key,
+      data: {
+        lastSeenAt: now, missedRuns: 0,
+        ...(priceChanged ? {
+          minBid: item.minBid, discountPct: discountPct(existing.appraisalValue == null ? null : Number(existing.appraisalValue), item.minBid ?? null),
+          events: { create: { kind: "PRICE_CHANGE", oldValue: existing.minBid?.toString() ?? null, newValue: item.minBid?.toString() ?? null } },
+        } : {}),
+      },
+    });
+    return priceChanged ? "updated" : "same";
   }
   if (existing.rawHash === rawHash) {
     await prisma.listing.update({ where: key, data: { lastSeenAt: now, missedRuns: 0 } });

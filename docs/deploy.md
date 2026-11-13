@@ -38,6 +38,25 @@ Defina `ENABLE_WORKER=1` nas variáveis da aplicação e faça um novo deploy/re
 - Vários processos ao mesmo tempo são seguros.
 - Fluxo para encher a produção: ative as fontes em Admin → Fontes (`megaleiloes` ≈ 1 min, `caixa` ≈ 4–10 min, `frazao` e `biasi` ≈ 7 min cada, por causa da página de cada lote); a primeira coleta começa em até 15 s depois de ativar (ou use "Rodar agora").
 
+**Divisão de trabalho recomendada (sem VPS): servidor leve, PC pesado**
+- **Servidor (worker embutido, `ENABLE_WORKER=1`)**: coletas de *listagem* de todas as fontes — rápidas e incrementais (preço, novos anúncios, saída de anúncios). Anúncios já detalhados **não** são desfeitos por elas (só o preço é atualizado).
+- **Seu PC**: o trabalho lento e limitado a 1 req/s — ler a página de detalhe da Caixa/Mega (matrícula, CEP, praças, edital, fotos) e geocodificar. Roda contra o banco de produção e é **retomável**: cada execução só pega o que ainda não foi detalhado.
+
+Preparação (uma vez):
+1. hPanel → Bancos de dados → **MySQL remoto**: libere o IP público do PC (ipinfo.io). Se o IP de casa muda, refaça a liberação ou use um túnel SSH, se o plano tiver SSH.
+2. `cp .env.prod.example .env.prod` e preencha (host remoto, nome, usuário, senha). O arquivo não vai para o Git.
+
+Uso (da pasta do projeto):
+```bash
+npm run crawl:prod -- --source caixa --uf SP --limit 1500 --enrich   # detalha até 1.500 imóveis da Caixa-SP ainda sem detalhe (~30 min)
+npm run crawl:prod -- --source megaleiloes --enrich                 # detalha os lotes do Mega que faltam
+npm run geocode:prod -- --limit 2000                                 # geocodifica imóveis sem coordenadas (Nominatim, 1 req/s)
+```
+- Repita até acabar (a saída mostra quantos foram detalhados; `seen: 0` = nada mais a fazer). `Ctrl+C` a qualquer momento é seguro.
+- Use `--uf` para ir estado por estado. Estimativa: Caixa inteira ≈ 24 mil páginas ≈ 7–8 h em várias sessões.
+- O modo `--enrich` não fecha anúncios e não conta como coleta completa (não afeta o alerta de queda de volume).
+- Como a latência até o banco remoto não importa para tarefas de 1 req/s, isso funciona bem pela internet; **não** rode a coleta *completa* de listagem da Caixa do PC (24 mil gravações pela internet são lentas) — deixe para o servidor.
+
 **C) Fallback: cron + `worker:tick`**
 `npm run worker:tick -- --max-minutes 10` termina sozinho. Dispare pelo cron da Hostinger ou use `.github/workflows/crawl-tick.yml` (exige MySQL acessível pelo GitHub e segredos configurados). Não serve para conectores com browser. Coletas longas (Caixa completa, ~4 min; Frazão/Biasi com detalhe, ~7 min cada) cabem em 10 min **uma por vez** — a fila continua na próxima execução.
 

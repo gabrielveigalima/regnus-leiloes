@@ -119,6 +119,7 @@ export function parseLot(html: string, url: string): NormalizedListing {
 
   const paymentText = flat.match(/(?:Forma de pagamento|Condi[çc][õo]es de [Pp]agamento)(.{0,500})/)?.[1] ?? "";
   return NormalizedListingSchema.parse({
+    detail: true, // o lote do Frazão é sempre lido por completo
     externalId: id,
     url: url.split("?")[0],
     title,

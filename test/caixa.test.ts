@@ -70,3 +70,9 @@ test("connector.parse aceita linha crua", () => {
   const l = caixa.parse({ ref, body: rows[0] });
   assert.equal(l.externalId, rows[0]!.id);
 });
+
+test("flag detail: só a página de detalhe marca o anúncio como completo", () => {
+  const base = byId("10148874");
+  assert.equal(base.detail, false);
+  assert.equal(enrichWithDetail(base, fx("detalhe-10148874.html")).detail, true);
+});

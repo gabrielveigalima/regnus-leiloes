@@ -173,6 +173,7 @@ model Listing {
   firstSeenAt    DateTime       @default(now())
   lastSeenAt     DateTime       @default(now())
   rawHash        String?
+  detailAt       DateTime?      // quando a página de detalhe foi lida (null = só dados da listagem)
   source         Source         @relation(fields: [sourceId], references: [id])
   property       Property?      @relation(fields: [propertyId], references: [id])
   rounds         AuctionRound[]
@@ -184,6 +185,7 @@ model Listing {
   @@index([minBid])
   @@index([nextAuctionAt])
   @@index([propertyId])
+  @@index([sourceId, detailAt])
   @@fulltext([title, description])
 }
 

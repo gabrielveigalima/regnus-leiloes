@@ -153,6 +153,7 @@ export function enrichWithDetail(base: NormalizedListing, html: string): Normali
 
   return NormalizedListingSchema.parse({
     ...base,
+    detail: true,
     description,
     seller: comitente ?? base.seller,
     appraisalValue: appraisal && appraisal > 0 ? appraisal : base.appraisalValue,

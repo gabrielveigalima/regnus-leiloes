@@ -27,6 +27,8 @@ export const NormalizedListingSchema = z.object({
   }),
   rounds: z.array(z.object({ number: z.number().int().positive(), date: z.date().nullish(), minBid: z.number().nullish() })).default([]),
   images: z.array(z.string().url()).default([]),
+  /** true quando veio da página de detalhe (dados completos); false = só listagem. */
+  detail: z.boolean().default(false),
 });
 export type NormalizedListing = z.infer<typeof NormalizedListingSchema>;
 

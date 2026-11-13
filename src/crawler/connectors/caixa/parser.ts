@@ -105,6 +105,7 @@ export function enrichWithDetail(base: NormalizedListing, html: string): Normali
 
   return NormalizedListingSchema.parse({
     ...base,
+    detail: true,
     noticeUrl: editalPath ? new URL(editalPath, CAIXA_BASE).toString() : base.noticeUrl,
     acceptsFgts: accepts,
     acceptsFinancing: base.acceptsFinancing || /financiamento/i.test(text.match(/FORMAS DE PAGAMENTO ACEITAS:(.*?)REGRAS/)?.[1] ?? ""),

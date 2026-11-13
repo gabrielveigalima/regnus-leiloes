@@ -157,6 +157,7 @@ export function enrichWithDetail(base: NormalizedListing, html: string): Normali
 
   return NormalizedListingSchema.parse({
     ...base,
+    detail: true,
     description,
     seller: sellerOk(owner) ?? base.seller ?? null,
     auctionType: judicial ? "JUDICIAL" : "EXTRAJUDICIAL",
